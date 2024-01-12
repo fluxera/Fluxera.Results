@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Nullable>disable</Nullable>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>MadEyeMatt.$(AssemblyName)</PackageId>
+		<AssemblyName>MadEyeMatt.$(MSBuildProjectName)</AssemblyName>
+		<RootNamespace>MadEyeMatt.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+		<IncludeSymbols>false</IncludeSymbols>
+		<Copyright>Copyright © 2024 Matthias Gernand. All rights reserved.</Copyright>
+		<Version>1.0.0</Version>
+		<AssemblyVersion>1.0.0</AssemblyVersion>
+		<FileVersion>1.0.0</FileVersion>
+		<Authors>Matthias Gernand</Authors>
+		<Description></Description>
+		<NeutralLanguage>en</NeutralLanguage>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageProjectUrl>https://github.com/mgernand/Results</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/mgernand/Results</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>result;results;ddd</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageIcon>icon.png</PackageIcon>
+	</PropertyGroup>
+
+	<!--<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>-->
+
+	<ItemGroup>
+		<None Include="..\..\icon.png" Link="Properties\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\README.md" Link="Properties\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="JetBrains.Annotations" Version="2023.3.0" />
+	</ItemGroup>
+
+</Project>
