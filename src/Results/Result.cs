@@ -228,10 +228,11 @@
 		/// </summary>
 		/// <param name="results"></param>
 		/// <returns></returns>
-		public static TResult Merge<TResult>(params Result[] results) where TResult : ResultBase<TResult>, new()
+		public static TResult Merge<TResult>(params TResult[] results) where TResult : ResultBase<TResult>, new()
 		{
 			TResult result = new TResult();
 			result.WithErrors(results.SelectMany(x => x.Errors));
+			result.WithSuccesses(results.SelectMany(x => x.Successes));
 			return result;
 		}
 
@@ -508,6 +509,7 @@
 		{
 			Result<IEnumerable<TValue>> result = new Result<IEnumerable<TValue>>();
 			result.WithErrors(results.SelectMany(x => x.Errors));
+			result.WithSuccesses(results.SelectMany(x => x.Successes));
 
 			if (result.IsSuccessful)
 			{

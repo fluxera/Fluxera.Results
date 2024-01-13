@@ -25,7 +25,7 @@
 		public IList<TResult> Results { get; }
 
 		/// <inheritdoc />
-		public bool IsFailed { get; }
+		public bool IsFailed => this.Results.Any(x => x.IsFailed);
 
 		/// <inheritdoc />
 		public bool IsSuccessful => !this.IsFailed;

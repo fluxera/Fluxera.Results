@@ -17,6 +17,7 @@
 		protected ResultBase()
 		{
 			this.Errors = new List<IError>();
+			this.Successes = new List<ISuccess>();
 		}
 
 		/// <inheritdoc />
