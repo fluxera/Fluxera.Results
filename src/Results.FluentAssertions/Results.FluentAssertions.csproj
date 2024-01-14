@@ -18,13 +18,13 @@
 		<AssemblyVersion>1.0.0</AssemblyVersion>
 		<FileVersion>1.0.0</FileVersion>
 		<Authors>Matthias Gernand</Authors>
-		<Description>A result object implementation.</Description>
+		<Description>FluentAssertions integration for the result object.</Description>
 		<NeutralLanguage>en</NeutralLanguage>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageProjectUrl>https://github.com/mgernand/Results</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/mgernand/Results</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageTags>result;results;ddd</PackageTags>
+		<PackageTags>result;results;ddd;fluentassertions</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageIcon>icon.png</PackageIcon>
@@ -42,7 +42,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="FluentAssertions" Version="6.12.0" />
 		<PackageReference Include="JetBrains.Annotations" Version="2023.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Results\Results.csproj" />
 	</ItemGroup>
 
 </Project>
