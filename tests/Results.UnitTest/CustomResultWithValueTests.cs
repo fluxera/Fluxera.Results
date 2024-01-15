@@ -214,7 +214,7 @@
 		[Test]
 		public void ShouldMergeResults_Fail()
 		{
-			Result<IEnumerable<int>> result = Result<int>.Merge(Result.Ok<CustomResultWithValue>(), Result.Fail<CustomResultWithValue>("first error"));
+			Result<IEnumerable<int>> result = Result<int>.Merge(Result<int>.Ok<CustomResultWithValue>(42), Result<int>.Fail<CustomResultWithValue>("first error"));
 
 			result.IsFailed.Should().BeTrue();
 			result.IsSuccessful.Should().BeFalse();
@@ -238,7 +238,7 @@
 		[Test]
 		public void ShouldBatchResults_Fail()
 		{
-			BatchResult<CustomResultWithValue> result = Result<int>.Batch(Result<int>.Ok<CustomResultWithValue>(42), Result.Fail<CustomResultWithValue>("first error"));
+			BatchResult<CustomResultWithValue> result = Result<int>.Batch(Result<int>.Ok<CustomResultWithValue>(42), Result<int>.Fail<CustomResultWithValue>("first error"));
 
 			result.IsFailed.Should().BeTrue();
 			result.IsSuccessful.Should().BeFalse();

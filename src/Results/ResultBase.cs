@@ -72,7 +72,7 @@
 	///		An abstract base class for result types without a value.
 	/// </summary>
 	[PublicAPI]
-	public abstract class ResultBase<TResult> : ResultBase
+	public abstract class ResultBase<TResult> : ResultBase, IVoidResult
 		where TResult : ResultBase<TResult>
 	{
 		/// <summary>
@@ -182,7 +182,7 @@
 	///		An abstract base class for result types with a value.
 	/// </summary>
 	[PublicAPI]
-	public abstract class ResultBase<TResult, TValue> : ResultBase<TResult>, IResult<TValue>
+	public abstract class ResultBase<TResult, TValue> : ResultBase, IValueResult<TValue>
 		where TResult : ResultBase<TResult, TValue>
 	{
 		private TValue currentValue;
@@ -218,6 +218,108 @@
 		public TResult WithValue(TValue value)
 		{
 			this.Value = value;
+			return (TResult)this;
+		}
+
+		/// <summary>
+		///		Adds an error to the result.
+		/// </summary>
+		/// <param name="error"></param>
+		/// <returns></returns>
+		public TResult WithError(IError error)
+		{
+			this.Errors.Add(error);
+			return (TResult)this;
+		}
+
+		/// <summary>
+		///		Adds an error message to the result.
+		/// </summary>
+		/// <param name="errorMessage"></param>
+		/// <returns></returns>
+		public TResult WithError(string errorMessage)
+		{
+			return this.WithError(new Error(errorMessage));
+		}
+
+		/// <summary>
+		///		Adds multiple successes to the result.
+		/// </summary>
+		/// <param name="errors"></param>
+		/// <returns></returns>
+		public TResult WithErrors(IEnumerable<IError> errors)
+		{
+			foreach (IError error in errors ?? Enumerable.Empty<IError>())
+			{
+				this.Errors.Add(error);
+			}
+
+			return (TResult)this;
+		}
+
+		/// <summary>
+		///		Adds multiple error messages to the result.
+		/// </summary>
+		/// <param name="errorMessages"></param>
+		/// <returns></returns>
+		public TResult WithErrors(IEnumerable<string> errorMessages)
+		{
+			foreach (string errorMessage in errorMessages ?? Enumerable.Empty<string>())
+			{
+				this.Errors.Add(new Error(errorMessage));
+			}
+
+			return (TResult)this;
+		}
+
+		/// <summary>
+		///		Adds a success to the result.
+		/// </summary>
+		/// <param name="success"></param>
+		/// <returns></returns>
+		public TResult WithSuccess(ISuccess success)
+		{
+			this.Successes.Add(success);
+			return (TResult)this;
+		}
+
+		/// <summary>
+		///		Adds a success message to the result.
+		/// </summary>
+		/// <param name="successMessage"></param>
+		/// <returns></returns>
+		public TResult WithSuccess(string successMessage)
+		{
+			return this.WithSuccess(new Success(successMessage));
+		}
+
+		/// <summary>
+		///		Adds multiple successes to the result.
+		/// </summary>
+		/// <param name="successes"></param>
+		/// <returns></returns>
+		public TResult WithSuccesses(IEnumerable<ISuccess> successes)
+		{
+			foreach (ISuccess success in successes ?? Enumerable.Empty<ISuccess>())
+			{
+				this.Successes.Add(success);
+			}
+
+			return (TResult)this;
+		}
+
+		/// <summary>
+		///		Adds multiple success messages to the result.
+		/// </summary>
+		/// <param name="successMessages"></param>
+		/// <returns></returns>
+		public TResult WithSuccesses(IEnumerable<string> successMessages)
+		{
+			foreach (string successMessage in successMessages ?? Enumerable.Empty<string>())
+			{
+				this.Successes.Add(new Success(successMessage));
+			}
+
 			return (TResult)this;
 		}
 

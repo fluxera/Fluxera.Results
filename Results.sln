@@ -5,13 +5,12 @@ VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".items", ".items", "{24143346-BEA0-4E8E-9249-17FF05C9772F}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EDEC7D8F-4C6F-4DE3-8022-17A2A23AB18B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{24F9EFE8-010B-48D9-B5D2-EF194BDEAC31}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9BE8804F-BCC0-48CF-9AEC-ED97414B0C78}"
 EndProject
@@ -24,6 +23,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Results.FluentAssertions.UnitTests", "tests\Results.FluentAssertions.UnitTests\Results.FluentAssertions.UnitTests.csproj", "{D388E54D-E48B-46FF-8D40-4E902042E764}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Results.AspNetCode", "src\Results.AspNetCode\Results.AspNetCode.csproj", "{B0A3DFBE-5389-458B-AB14-27FBC336F9CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Results.AspNetCode.UnitTests", "tests\Results.AspNetCode.UnitTests\Results.AspNetCode.UnitTests.csproj", "{EC3DC610-17A5-4821-887F-0D46DB5D778B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +52,10 @@ Global
 		{B0A3DFBE-5389-458B-AB14-27FBC336F9CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0A3DFBE-5389-458B-AB14-27FBC336F9CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0A3DFBE-5389-458B-AB14-27FBC336F9CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC3DC610-17A5-4821-887F-0D46DB5D778B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC3DC610-17A5-4821-887F-0D46DB5D778B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC3DC610-17A5-4821-887F-0D46DB5D778B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC3DC610-17A5-4821-887F-0D46DB5D778B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +66,7 @@ Global
 		{4E7B1A47-2B8E-4C53-91C3-893F49EA567D} = {EDEC7D8F-4C6F-4DE3-8022-17A2A23AB18B}
 		{D388E54D-E48B-46FF-8D40-4E902042E764} = {9BE8804F-BCC0-48CF-9AEC-ED97414B0C78}
 		{B0A3DFBE-5389-458B-AB14-27FBC336F9CE} = {EDEC7D8F-4C6F-4DE3-8022-17A2A23AB18B}
+		{EC3DC610-17A5-4821-887F-0D46DB5D778B} = {9BE8804F-BCC0-48CF-9AEC-ED97414B0C78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A52A2019-EEE6-4DAB-B111-C10693C9E03B}
