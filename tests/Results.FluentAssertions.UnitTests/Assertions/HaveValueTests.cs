@@ -5,9 +5,8 @@
 	using System;
 	using global::FluentAssertions;
 	using MadEyeMatt.Results.FluentAssertions;
-	using NUnit.Framework.Internal;
 
-	[TestFixture(TestMode.ResultWithValue)]
+    [TestFixture(TestMode.ResultWithValue)]
 	[TestFixture(TestMode.CustomResultWithValue)]
 	public class HaveValueTests
 	{
