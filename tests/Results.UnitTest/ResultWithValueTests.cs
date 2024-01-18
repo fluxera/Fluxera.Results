@@ -226,7 +226,7 @@
 		[Test]
 		public void ShouldBatchResults_Ok()
 		{
-			BatchResult<Result<int>> result = Result<int>.Batch(Result<int>.Ok(42).WithSuccess("first success"), Result<int>.Ok(43));
+			BatchResult<Result<int>, int> result = Result<int>.Batch(Result<int>.Ok(42).WithSuccess("first success"), Result<int>.Ok(43));
 
 			result.IsFailed.Should().BeFalse();
 			result.IsSuccessful.Should().BeTrue();
@@ -238,7 +238,7 @@
 		[Test]
 		public void ShouldBatchResults_Fail()
 		{
-			BatchResult<Result<int>> result = Result<int>.Batch(Result<int>.Ok(42), Result<int>.Fail("first error"));
+			BatchResult<Result<int>, int> result = Result<int>.Batch(Result<int>.Ok(42), Result<int>.Fail("first error"));
 
 			result.IsFailed.Should().BeTrue();
 			result.IsSuccessful.Should().BeFalse();

@@ -545,7 +545,7 @@
 		/// </summary>
 		/// <param name="results"></param>
 		/// <returns></returns>
-		public static BatchResult<Result<TValue>> Batch(params Result<TValue>[] results)
+		public static BatchResult<Result<TValue>, TValue> Batch(params Result<TValue>[] results)
 		{
 			return Batch<Result<TValue>>(results);
 		}
@@ -556,10 +556,10 @@
 		/// <typeparam name="TResult"></typeparam>
 		/// <param name="results"></param>
 		/// <returns></returns>
-		public static BatchResult<TResult> Batch<TResult>(params TResult[] results) 
+		public static BatchResult<TResult, TValue> Batch<TResult>(params TResult[] results) 
             where TResult : ResultBase<TResult, TValue>, new()
 		{
-			BatchResult<TResult> result = new BatchResult<TResult>();
+			BatchResult<TResult, TValue> result = new BatchResult<TResult, TValue>();
 			result.WithResults(results);
 			return result;
 		}
