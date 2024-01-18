@@ -72,7 +72,7 @@
 	///		An abstract base class for result types without a value.
 	/// </summary>
 	[PublicAPI]
-	public abstract class ResultBase<TResult> : ResultBase, IVoidResult
+	public abstract class ResultBase<TResult> : ResultBase
 		where TResult : ResultBase<TResult>
 	{
 		/// <summary>
@@ -182,7 +182,7 @@
 	///		An abstract base class for result types with a value.
 	/// </summary>
 	[PublicAPI]
-	public abstract class ResultBase<TResult, TValue> : ResultBase, IValueResult<TValue>
+	public abstract class ResultBase<TResult, TValue> : ResultBase, IResult<TValue>
 		where TResult : ResultBase<TResult, TValue>
 	{
 		private TValue currentValue;

@@ -9,7 +9,7 @@
 	/// </summary>
 	/// <typeparam name="TResult"></typeparam>
 	[PublicAPI]
-	public sealed class BatchResult<TResult> : IResult where TResult : IResult
+	public sealed class BatchResult<TResult> : IResult where TResult : class, IResult
 	{
 		/// <summary>
 		///		Initializes a new instance of the <see cref="BatchResult{TResult}"/> type.

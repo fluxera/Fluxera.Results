@@ -24,7 +24,8 @@
 		/// </summary>
 		/// <typeparam name="TResult"></typeparam>
 		/// <returns></returns>
-		public static TResult Ok<TResult>() where TResult : ResultBase<TResult>, new()
+		public static TResult Ok<TResult>() 
+            where TResult : ResultBase<TResult>, new()
 		{
 			return new TResult();
 		}
@@ -47,7 +48,8 @@
 		/// <param name="isSuccessful"></param>
 		/// <param name="error"></param>
 		/// <returns></returns>
-		public static TResult OkIf<TResult>(bool isSuccessful, IError error) where TResult : ResultBase<TResult>, new()
+		public static TResult OkIf<TResult>(bool isSuccessful, IError error) 
+            where TResult : ResultBase<TResult>, new()
 		{
 			return isSuccessful ? Ok<TResult>() : Fail<TResult>(error);
 		}
@@ -70,7 +72,8 @@
 		/// <param name="isSuccessful"></param>
 		/// <param name="errorMessage"></param>
 		/// <returns></returns>
-		public static TResult OkIf<TResult>(bool isSuccessful, string errorMessage) where TResult : ResultBase<TResult>, new()
+		public static TResult OkIf<TResult>(bool isSuccessful, string errorMessage) 
+            where TResult : ResultBase<TResult>, new()
 		{
 			return isSuccessful ? Ok<TResult>() : Fail<TResult>(errorMessage);
 		}
@@ -91,7 +94,8 @@
 		/// <typeparam name="TResult"></typeparam>
 		/// <param name="error"></param>
 		/// <returns></returns>
-		public static TResult Fail<TResult>(IError error) where TResult : ResultBase<TResult>, new()
+		public static TResult Fail<TResult>(IError error) 
+            where TResult : ResultBase<TResult>, new()
 		{
 			TResult result = new TResult();
 			result.WithError(error);
@@ -114,7 +118,8 @@
 		/// <typeparam name="TResult"></typeparam>
 		/// <param name="errorMessage"></param>
 		/// <returns></returns>
-		public static TResult Fail<TResult>(string errorMessage) where TResult : ResultBase<TResult>, new()
+		public static TResult Fail<TResult>(string errorMessage) 
+            where TResult : ResultBase<TResult>, new()
 		{
 			TResult result = new TResult();
 			result.WithError(errorMessage);
@@ -137,7 +142,8 @@
 		/// <typeparam name="TResult"></typeparam>
 		/// <param name="errors"></param>
 		/// <returns></returns>
-		public static TResult Fail<TResult>(IEnumerable<IError> errors) where TResult : ResultBase<TResult>, new()
+		public static TResult Fail<TResult>(IEnumerable<IError> errors) 
+            where TResult : ResultBase<TResult>, new()
 		{
 			TResult result = new TResult();
 			result.WithErrors(errors);
@@ -160,7 +166,8 @@
 		/// <typeparam name="TResult"></typeparam>
 		/// <param name="errorMessages"></param>
 		/// <returns></returns>
-		public static TResult Fail<TResult>(IEnumerable<string> errorMessages) where TResult : ResultBase<TResult>, new()
+		public static TResult Fail<TResult>(IEnumerable<string> errorMessages) 
+            where TResult : ResultBase<TResult>, new()
 		{
 			TResult result = new TResult();
 			result.WithErrors(errorMessages);
@@ -185,7 +192,8 @@
 		/// <param name="isFailure"></param>
 		/// <param name="error"></param>
 		/// <returns></returns>
-		public static TResult FailIf<TResult>(bool isFailure, IError error) where TResult : ResultBase<TResult>, new()
+		public static TResult FailIf<TResult>(bool isFailure, IError error) 
+            where TResult : ResultBase<TResult>, new()
 		{
 			return isFailure ? Fail<TResult>(error) : Ok<TResult>();
 		}
@@ -208,7 +216,8 @@
 		/// <param name="isFailure"></param>
 		/// <param name="errorMessage"></param>
 		/// <returns></returns>
-		public static TResult FailIf<TResult>(bool isFailure, string errorMessage) where TResult : ResultBase<TResult>, new()
+		public static TResult FailIf<TResult>(bool isFailure, string errorMessage) 
+            where TResult : ResultBase<TResult>, new()
 		{
 			return isFailure ? Fail<TResult>(errorMessage) : Ok<TResult>();
 		}
@@ -228,7 +237,8 @@
 		/// </summary>
 		/// <param name="results"></param>
 		/// <returns></returns>
-		public static TResult Merge<TResult>(params TResult[] results) where TResult : ResultBase<TResult>, new()
+		public static TResult Merge<TResult>(params TResult[] results) 
+            where TResult : ResultBase<TResult>, new()
 		{
 			TResult result = new TResult();
 			result.WithErrors(results.SelectMany(x => x.Errors));
@@ -252,7 +262,8 @@
 		/// <typeparam name="TResult"></typeparam>
 		/// <param name="results"></param>
 		/// <returns></returns>
-		public static BatchResult<TResult> Batch<TResult>(params TResult[] results) where TResult : ResultBase<TResult>, new()
+		public static BatchResult<TResult> Batch<TResult>(params TResult[] results) 
+            where TResult : ResultBase<TResult>, new()
 		{
 			BatchResult<TResult> result = new BatchResult<TResult>();
 			result.WithResults(results);
@@ -291,7 +302,8 @@
 		/// <typeparam name="TResult"></typeparam>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		public static TResult Ok<TResult>(TValue value) where TResult : ResultBase<TResult, TValue>, new()
+		public static TResult Ok<TResult>(TValue value) 
+            where TResult : ResultBase<TResult, TValue>, new()
 		{
 			TResult result = new TResult();
 			result.WithValue(value);
@@ -318,7 +330,8 @@
 		///  <param name="value"></param>
 		///  <param name="error"></param>
 		///  <returns></returns>
-		public static TResult OkIf<TResult>(bool isSuccessful, TValue value, IError error) where TResult : ResultBase<TResult, TValue>, new()
+		public static TResult OkIf<TResult>(bool isSuccessful, TValue value, IError error) 
+            where TResult : ResultBase<TResult, TValue>, new()
 		{
 			return isSuccessful ? Ok<TResult>(value) : Fail<TResult>(error);
 		}
@@ -343,7 +356,8 @@
 		///  <param name="value"></param>
 		///  <param name="errorMessage"></param>
 		///  <returns></returns>
-		public static TResult OkIf<TResult>(bool isSuccessful, TValue value, string errorMessage) where TResult : ResultBase<TResult, TValue>, new()
+		public static TResult OkIf<TResult>(bool isSuccessful, TValue value, string errorMessage) 
+            where TResult : ResultBase<TResult, TValue>, new()
 		{
 			return isSuccessful ? Ok<TResult>(value) : Fail<TResult>(errorMessage);
 		}
@@ -364,7 +378,8 @@
 		/// <typeparam name="TResult"></typeparam>
 		/// <param name="error"></param>
 		/// <returns></returns>
-		public static TResult Fail<TResult>(IError error) where TResult : ResultBase<TResult, TValue>, new()
+		public static TResult Fail<TResult>(IError error) 
+            where TResult : ResultBase<TResult, TValue>, new()
 		{
 			TResult result = new TResult();
 			result.WithError(error);
@@ -387,7 +402,8 @@
 		/// <typeparam name="TResult"></typeparam>
 		/// <param name="errorMessage"></param>
 		/// <returns></returns>
-		public static TResult Fail<TResult>(string errorMessage) where TResult : ResultBase<TResult, TValue>, new()
+		public static TResult Fail<TResult>(string errorMessage) 
+            where TResult : ResultBase<TResult, TValue>, new()
 		{
 			TResult result = new TResult();
 			result.WithError(errorMessage);
@@ -410,7 +426,8 @@
 		/// <typeparam name="TResult"></typeparam>
 		/// <param name="errors"></param>
 		/// <returns></returns>
-		public static TResult Fail<TResult>(IEnumerable<IError> errors) where TResult : ResultBase<TResult, TValue>, new()
+		public static TResult Fail<TResult>(IEnumerable<IError> errors) 
+            where TResult : ResultBase<TResult, TValue>, new()
 		{
 			TResult result = new TResult();
 			result.WithErrors(errors);
@@ -433,7 +450,8 @@
 		/// <typeparam name="TResult"></typeparam>
 		/// <param name="errorMessages"></param>
 		/// <returns></returns>
-		public static TResult Fail<TResult>(IEnumerable<string> errorMessages) where TResult : ResultBase<TResult, TValue>, new()
+		public static TResult Fail<TResult>(IEnumerable<string> errorMessages)
+            where TResult : ResultBase<TResult, TValue>, new()
 		{
 			TResult result = new TResult();
 			result.WithErrors(errorMessages);
@@ -460,7 +478,8 @@
 		///  <param name="value"></param>
 		///  <param name="error"></param>
 		///  <returns></returns>
-		public static TResult FailIf<TResult>(bool isFailure, TValue value, IError error) where TResult : ResultBase<TResult, TValue>, new()
+		public static TResult FailIf<TResult>(bool isFailure, TValue value, IError error) 
+            where TResult : ResultBase<TResult, TValue>, new()
 		{
 			return isFailure ? Fail<TResult>(error) : Ok<TResult>(value);
 		}
@@ -485,7 +504,8 @@
 		///  <param name="value"></param>
 		///  <param name="errorMessage"></param>
 		///  <returns></returns>
-		public static TResult FailIf<TResult>(bool isFailure, TValue value, string errorMessage) where TResult : ResultBase<TResult, TValue>, new()
+		public static TResult FailIf<TResult>(bool isFailure, TValue value, string errorMessage) 
+            where TResult : ResultBase<TResult, TValue>, new()
 		{
 			return isFailure ? Fail<TResult>(errorMessage) : Ok<TResult>(value);
 		}
@@ -505,7 +525,8 @@
 		/// </summary>
 		/// <param name="results"></param>
 		/// <returns></returns>
-		public static Result<IEnumerable<TValue>> Merge<TResult>(params TResult[] results) where TResult : ResultBase<TResult, TValue>, new()
+		public static Result<IEnumerable<TValue>> Merge<TResult>(params TResult[] results) 
+            where TResult : ResultBase<TResult, TValue>, new()
 		{
 			Result<IEnumerable<TValue>> result = new Result<IEnumerable<TValue>>();
 			result.WithErrors(results.SelectMany(x => x.Errors));
@@ -535,7 +556,8 @@
 		/// <typeparam name="TResult"></typeparam>
 		/// <param name="results"></param>
 		/// <returns></returns>
-		public static BatchResult<TResult> Batch<TResult>(params TResult[] results) where TResult : ResultBase<TResult, TValue>, new()
+		public static BatchResult<TResult> Batch<TResult>(params TResult[] results) 
+            where TResult : ResultBase<TResult, TValue>, new()
 		{
 			BatchResult<TResult> result = new BatchResult<TResult>();
 			result.WithResults(results);

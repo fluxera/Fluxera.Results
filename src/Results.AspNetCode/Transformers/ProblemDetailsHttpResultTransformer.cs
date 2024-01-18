@@ -34,7 +34,7 @@ namespace MadEyeMatt.Results.AspNetCode.Transformers
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        protected override IHttpResult TransformFailedResult(IVoidResult result)
+        protected override IHttpResult TransformFailedResult(IResult result)
         {
             ModelStateDictionary modelState = new ModelStateDictionary();
 
@@ -56,7 +56,7 @@ namespace MadEyeMatt.Results.AspNetCode.Transformers
         ///  <typeparam name="TValue"></typeparam>
         ///  <param name="result"></param>
         ///  <returns></returns>
-        protected override IHttpResult TransformFailedResult<TValue>(IValueResult<TValue> result)
+        protected override IHttpResult TransformFailedResult<TValue>(IResult<TValue> result)
         {
             ModelStateDictionary modelState = new ModelStateDictionary();
 
