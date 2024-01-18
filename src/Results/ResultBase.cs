@@ -6,75 +6,33 @@
 	using JetBrains.Annotations;
 
 	/// <summary>
-	///		An abstract base class for result types.
-	/// </summary>
-	[PublicAPI]
-	public abstract class ResultBase : IResult
-	{
-		/// <summary>
-		///		Initializes a new instance of the <see cref="ResultBase"/> type.
-		/// </summary>
-		protected ResultBase()
-		{
-			this.Errors = new List<IError>();
-			this.Successes = new List<ISuccess>();
-		}
-
-		/// <inheritdoc />
-		public bool IsFailed => this.Errors.Any();
-
-		/// <inheritdoc />
-		public bool IsSuccessful => !this.IsFailed;
-
-		/// <inheritdoc />
-		public IList<IError> Errors { get; }
-
-		/// <inheritdoc />
-		public IList<ISuccess> Successes { get; }
-
-		/// <summary>
-		///		Deconstructs the result.
-		/// </summary>
-		/// <param name="isSuccessful"></param>
-		/// <param name="errors"></param>
-		public void Deconstruct(out bool isSuccessful, out IList<IError> errors)
-		{
-			isSuccessful = this.IsSuccessful;
-			errors = this.Errors;
-		}
-
-		/// <summary>
-		///		Deconstructs the result.
-		/// </summary>
-		/// <param name="isSuccessful"></param>
-		/// <param name="successes"></param>
-		public void Deconstruct(out bool isSuccessful, out IList<ISuccess> successes)
-		{
-			isSuccessful = this.IsSuccessful;
-			successes = this.Successes;
-		}
-
-		///  <summary>
-		/// 		Deconstructs the result.
-		///  </summary>
-		///  <param name="isSuccessful"></param>
-		///  <param name="errors"></param>
-		///  <param name="successes"></param>
-		public void Deconstruct(out bool isSuccessful, out IList<IError> errors, out IList<ISuccess> successes)
-		{
-			isSuccessful = this.IsSuccessful;
-			errors = this.Errors;
-			successes = this.Successes;
-		}
-	}
-
-	/// <summary>
 	///		An abstract base class for result types without a value.
 	/// </summary>
 	[PublicAPI]
-	public abstract class ResultBase<TResult> : ResultBase
+	public abstract class ResultBase<TResult> : IResult
 		where TResult : ResultBase<TResult>
 	{
+        /// <summary>
+        ///		Initializes a new instance of the <see cref="ResultBase{TResult}"/> type.
+        /// </summary>
+        protected ResultBase()
+        {
+            this.Errors = new List<IError>();
+            this.Successes = new List<ISuccess>();
+        }
+
+        /// <inheritdoc />
+        public bool IsFailed => this.Errors.Any();
+
+        /// <inheritdoc />
+        public bool IsSuccessful => !this.IsFailed;
+
+        /// <inheritdoc />
+        public IList<IError> Errors { get; }
+
+        /// <inheritdoc />
+        public IList<ISuccess> Successes { get; }
+
 		/// <summary>
 		///		Adds an error to the result.
 		/// </summary>
@@ -176,16 +134,72 @@
 
 			return (TResult)this;
 		}
+
+        /// <summary>
+        ///		Deconstructs the result.
+        /// </summary>
+        /// <param name="isSuccessful"></param>
+        /// <param name="errors"></param>
+        public void Deconstruct(out bool isSuccessful, out IList<IError> errors)
+        {
+            isSuccessful = this.IsSuccessful;
+            errors = this.Errors;
+        }
+
+        /// <summary>
+        ///		Deconstructs the result.
+        /// </summary>
+        /// <param name="isSuccessful"></param>
+        /// <param name="successes"></param>
+        public void Deconstruct(out bool isSuccessful, out IList<ISuccess> successes)
+        {
+            isSuccessful = this.IsSuccessful;
+            successes = this.Successes;
+        }
+
+        ///  <summary>
+        /// 		Deconstructs the result.
+        ///  </summary>
+        ///  <param name="isSuccessful"></param>
+        ///  <param name="errors"></param>
+        ///  <param name="successes"></param>
+        public void Deconstruct(out bool isSuccessful, out IList<IError> errors, out IList<ISuccess> successes)
+        {
+            isSuccessful = this.IsSuccessful;
+            errors = this.Errors;
+            successes = this.Successes;
+        }
 	}
 
 	/// <summary>
 	///		An abstract base class for result types with a value.
 	/// </summary>
 	[PublicAPI]
-	public abstract class ResultBase<TResult, TValue> : ResultBase, IResult<TValue>
+	public abstract class ResultBase<TResult, TValue> : IResult<TValue>
 		where TResult : ResultBase<TResult, TValue>
 	{
 		private TValue currentValue;
+
+        /// <summary>
+        ///		Initializes a new instance of the <see cref="ResultBase{TResult, TValue}"/> type.
+        /// </summary>
+        protected ResultBase()
+        {
+            this.Errors = new List<IError>();
+            this.Successes = new List<ISuccess>();
+        }
+
+        /// <inheritdoc />
+        public bool IsFailed => this.Errors.Any();
+
+        /// <inheritdoc />
+        public bool IsSuccessful => !this.IsFailed;
+
+        /// <inheritdoc />
+        public IList<IError> Errors { get; }
+
+        /// <inheritdoc />
+        public IList<ISuccess> Successes { get; }
 
 		/// <inheritdoc />
 		public TValue Value
@@ -322,6 +336,41 @@
 
 			return (TResult)this;
 		}
+
+        /// <summary>
+        ///		Deconstructs the result.
+        /// </summary>
+        /// <param name="isSuccessful"></param>
+        /// <param name="errors"></param>
+        public void Deconstruct(out bool isSuccessful, out IList<IError> errors)
+        {
+            isSuccessful = this.IsSuccessful;
+            errors = this.Errors;
+        }
+
+        /// <summary>
+        ///		Deconstructs the result.
+        /// </summary>
+        /// <param name="isSuccessful"></param>
+        /// <param name="successes"></param>
+        public void Deconstruct(out bool isSuccessful, out IList<ISuccess> successes)
+        {
+            isSuccessful = this.IsSuccessful;
+            successes = this.Successes;
+        }
+
+        ///  <summary>
+        /// 		Deconstructs the result.
+        ///  </summary>
+        ///  <param name="isSuccessful"></param>
+        ///  <param name="errors"></param>
+        ///  <param name="successes"></param>
+        public void Deconstruct(out bool isSuccessful, out IList<IError> errors, out IList<ISuccess> successes)
+        {
+            isSuccessful = this.IsSuccessful;
+            errors = this.Errors;
+            successes = this.Successes;
+        }
 
 		///  <summary>
 		/// 	Deconstructs the result.
