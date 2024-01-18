@@ -15,14 +15,14 @@ namespace MadEyeMatt.Results.AspNetCode
 		/// </summary>
 		/// <param name="result"></param>
 		/// <returns></returns>
-		IHttpResult Transform(IVoidResult result);
+		IHttpResult Transform(IResult result);
 
 		/// <summary>
 		///		Transforms the given result to <see cref="IHttpResult"/>.
 		/// </summary>
 		/// <param name="result"></param>
 		/// <returns></returns>
-		IHttpResult Transform<TValue>(IValueResult<TValue> result);
+		IHttpResult Transform<TValue>(IResult<TValue> result);
     }
 }
 #endif

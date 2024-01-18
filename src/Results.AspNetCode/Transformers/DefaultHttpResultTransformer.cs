@@ -5,6 +5,7 @@ namespace MadEyeMatt.Results.AspNetCode.Transformers
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Http.HttpResults;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
+    using IResult = MadEyeMatt.Results.IResult;
     using IHttpResult = Microsoft.AspNetCore.Http.IResult;
 
 	/// <summary>
@@ -14,7 +15,7 @@ namespace MadEyeMatt.Results.AspNetCode.Transformers
     public class DefaultHttpResultTransformer : IHttpResultTransformer
     {
         /// <inheritdoc />
-        public IHttpResult Transform(IVoidResult result)
+        public IHttpResult Transform(IResult result)
         {
             return result.IsFailed
                 ? this.TransformFailedResult(result)
@@ -22,7 +23,7 @@ namespace MadEyeMatt.Results.AspNetCode.Transformers
         }
 
         /// <inheritdoc />
-        public IHttpResult Transform<TValue>(IValueResult<TValue> result)
+        public IHttpResult Transform<TValue>(IResult<TValue> result)
         {
             return result.IsFailed
                 ? this.TransformFailedResult(result)
@@ -34,7 +35,7 @@ namespace MadEyeMatt.Results.AspNetCode.Transformers
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        protected virtual IHttpResult TransformSuccessfulResult(IVoidResult result)
+        protected virtual IHttpResult TransformSuccessfulResult(IResult result)
         {
             return Results.Ok();
         }
@@ -45,7 +46,7 @@ namespace MadEyeMatt.Results.AspNetCode.Transformers
 		///  <typeparam name="TValue"></typeparam>
 		///  <param name="result"></param>
 		///  <returns></returns>
-		protected virtual IHttpResult TransformSuccessfulResult<TValue>(IValueResult<TValue> result)
+		protected virtual IHttpResult TransformSuccessfulResult<TValue>(IResult<TValue> result)
         {
             return Results.Ok(result.GetValueOrDefault());
         }
@@ -55,7 +56,7 @@ namespace MadEyeMatt.Results.AspNetCode.Transformers
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        protected virtual IHttpResult TransformFailedResult(IVoidResult result)
+        protected virtual IHttpResult TransformFailedResult(IResult result)
         {
             ModelStateDictionary modelState = new ModelStateDictionary();
 
@@ -73,7 +74,7 @@ namespace MadEyeMatt.Results.AspNetCode.Transformers
         ///  <typeparam name="TValue"></typeparam>
         ///  <param name="result"></param>
         ///  <returns></returns>
-        protected virtual IHttpResult TransformFailedResult<TValue>(IValueResult<TValue> result)
+        protected virtual IHttpResult TransformFailedResult<TValue>(IResult<TValue> result)
         {
             ModelStateDictionary modelState = new ModelStateDictionary();
 

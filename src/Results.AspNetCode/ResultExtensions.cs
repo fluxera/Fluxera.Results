@@ -18,7 +18,7 @@
 		///  <param name="result"></param>
 		///  <param name="transformer"></param>
 		///  <returns></returns>
-		public static IActionResult ToActionResult(this IVoidResult result, IActionResultTransformer transformer = null)
+		public static IActionResult ToActionResult(this IResult result, IActionResultTransformer transformer = null)
 		{
 			transformer ??= new DefaultActionResultTransformer();
 
@@ -44,7 +44,7 @@
 		///  <param name="result"></param>
 		///  <param name="transformer"></param>
 		///  <returns></returns>
-		public static IActionResult ToActionResult<TValue>(this IValueResult<TValue> result, IActionResultTransformer transformer = null)
+		public static IActionResult ToActionResult<TValue>(this IResult<TValue> result, IActionResultTransformer transformer = null)
 		{
 			transformer ??= new DefaultActionResultTransformer();
 
@@ -71,7 +71,7 @@
 		///  <param name="result"></param>
 		///  <param name="transformer"></param>
 		///  <returns></returns>
-		public static IHttpResult ToHttpResult(this IVoidResult result, IHttpResultTransformer transformer = null)
+		public static IHttpResult ToHttpResult(this IResult result, IHttpResultTransformer transformer = null)
         {
             transformer ??= new DefaultHttpResultTransformer();
 
@@ -85,7 +85,7 @@
 		///  <param name="transformer"></param>
 		///  <returns></returns>
 		public static async Task<IHttpResult> ToHttpResult<TResult>(this Task<TResult> resultTask, IHttpResultTransformer transformer = null)
-            where TResult : ResultBase<TResult>, IVoidResult
+            where TResult : ResultBase<TResult>, IResult
         {
             TResult result = await resultTask;
             return result.ToHttpResult(transformer);
@@ -97,7 +97,7 @@
 		///  <param name="result"></param>
 		///  <param name="transformer"></param>
 		///  <returns></returns>
-		public static IHttpResult ToHttpResult<TValue>(this IValueResult<TValue> result, IHttpResultTransformer transformer = null)
+		public static IHttpResult ToHttpResult<TValue>(this IResult<TValue> result, IHttpResultTransformer transformer = null)
         {
             transformer ??= new DefaultHttpResultTransformer();
 
@@ -111,7 +111,7 @@
         ///  <param name="transformer"></param>
         ///  <returns></returns>
         public static async Task<IHttpResult> ToHttpResult<TResult, TValue>(this Task<TResult> resultTask, IHttpResultTransformer transformer = null)
-            where TResult : ResultBase<TResult, TValue>, IValueResult<TValue>
+            where TResult : ResultBase<TResult, TValue>, IResult<TValue>
         {
             TResult result = await resultTask;
             return result.ToHttpResult(transformer);
