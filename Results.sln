@@ -11,6 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".items", ".items", "{241433
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EDEC7D8F-4C6F-4DE3-8022-17A2A23AB18B}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9BE8804F-BCC0-48CF-9AEC-ED97414B0C78}"
 EndProject
@@ -18,11 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Results", "src\Results\Resu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Results.UnitTest", "tests\Results.UnitTest\Results.UnitTest.csproj", "{14A782B3-83B5-42CC-B6A2-AB9B7849F9E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Results.FluentAssertions", "src\Results.FluentAssertions\Results.FluentAssertions.csproj", "{4E7B1A47-2B8E-4C53-91C3-893F49EA567D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Results.FluentAssertions", "src\Results.FluentAssertions\Results.FluentAssertions.csproj", "{4E7B1A47-2B8E-4C53-91C3-893F49EA567D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Results.FluentAssertions.UnitTests", "tests\Results.FluentAssertions.UnitTests\Results.FluentAssertions.UnitTests.csproj", "{D388E54D-E48B-46FF-8D40-4E902042E764}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Results.FluentAssertions.UnitTests", "tests\Results.FluentAssertions.UnitTests\Results.FluentAssertions.UnitTests.csproj", "{D388E54D-E48B-46FF-8D40-4E902042E764}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Results.AspNetCode", "src\Results.AspNetCode\Results.AspNetCode.csproj", "{B0A3DFBE-5389-458B-AB14-27FBC336F9CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Results.AspNetCode", "src\Results.AspNetCode\Results.AspNetCode.csproj", "{B0A3DFBE-5389-458B-AB14-27FBC336F9CE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Results.AspNetCode.UnitTests", "tests\Results.AspNetCode.UnitTests\Results.AspNetCode.UnitTests.csproj", "{EC3DC610-17A5-4821-887F-0D46DB5D778B}"
 EndProject
