@@ -1,5 +1,5 @@
 ﻿#if NET7_0_OR_GREATER
-namespace MadEyeMatt.Results.AspNetCode.Transformers
+namespace MadEyeMatt.Results.AspNetCore.Transformers
 {
     using JetBrains.Annotations;
     using MadEyeMatt.Results;

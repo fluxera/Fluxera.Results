@@ -1,17 +1,21 @@
-﻿namespace MadEyeMatt.Results.AspNetCode.Transformers
+﻿#if NET7_0_OR_GREATER
+namespace MadEyeMatt.Results.AspNetCore.Transformers
 {
     using JetBrains.Annotations;
-    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Http.HttpResults;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
+    using IResult = MadEyeMatt.Results.IResult;
+    using IHttpResult = Microsoft.AspNetCore.Http.IResult;
 
-    /// <summary>
+	/// <summary>
 	///		The default implementation with sane, opinionated transformation rules.
 	/// </summary>
 	[PublicAPI]
-    public class DefaultActionResultTransformer : IActionResultTransformer
+    public class DefaultHttpResultTransformer : IHttpResultTransformer
     {
         /// <inheritdoc />
-        public IActionResult Transform(IResult result)
+        public IHttpResult Transform(IResult result)
         {
             return result.IsFailed
                 ? this.TransformFailedResult(result)
@@ -19,7 +23,7 @@
         }
 
         /// <inheritdoc />
-        public IActionResult Transform<TValue>(IResult<TValue> result)
+        public IHttpResult Transform<TValue>(IResult<TValue> result)
         {
             return result.IsFailed
                 ? this.TransformFailedResult(result)
@@ -27,32 +31,32 @@
         }
 
         /// <summary>
-        ///		Transforms the given result to a <see cref="OkResult"/>.
+        ///		Transforms the given result to a <see cref="Ok"/>.
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        protected virtual IActionResult TransformSuccessfulResult(IResult result)
+        protected virtual IHttpResult TransformSuccessfulResult(IResult result)
         {
-            return new OkResult();
+            return Results.Ok();
         }
 
-        ///  <summary>
-        /// 	Transforms the given result to a <see cref="OkResult"/>.
-        ///  </summary>
-        ///  <typeparam name="TValue"></typeparam>
-        ///  <param name="result"></param>
-        ///  <returns></returns>
-        protected virtual IActionResult TransformSuccessfulResult<TValue>(IResult<TValue> result)
+		///  <summary>
+		/// 		Transforms the given result to a <see cref="Ok{TValue}"/>.
+		///  </summary>
+		///  <typeparam name="TValue"></typeparam>
+		///  <param name="result"></param>
+		///  <returns></returns>
+		protected virtual IHttpResult TransformSuccessfulResult<TValue>(IResult<TValue> result)
         {
-            return new OkObjectResult(result.GetValueOrDefault());
+            return Results.Ok(result.GetValueOrDefault());
         }
 
         /// <summary>
-        ///		Transforms the given result to a <see cref="BadRequestObjectResult"/>.
+        ///		Transforms the given result to a <see cref="BadRequest"/>.
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        protected virtual IActionResult TransformFailedResult(IResult result)
+        protected virtual IHttpResult TransformFailedResult(IResult result)
         {
             ModelStateDictionary modelState = new ModelStateDictionary();
 
@@ -61,16 +65,16 @@
                 modelState.AddModelError(string.Empty, error.Message);
             }
 
-            return new BadRequestObjectResult(modelState);
+            return Results.BadRequest(modelState);
         }
 
         ///  <summary>
-        /// 	Transforms the given result to a <see cref="BadRequestObjectResult"/>.
+        /// 		Transforms the given result to a <see cref="BadRequest"/>.
         ///  </summary>
         ///  <typeparam name="TValue"></typeparam>
         ///  <param name="result"></param>
         ///  <returns></returns>
-        protected virtual IActionResult TransformFailedResult<TValue>(IResult<TValue> result)
+        protected virtual IHttpResult TransformFailedResult<TValue>(IResult<TValue> result)
         {
             ModelStateDictionary modelState = new ModelStateDictionary();
 
@@ -79,7 +83,8 @@
                 modelState.AddModelError(string.Empty, error.Message);
             }
 
-            return new BadRequestObjectResult(modelState);
+            return Results.BadRequest(modelState);
         }
     }
 }
+#endif

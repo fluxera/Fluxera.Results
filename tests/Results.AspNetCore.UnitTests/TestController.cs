@@ -1,12 +1,12 @@
-﻿namespace Results.AspNetCode.UnitTests
+﻿namespace Results.AspNetCore.UnitTests
 {
-	using System.Threading.Tasks;
-	using MadEyeMatt.Results;
-	using MadEyeMatt.Results.AspNetCode;
-	using Microsoft.AspNetCore.Authorization;
-	using Microsoft.AspNetCore.Mvc;
+    using System.Threading.Tasks;
+    using MadEyeMatt.Results;
+    using MadEyeMatt.Results.AspNetCore;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
-	[ApiController]
+    [ApiController]
 	[Route("test")]
 	[AllowAnonymous]
 	public class TestController : ControllerBase

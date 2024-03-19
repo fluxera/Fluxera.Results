@@ -1,5 +1,5 @@
 ﻿#if NET7_0_OR_GREATER
-namespace MadEyeMatt.Results.AspNetCode
+namespace MadEyeMatt.Results.AspNetCore
 {
     using JetBrains.Annotations;
     using IHttpResult = Microsoft.AspNetCore.Http.IResult;

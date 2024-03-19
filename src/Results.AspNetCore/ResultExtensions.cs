@@ -1,8 +1,8 @@
-﻿namespace MadEyeMatt.Results.AspNetCode
+﻿namespace MadEyeMatt.Results.AspNetCore
 {
-	using System.Threading.Tasks;
-	using JetBrains.Annotations;
-    using MadEyeMatt.Results.AspNetCode.Transformers;
+    using System.Threading.Tasks;
+    using JetBrains.Annotations;
+    using MadEyeMatt.Results.AspNetCore.Transformers;
     using Microsoft.AspNetCore.Mvc;
     using IHttpResult = Microsoft.AspNetCore.Http.IResult;
 

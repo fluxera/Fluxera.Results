@@ -1,4 +1,4 @@
-﻿namespace MadEyeMatt.Results.AspNetCode.Transformers
+﻿namespace MadEyeMatt.Results.AspNetCore.Transformers
 {
     using JetBrains.Annotations;
     using MadEyeMatt.Results;
