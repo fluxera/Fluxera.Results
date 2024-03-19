@@ -1,19 +1,20 @@
-﻿namespace Results.AspNetCode.UnitTests
+﻿namespace Results.AspNetCore.UnitTests
 {
+    using System;
     using System.Net;
-	using NUnit.Framework;
-	using System.Net.Http;
-	using System.Net.Http.Json;
-	using System.Threading.Tasks;
-	using FluentAssertions;
-	using MadEyeMatt.Results.AspNetCode;
-	using Microsoft.AspNetCore.Hosting;
-	using Microsoft.Extensions.DependencyInjection;
-	using Microsoft.Extensions.Logging;
-	using Microsoft.AspNetCore.Builder;
+    using System.Net.Http;
+    using System.Net.Http.Json;
+    using System.Threading.Tasks;
+    using FluentAssertions;
+    using MadEyeMatt.Results;
+    using MadEyeMatt.Results.AspNetCore;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.TestHost;
-	using MadEyeMatt.Results;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using NUnit.Framework;
 
     [TestFixture("Controller")]
     [TestFixture("MinimalApi")]
@@ -56,31 +57,31 @@
 					{
 						builder.MapControllers();
 
-                        builder.MapGet("api/test/ok", (IHttpResultTransformer transformer) =>
+                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/ok", (Delegate)((IHttpResultTransformer transformer) =>
                         {
-							Result result = Result.Ok();
+                            Result result = Result.Ok();
                             return result.ToHttpResult(transformer);
-                        });
+                        }));
 
-                        builder.MapGet("api/test/ok/custom", (IHttpResultTransformer transformer) =>
+                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/ok/custom", (Delegate)((IHttpResultTransformer transformer) =>
                         {
                             CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>();
-							return result.ToHttpResult(transformer);
-                        });
+                            return result.ToHttpResult(transformer);
+                        }));
 
-                        builder.MapGet("api/test/ok/value", (IHttpResultTransformer transformer) =>
+                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/ok/value", (Delegate)((IHttpResultTransformer transformer) =>
                         {
                             Result<int> result = Result<int>.Ok(42);
-							return result.ToHttpResult(transformer);
-                        });
+                            return result.ToHttpResult(transformer);
+                        }));
 
-                        builder.MapGet("api/test/ok/value/custom", (IHttpResultTransformer transformer) =>
+                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/ok/value/custom", (Delegate)((IHttpResultTransformer transformer) =>
                         {
                             CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42);
-							return result.ToHttpResult(transformer);
-                        });
+                            return result.ToHttpResult(transformer);
+                        }));
 
-                        builder.MapGet("api/test/ok/async", (IHttpResultTransformer transformer) =>
+                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/ok/async", (Delegate)((IHttpResultTransformer transformer) =>
                         {
                             Task<Result> CreateResult()
                             {
@@ -88,10 +89,10 @@
                             }
 
                             Task<Result> result = CreateResult();
-							return result.ToHttpResult(transformer);
-                        });
+                            return result.ToHttpResult(transformer);
+                        }));
 
-                        builder.MapGet("api/test/ok/async/custom", (IHttpResultTransformer transformer) =>
+                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/ok/async/custom", (Delegate)((IHttpResultTransformer transformer) =>
                         {
                             Task<CustomResultWithoutValue> CreateResult()
                             {
@@ -99,10 +100,10 @@
                             }
 
                             Task<CustomResultWithoutValue> result = CreateResult();
-							return result.ToHttpResult(transformer);
-                        });
+                            return result.ToHttpResult(transformer);
+                        }));
 
-                        builder.MapGet("api/test/ok/value/async", (IHttpResultTransformer transformer) =>
+                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/ok/value/async", (Delegate)((IHttpResultTransformer transformer) =>
                         {
                             Task<Result<int>> CreateResult()
                             {
@@ -110,10 +111,10 @@
                             }
 
                             Task<Result<int>> result = CreateResult();
-							return result.ToHttpResult<Result<int>, int>(transformer);
-                        });
+                            return result.ToHttpResult<Result<int>, int>(transformer);
+                        }));
 
-                        builder.MapGet("api/test/ok/value/async/custom", (IHttpResultTransformer transformer) =>
+                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/ok/value/async/custom", (Delegate)((IHttpResultTransformer transformer) =>
                         {
                             Task<CustomResultWithValue> CreateResult()
                             {
@@ -121,34 +122,34 @@
                             }
 
                             Task<CustomResultWithValue> result = CreateResult();
-							return result.ToHttpResult<CustomResultWithValue, int>(transformer);
-                        });
+                            return result.ToHttpResult<CustomResultWithValue, int>(transformer);
+                        }));
 
-                        builder.MapGet("api/test/fail", (IHttpResultTransformer transformer) =>
+                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/fail", (Delegate)((IHttpResultTransformer transformer) =>
                         {
-							Result result = Result.Fail("An error occurred.");
-							return result.ToHttpResult(transformer);
-                        });
+                            Result result = Result.Fail("An error occurred.");
+                            return result.ToHttpResult(transformer);
+                        }));
 
-                        builder.MapGet("api/test/fail/custom", (IHttpResultTransformer transformer) =>
+                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/fail/custom", (Delegate)((IHttpResultTransformer transformer) =>
                         {
                             CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>("An error occurred.");
-							return result.ToHttpResult(transformer);
-                        });
+                            return result.ToHttpResult(transformer);
+                        }));
 
-                        builder.MapGet("api/test/fail/value", (IHttpResultTransformer transformer) =>
+                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/fail/value", (Delegate)((IHttpResultTransformer transformer) =>
                         {
                             Result<int> result = Result<int>.Fail("An error occurred.");
-							return result.ToHttpResult(transformer);
-                        });
+                            return result.ToHttpResult(transformer);
+                        }));
 
-                        builder.MapGet("api/test/fail/value/custom", (IHttpResultTransformer transformer) =>
+                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/fail/value/custom", (Delegate)((IHttpResultTransformer transformer) =>
                         {
                             CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>("An error occurred.");
-							return result.ToHttpResult(transformer);
-                        });
+                            return result.ToHttpResult(transformer);
+                        }));
 
-                        builder.MapGet("api/test/fail/async", (IHttpResultTransformer transformer) =>
+                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/fail/async", (Delegate)((IHttpResultTransformer transformer) =>
                         {
                             Task<Result> CreateResult()
                             {
@@ -156,10 +157,10 @@
                             }
 
                             Task<Result> result = CreateResult();
-							return result.ToHttpResult(transformer);
-                        });
+                            return result.ToHttpResult(transformer);
+                        }));
 
-                        builder.MapGet("api/test/fail/async/custom", (IHttpResultTransformer transformer) =>
+                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/fail/async/custom", (Delegate)((IHttpResultTransformer transformer) =>
                         {
                             Task<CustomResultWithoutValue> CreateResult()
                             {
@@ -167,10 +168,10 @@
                             }
 
                             Task<CustomResultWithoutValue> result = CreateResult();
-							return result.ToHttpResult(transformer);
-                        });
+                            return result.ToHttpResult(transformer);
+                        }));
 
-                        builder.MapGet("api/test/fail/value/async", (IHttpResultTransformer transformer) =>
+                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/fail/value/async", (Delegate)((IHttpResultTransformer transformer) =>
                         {
                             Task<Result<int>> CreateResult()
                             {
@@ -178,10 +179,10 @@
                             }
 
                             Task<Result<int>> result = CreateResult();
-							return result.ToHttpResult<Result<int>, int>(transformer);
-                        });
+                            return result.ToHttpResult<Result<int>, int>(transformer);
+                        }));
 
-                        builder.MapGet("api/test/fail/value/async/custom", (IHttpResultTransformer transformer) =>
+                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/fail/value/async/custom", (Delegate)((IHttpResultTransformer transformer) =>
                         {
                             Task<CustomResultWithValue> CreateResult()
                             {
@@ -189,8 +190,8 @@
                             }
 
                             Task<CustomResultWithValue> result = CreateResult();
-							return result.ToHttpResult<CustomResultWithValue, int>(transformer);
-                        });
+                            return result.ToHttpResult<CustomResultWithValue, int>(transformer);
+                        }));
 					});
 				});
 

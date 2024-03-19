@@ -1,7 +1,7 @@
-﻿namespace MadEyeMatt.Results.AspNetCode
+﻿namespace MadEyeMatt.Results.AspNetCore
 {
     using JetBrains.Annotations;
-    using MadEyeMatt.Results.AspNetCode.Transformers;
+    using MadEyeMatt.Results.AspNetCore.Transformers;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.DependencyInjection;
 

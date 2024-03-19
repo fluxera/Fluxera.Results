@@ -1,14 +1,14 @@
-﻿namespace Results.AspNetCode.UnitTests
+﻿namespace Results.AspNetCore.UnitTests
 {
-	using System.Linq;
-	using FluentAssertions;
-	using MadEyeMatt.Results;
-	using MadEyeMatt.Results.AspNetCode;
-    using MadEyeMatt.Results.AspNetCode.Transformers;
+    using System.Linq;
+    using FluentAssertions;
+    using MadEyeMatt.Results;
+    using MadEyeMatt.Results.AspNetCore;
+    using MadEyeMatt.Results.AspNetCore.Transformers;
     using Microsoft.AspNetCore.Mvc;
-	using NUnit.Framework;
+    using NUnit.Framework;
 
-	[TestFixture]
+    [TestFixture]
 	public class DefaultResultTransformerTests
 	{
 		[Test]

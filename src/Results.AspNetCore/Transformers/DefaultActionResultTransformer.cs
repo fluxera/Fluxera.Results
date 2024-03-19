@@ -1,21 +1,17 @@
-﻿#if NET7_0_OR_GREATER
-namespace MadEyeMatt.Results.AspNetCode.Transformers
+﻿namespace MadEyeMatt.Results.AspNetCore.Transformers
 {
     using JetBrains.Annotations;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Http.HttpResults;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
-    using IResult = MadEyeMatt.Results.IResult;
-    using IHttpResult = Microsoft.AspNetCore.Http.IResult;
 
-	/// <summary>
+    /// <summary>
 	///		The default implementation with sane, opinionated transformation rules.
 	/// </summary>
 	[PublicAPI]
-    public class DefaultHttpResultTransformer : IHttpResultTransformer
+    public class DefaultActionResultTransformer : IActionResultTransformer
     {
         /// <inheritdoc />
-        public IHttpResult Transform(IResult result)
+        public IActionResult Transform(IResult result)
         {
             return result.IsFailed
                 ? this.TransformFailedResult(result)
@@ -23,7 +19,7 @@ namespace MadEyeMatt.Results.AspNetCode.Transformers
         }
 
         /// <inheritdoc />
-        public IHttpResult Transform<TValue>(IResult<TValue> result)
+        public IActionResult Transform<TValue>(IResult<TValue> result)
         {
             return result.IsFailed
                 ? this.TransformFailedResult(result)
@@ -31,50 +27,32 @@ namespace MadEyeMatt.Results.AspNetCode.Transformers
         }
 
         /// <summary>
-        ///		Transforms the given result to a <see cref="Ok"/>.
+        ///		Transforms the given result to a <see cref="OkResult"/>.
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        protected virtual IHttpResult TransformSuccessfulResult(IResult result)
+        protected virtual IActionResult TransformSuccessfulResult(IResult result)
         {
-            return Results.Ok();
-        }
-
-		///  <summary>
-		/// 		Transforms the given result to a <see cref="Ok{TValue}"/>.
-		///  </summary>
-		///  <typeparam name="TValue"></typeparam>
-		///  <param name="result"></param>
-		///  <returns></returns>
-		protected virtual IHttpResult TransformSuccessfulResult<TValue>(IResult<TValue> result)
-        {
-            return Results.Ok(result.GetValueOrDefault());
-        }
-
-        /// <summary>
-        ///		Transforms the given result to a <see cref="BadRequest"/>.
-        /// </summary>
-        /// <param name="result"></param>
-        /// <returns></returns>
-        protected virtual IHttpResult TransformFailedResult(IResult result)
-        {
-            ModelStateDictionary modelState = new ModelStateDictionary();
-
-            foreach (IError error in result.Errors)
-            {
-                modelState.AddModelError(string.Empty, error.Message);
-            }
-
-            return Results.BadRequest(modelState);
+            return new OkResult();
         }
 
         ///  <summary>
-        /// 		Transforms the given result to a <see cref="BadRequest"/>.
+        /// 	Transforms the given result to a <see cref="OkResult"/>.
         ///  </summary>
         ///  <typeparam name="TValue"></typeparam>
         ///  <param name="result"></param>
         ///  <returns></returns>
-        protected virtual IHttpResult TransformFailedResult<TValue>(IResult<TValue> result)
+        protected virtual IActionResult TransformSuccessfulResult<TValue>(IResult<TValue> result)
+        {
+            return new OkObjectResult(result.GetValueOrDefault());
+        }
+
+        /// <summary>
+        ///		Transforms the given result to a <see cref="BadRequestObjectResult"/>.
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        protected virtual IActionResult TransformFailedResult(IResult result)
         {
             ModelStateDictionary modelState = new ModelStateDictionary();
 
@@ -83,8 +61,25 @@ namespace MadEyeMatt.Results.AspNetCode.Transformers
                 modelState.AddModelError(string.Empty, error.Message);
             }
 
-            return Results.BadRequest(modelState);
+            return new BadRequestObjectResult(modelState);
+        }
+
+        ///  <summary>
+        /// 	Transforms the given result to a <see cref="BadRequestObjectResult"/>.
+        ///  </summary>
+        ///  <typeparam name="TValue"></typeparam>
+        ///  <param name="result"></param>
+        ///  <returns></returns>
+        protected virtual IActionResult TransformFailedResult<TValue>(IResult<TValue> result)
+        {
+            ModelStateDictionary modelState = new ModelStateDictionary();
+
+            foreach (IError error in result.Errors)
+            {
+                modelState.AddModelError(string.Empty, error.Message);
+            }
+
+            return new BadRequestObjectResult(modelState);
         }
     }
 }
-#endif

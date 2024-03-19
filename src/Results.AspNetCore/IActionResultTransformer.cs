@@ -1,7 +1,7 @@
-﻿namespace MadEyeMatt.Results.AspNetCode
+﻿namespace MadEyeMatt.Results.AspNetCore
 {
-	using JetBrains.Annotations;
-	using Microsoft.AspNetCore.Mvc;
+    using JetBrains.Annotations;
+    using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
 	///		A contract for transformer services that transform a <see cref="Result"/> to <see cref="IActionResult"/>.
