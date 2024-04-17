@@ -17,7 +17,10 @@
 		/// <exception cref="ArgumentNullException"></exception>
 		public static ErrorAssertions Should(this IError error)
 		{
-			if (error == null) throw new ArgumentNullException(nameof(error));
+			if (error == null)
+			{
+				throw new ArgumentNullException(nameof(error));
+			}
 
 			return new ErrorAssertions(error);
 		}

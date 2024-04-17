@@ -14,13 +14,13 @@
 		/// </summary>
 		/// <param name="result"></param>
 		/// <returns></returns>
-		IActionResult Transform(IResult result);
+		IActionResult Transform(Result result);
 
 		/// <summary>
 		///		Transforms the given result to <see cref="IActionResult"/>.
 		/// </summary>
 		/// <param name="result"></param>
 		/// <returns></returns>
-		IActionResult Transform<TValue>(IResult<TValue> result);
+		IActionResult Transform<TValue>(Result<TValue> result);
 	}
 }

@@ -24,7 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Results.FluentAssertions\Results.FluentAssertions.csproj" />
+	  <ProjectReference Include="..\..\src\Results.FluentAssertions\Results.FluentAssertions.csproj" />
 	</ItemGroup>
 
 </Project>

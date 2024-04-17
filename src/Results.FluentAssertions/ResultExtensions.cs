@@ -12,32 +12,34 @@
 		/// <summary>
 		///		Should extension for <see cref="Result"/>.
 		/// </summary>
-		///  <typeparam name="TResult"></typeparam>
 		/// <param name="result"></param>
 		/// <returns></returns>
 		/// <exception cref="ArgumentNullException"></exception>
-		public static ResultAssertions<TResult> Should<TResult>(this ResultBase<TResult> result) 
-			where TResult : ResultBase<TResult>
+		public static ResultAssertions Should(this Result result) 
 		{
-			if (result == null) throw new ArgumentNullException(nameof(result));
+			if (result == null)
+			{
+				throw new ArgumentNullException(nameof(result));
+			}
 
-			return new ResultAssertions<TResult>(result);
+			return new ResultAssertions(result);
 		}
 
 		///  <summary>
 		/// 		Should extension for <see cref="Result{TValue}"/>.
 		///  </summary>
-		///  <typeparam name="TResult"></typeparam>
 		///  <typeparam name="TValue"></typeparam>
 		///  <param name="result"></param>
 		///  <returns></returns>
 		///  <exception cref="ArgumentNullException"></exception>
-		public static ResultAssertions<TResult, TValue> Should<TResult, TValue>(this ResultBase<TResult, TValue> result)
-			where TResult : ResultBase<TResult, TValue>
+		public static ResultAssertions<TValue> Should<TValue>(this Result<TValue> result)
 		{
-			if (result == null) throw new ArgumentNullException(nameof(result));
+			if (result == null)
+			{
+				throw new ArgumentNullException(nameof(result));
+			}
 
-			return new ResultAssertions<TResult, TValue>(result);
+			return new ResultAssertions<TValue>(result);
 		}
 	}
 }

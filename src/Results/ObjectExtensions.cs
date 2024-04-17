@@ -16,7 +16,7 @@
 		/// <returns></returns>
 		public static Result<TValue> ToResult<TValue>(this TValue value)
 		{
-			return Result<TValue>.Ok(value);
+			return Result.Ok(value);
 		}
 	}
 }

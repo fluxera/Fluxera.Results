@@ -1,8 +1,8 @@
-﻿namespace Results.FluentAssertions.UnitTests
-{
-	using MadEyeMatt.Results;
+﻿//namespace Results.FluentAssertions.UnitTests
+//{
+//	using MadEyeMatt.Results;
 
-	public class CustomResultWithValuePrimitiveNullable : ResultBase<CustomResultWithValuePrimitiveNullable, int?>
-	{
-	}
-}
+//	public class CustomResultWithValuePrimitiveNullable : Result<int?>
+//	{
+//	}
+//}

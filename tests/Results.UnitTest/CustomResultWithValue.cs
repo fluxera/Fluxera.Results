@@ -1,8 +1,8 @@
-﻿namespace Results.UnitTest
-{
-	using MadEyeMatt.Results;
+﻿//namespace Results.UnitTest
+//{
+//	using MadEyeMatt.Results;
 
-	public class CustomResultWithValue : ResultBase<CustomResultWithValue, int>
-	{
-	}
-}
+//	public class CustomResultWithValue : Result<int>
+//	{
+//	}
+//}

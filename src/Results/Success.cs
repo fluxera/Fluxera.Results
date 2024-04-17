@@ -4,10 +4,10 @@
 	using System.Collections.Generic;
 
 	/// <summary>
-	///		A default success implementation.
+	///		A default ans base success implementation.
 	/// </summary>
 	[PublicAPI]
-	public sealed class Success : ISuccess
+	public class Success : ISuccess
 	{
 		/// <summary>
 		///		Initializes a new instance of the <see cref="Success"/> type.
@@ -32,24 +32,16 @@
 		/// <inheritdoc />
 		public IDictionary<string, object> Metadata { get; }
 
-		/// <summary>
-		///		Sets the message.
-		/// </summary>
-		/// <param name="message"></param>
-		/// <returns></returns>
-		public Success WithMessage(string message)
+
+		/// <inheritdoc />
+		public ISuccess WithMessage(string message)
 		{
 			this.Message = message;
 			return this;
 		}
 
-		/// <summary>
-		///		Adds a metadata entry to the error.
-		/// </summary>
-		/// <param name="metadataKey"></param>
-		/// <param name="metadataValue"></param>
-		/// <returns></returns>
-		public Success WithMetadata(string metadataKey, string metadataValue)
+		/// <inheritdoc />
+		public ISuccess WithMetadata(string metadataKey, string metadataValue)
 		{
 			this.Metadata.Add(metadataKey, metadataValue);
 			return this;

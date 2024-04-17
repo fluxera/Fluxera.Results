@@ -27,7 +27,7 @@
 		{
 			results ??= Enumerable.Empty<Result<TValue>>();
 
-			return Result<TValue>.Merge(results.ToArray());
+			return Result.Merge(results.ToArray());
 		}
 	}
 }

@@ -1,13 +1,14 @@
 ﻿namespace MadEyeMatt.Results
 {
+	using System;
 	using System.Collections.Generic;
 	using JetBrains.Annotations;
 
 	/// <summary>
-	///		A default error implementation.
+	///		A default and base error implementation.
 	/// </summary>
 	[PublicAPI]
-	public sealed class Error : IError
+	public class Error : IError
 	{
 		/// <summary>
 		///		Initializes a new instance of the <see cref="Error"/> type.
@@ -30,26 +31,27 @@
 		public string Message { get; private set; }
 
 		/// <inheritdoc />
+		public Exception Exception { get; private set; }
+
+		/// <inheritdoc />
 		public IDictionary<string, object> Metadata { get; }
 
-		/// <summary>
-		///		Sets the message.
-		/// </summary>
-		/// <param name="message"></param>
-		/// <returns></returns>
-		public Error WithMessage(string message)
+		/// <inheritdoc />
+		public IError WithMessage(string message)
 		{
 			this.Message = message;
 			return this;
 		}
 
-		/// <summary>
-		///		Adds a metadata entry to the error.
-		/// </summary>
-		/// <param name="metadataKey"></param>
-		/// <param name="metadataValue"></param>
-		/// <returns></returns>
-		public Error WithMetadata(string metadataKey, string metadataValue)
+		/// <inheritdoc />
+		public IError WithException(Exception exception)
+		{
+			this.Exception = exception;
+			return this.WithMessage(exception.Message);
+		}
+
+		/// <inheritdoc />
+		public IError WithMetadata(string metadataKey, string metadataValue)
 		{
 			this.Metadata.Add(metadataKey, metadataValue);
 			return this;

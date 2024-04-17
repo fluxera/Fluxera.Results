@@ -7,7 +7,7 @@
 	using MadEyeMatt.Results.FluentAssertions;
 
     [TestFixture(TestMode.ResultWithValue)]
-	[TestFixture(TestMode.CustomResultWithValue)]
+	//[TestFixture(TestMode.CustomResultWithValue)]
 	public class HaveValueTests
 	{
 		private readonly TestMode mode;
@@ -22,22 +22,22 @@
 		{
 			Action AssertResultWithValue()
 			{
-				Result<int> result = Result<int>.Ok(42);
+				Result<int> result = Result.Ok(42);
 
 				return () => result.Should().HaveValue(42);
 			}
 
-			Action AssertCustomResultWithValue()
-			{
-				CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42);
+			//Action AssertCustomResultWithValue()
+			//{
+			//	CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42);
 
-				return () => result.Should().HaveValue(42);
-			}
+			//	return () => result.Should().HaveValue(42);
+			//}
 
 			Action action = this.mode switch
 			{
 				TestMode.ResultWithValue => AssertResultWithValue(),
-				TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+				//TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
 				_ => throw new ArgumentOutOfRangeException()
 			};
 
@@ -49,22 +49,22 @@
 		{
 			Action AssertResultWithValue()
 			{
-				Result<int> result = Result<int>.Ok(42);
+				Result<int> result = Result.Ok(42);
 
 				return () => result.Should().HaveValue(41);
 			}
 
-			Action AssertCustomResultWithValue()
-			{
-				CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42);
+			//Action AssertCustomResultWithValue()
+			//{
+			//	CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42);
 
-				return () => result.Should().HaveValue(41);
-			}
+			//	return () => result.Should().HaveValue(41);
+			//}
 
 			Action action = this.mode switch
 			{
 				TestMode.ResultWithValue => AssertResultWithValue(),
-				TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+				//TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
 				_ => throw new ArgumentOutOfRangeException()
 			};
 
@@ -78,22 +78,22 @@
 		{
 			Action AssertResultWithValue()
 			{
-				Result<int> result = Result<int>.Fail("error");
+				Result<int> result = Result.Fail<int>("error");
 
 				return () => result.Should().HaveValue(42);
 			}
 
-			Action AssertCustomResultWithValue()
-			{
-				CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>("error");
+			//Action AssertCustomResultWithValue()
+			//{
+			//	CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>("error");
 
-				return () => result.Should().HaveValue(42);
-			}
+			//	return () => result.Should().HaveValue(42);
+			//}
 
 			Action action = this.mode switch
 			{
 				TestMode.ResultWithValue => AssertResultWithValue(),
-				TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+				//TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
 				_ => throw new ArgumentOutOfRangeException()
 			};
 
@@ -107,22 +107,22 @@
 		{
 			Action AssertResultWithValue()
 			{
-				Result<int?> result = Result<int?>.Ok(null);
+				Result<int?> result = Result.Ok((int?)null);
 
 				return () => result.Should().HaveValue(null);
 			}
 
-			Action AssertCustomResultWithValue()
-			{
-				CustomResultWithValuePrimitiveNullable result = Result<int?>.Ok<CustomResultWithValuePrimitiveNullable>(null);
+			//Action AssertCustomResultWithValue()
+			//{
+			//	CustomResultWithValuePrimitiveNullable result = Result<int?>.Ok<CustomResultWithValuePrimitiveNullable>(null);
 
-				return () => result.Should().HaveValue(null);
-			}
+			//	return () => result.Should().HaveValue(null);
+			//}
 
 			Action action = this.mode switch
 			{
 				TestMode.ResultWithValue => AssertResultWithValue(),
-				TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+				//TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
 				_ => throw new ArgumentOutOfRangeException()
 			};
 
@@ -134,22 +134,22 @@
 		{
 			Action AssertResultWithValue()
 			{
-				Result<TestStruct?> result = Result<TestStruct?>.Ok(null);
+				Result<TestStruct?> result = Result.Ok((TestStruct?)null);
 
 				return () => result.Should().HaveValue(null);
 			}
 
-			Action AssertCustomResultWithValue()
-			{
-				CustomResultWithValueStructNullable result = Result<TestStruct?>.Ok<CustomResultWithValueStructNullable>(null);
+			//Action AssertCustomResultWithValue()
+			//{
+			//	CustomResultWithValueStructNullable result = Result<TestStruct?>.Ok<CustomResultWithValueStructNullable>(null);
 
-				return () => result.Should().HaveValue(null);
-			}
+			//	return () => result.Should().HaveValue(null);
+			//}
 
 			Action action = this.mode switch
 			{
 				TestMode.ResultWithValue => AssertResultWithValue(),
-				TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+				//TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
 				_ => throw new ArgumentOutOfRangeException()
 			};
 
@@ -161,22 +161,22 @@
 		{
 			Action AssertResultWithValue()
 			{
-				Result<TestClass> result = Result<TestClass>.Ok(null);
+				Result<TestClass> result = Result.Ok((TestClass)null);
 
 				return () => result.Should().HaveValue(null);
 			}
 
-			Action AssertCustomResultWithValue()
-			{
-				CustomResultWithValueClassNullable result = Result<TestClass>.Ok<CustomResultWithValueClassNullable>(null);
+			//Action AssertCustomResultWithValue()
+			//{
+			//	CustomResultWithValueClassNullable result = Result<TestClass>.Ok<CustomResultWithValueClassNullable>(null);
 
-				return () => result.Should().HaveValue(null);
-			}
+			//	return () => result.Should().HaveValue(null);
+			//}
 
 			Action action = this.mode switch
 			{
 				TestMode.ResultWithValue => AssertResultWithValue(),
-				TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+				//TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
 				_ => throw new ArgumentOutOfRangeException()
 			};
 

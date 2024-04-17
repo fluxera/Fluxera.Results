@@ -7,7 +7,7 @@
 	using MadEyeMatt.Results.FluentAssertions;
 
 	[TestFixture(TestMode.ResultWithoutValue)]
-	//[TestFixture(TestMode.ResultWithValue)]
+	[TestFixture(TestMode.ResultWithValue)]
 	//[TestFixture(TestMode.CustomResultWithoutValue)]
 	//[TestFixture(TestMode.CustomResultWithValue)]
 	public class HaveSuccessTests
@@ -32,34 +32,34 @@
 
 			Action AssertResultWithValue()
 			{
-				Result<int> result = Result<int>.Ok(42).WithSuccess("success");
+				Result<int> result = Result.Ok(42).WithSuccess("success");
 
 				return () => result.Should().BeSuccessful()
 					.And.HaveSuccess("success");
 			}
 
-			Action AssertCustomResultWithoutValue()
-			{
-				CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>().WithSuccess("success");
+			//Action AssertCustomResultWithoutValue()
+			//{
+			//	CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>().WithSuccess("success");
 
-				return () => result.Should().BeSuccessful()
-					.And.HaveSuccess("success");
-			}
+			//	return () => result.Should().BeSuccessful()
+			//		.And.HaveSuccess("success");
+			//}
 
-			Action AssertCustomResultWithValue()
-			{
-				CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42).WithSuccess("success"); ;
+			//Action AssertCustomResultWithValue()
+			//{
+			//	CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42).WithSuccess("success"); ;
 
-				return () => result.Should().BeSuccessful()
-					.And.HaveSuccess("success");
-			}
+			//	return () => result.Should().BeSuccessful()
+			//		.And.HaveSuccess("success");
+			//}
 
 			Action action = this.mode switch
 			{
 				TestMode.ResultWithoutValue => AssertResultWithoutValue(),
 				TestMode.ResultWithValue => AssertResultWithValue(),
-				TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
-				TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+				//TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
+				//TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
 				_ => throw new ArgumentOutOfRangeException()
 			};
 
@@ -82,34 +82,34 @@
 
 			Action AssertResultWithValue()
 			{
-				Result<int> result = Result<int>.Ok(42).WithSuccess("this is a success message");
+				Result<int> result = Result.Ok(42).WithSuccess("this is a success message");
 
 				return () => result.Should().BeSuccessful()
 					.And.HaveSuccess(expectedMessage, MessageComparison.Contains);
 			}
 
-			Action AssertCustomResultWithoutValue()
-			{
-				CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>().WithSuccess("this is a success message");
+			//Action AssertCustomResultWithoutValue()
+			//{
+			//	CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>().WithSuccess("this is a success message");
 
-				return () => result.Should().BeSuccessful()
-					.And.HaveSuccess(expectedMessage, MessageComparison.Contains);
-			}
+			//	return () => result.Should().BeSuccessful()
+			//		.And.HaveSuccess(expectedMessage, MessageComparison.Contains);
+			//}
 
-			Action AssertCustomResultWithValue()
-			{
-				CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42).WithSuccess("this is a success message");
+			//Action AssertCustomResultWithValue()
+			//{
+			//	CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42).WithSuccess("this is a success message");
 
-				return () => result.Should().BeSuccessful()
-					.And.HaveSuccess(expectedMessage, MessageComparison.Contains);
-			}
+			//	return () => result.Should().BeSuccessful()
+			//		.And.HaveSuccess(expectedMessage, MessageComparison.Contains);
+			//}
 
 			Action action = this.mode switch
 			{
 				TestMode.ResultWithoutValue => AssertResultWithoutValue(),
 				TestMode.ResultWithValue => AssertResultWithValue(),
-				TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
-				TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+				//TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
+				//TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
 				_ => throw new ArgumentOutOfRangeException()
 			};
 
@@ -129,34 +129,34 @@
 
 			Action AssertResultWithValue()
 			{
-				Result<int> result = Result<int>.Ok(42).WithSuccess("success-message");
+				Result<int> result = Result.Ok(42).WithSuccess("success-message");
 
 				return () => result.Should().BeSuccessful()
 					.And.HaveSuccess("success");
 			}
 
-			Action AssertCustomResultWithoutValue()
-			{
-				CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>().WithSuccess("success-message");
+			//Action AssertCustomResultWithoutValue()
+			//{
+			//	CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>().WithSuccess("success-message");
 
-				return () => result.Should().BeSuccessful()
-					.And.HaveSuccess("success");
-			}
+			//	return () => result.Should().BeSuccessful()
+			//		.And.HaveSuccess("success");
+			//}
 
-			Action AssertCustomResultWithValue()
-			{
-				CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42).WithSuccess("success-message");
+			//Action AssertCustomResultWithValue()
+			//{
+			//	CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42).WithSuccess("success-message");
 
-				return () => result.Should().BeSuccessful()
-					.And.HaveSuccess("success");
-			}
+			//	return () => result.Should().BeSuccessful()
+			//		.And.HaveSuccess("success");
+			//}
 
 			Action action = this.mode switch
 			{
 				TestMode.ResultWithoutValue => AssertResultWithoutValue(),
 				TestMode.ResultWithValue => AssertResultWithValue(),
-				TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
-				TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+				//TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
+				//TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
 				_ => throw new ArgumentOutOfRangeException()
 			};
 

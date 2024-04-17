@@ -8,8 +8,8 @@
 
     [TestFixture(TestMode.ResultWithoutValue)]
     [TestFixture(TestMode.ResultWithValue)]
-    [TestFixture(TestMode.CustomResultWithoutValue)]
-    [TestFixture(TestMode.CustomResultWithValue)]
+    //[TestFixture(TestMode.CustomResultWithoutValue)]
+    //[TestFixture(TestMode.CustomResultWithValue)]
     public class HaveMetadataTests
     {
         private readonly TestMode mode;
@@ -33,37 +33,37 @@
 
             Action AssertResultWithValue()
             {
-                Result<int> result = Result<int>.Fail(new Error("error").WithMetadata("key", "value"));
+                Result<int> result = Result.Fail<int>(new Error("error").WithMetadata("key", "value"));
 
                 return () => result.Should().BeFailed()
                     .And.HaveError("error")
                     .That.HaveMetadata("key", "value");
             }
 
-            Action AssertCustomResultWithoutValue()
-            {
-                CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>(new Error("error").WithMetadata("key", "value"));
+            //Action AssertCustomResultWithoutValue()
+            //{
+            //    CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>(new Error("error").WithMetadata("key", "value"));
 
-                return () => result.Should().BeFailed()
-                    .And.HaveError("error")
-                    .That.HaveMetadata("key", "value");
-            }
+            //    return () => result.Should().BeFailed()
+            //        .And.HaveError("error")
+            //        .That.HaveMetadata("key", "value");
+            //}
 
-            Action AssertCustomResultWithValue()
-            {
-                CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>(new Error("error").WithMetadata("key", "value"));
+            //Action AssertCustomResultWithValue()
+            //{
+            //    CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>(new Error("error").WithMetadata("key", "value"));
 
-                return () => result.Should().BeFailed()
-                    .And.HaveError("error")
-                    .That.HaveMetadata("key", "value");
-            }
+            //    return () => result.Should().BeFailed()
+            //        .And.HaveError("error")
+            //        .That.HaveMetadata("key", "value");
+            //}
 
             Action action = this.mode switch
             {
                 TestMode.ResultWithoutValue => AssertResultWithoutValue(),
                 TestMode.ResultWithValue => AssertResultWithValue(),
-                TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
-                TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+                //TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
+                //TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
                 _ => throw new ArgumentOutOfRangeException()
             };
 
@@ -87,37 +87,37 @@
 
             Action AssertResultWithValue()
             {
-                Result<int> result = Result<int>.Fail(new Error("error").WithMetadata("key", "value"));
+                Result<int> result = Result.Fail<int>(new Error("error").WithMetadata("key", "value"));
 
                 return () => result.Should().BeFailed()
                     .And.HaveError("error")
                     .That.HaveMetadata("key", expectedMetadataValue);
             }
 
-            Action AssertCustomResultWithoutValue()
-            {
-                CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>(new Error("error").WithMetadata("key", "value"));
+            //Action AssertCustomResultWithoutValue()
+            //{
+            //    CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>(new Error("error").WithMetadata("key", "value"));
 
-                return () => result.Should().BeFailed()
-                    .And.HaveError("error")
-                    .That.HaveMetadata("key", expectedMetadataValue);
-            }
+            //    return () => result.Should().BeFailed()
+            //        .And.HaveError("error")
+            //        .That.HaveMetadata("key", expectedMetadataValue);
+            //}
 
-            Action AssertCustomResultWithValue()
-            {
-                CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>(new Error("error").WithMetadata("key", "value"));
+            //Action AssertCustomResultWithValue()
+            //{
+            //    CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>(new Error("error").WithMetadata("key", "value"));
 
-                return () => result.Should().BeFailed()
-                    .And.HaveError("error")
-                    .That.HaveMetadata("key", expectedMetadataValue);
-            }
+            //    return () => result.Should().BeFailed()
+            //        .And.HaveError("error")
+            //        .That.HaveMetadata("key", expectedMetadataValue);
+            //}
 
             Action action = this.mode switch
             {
                 TestMode.ResultWithoutValue => AssertResultWithoutValue(),
                 TestMode.ResultWithValue => AssertResultWithValue(),
-                TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
-                TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+                //TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
+                //TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
                 _ => throw new ArgumentOutOfRangeException()
             };
 
@@ -142,37 +142,37 @@
 
             Action AssertResultWithValue()
             {
-                Result<int> result = Result<int>.Fail(new Error("error").WithMetadata("key", "value"));
+                Result<int> result = Result.Fail<int>(new Error("error").WithMetadata("key", "value"));
 
                 return () => result.Should().BeFailed()
                     .And.HaveError("error")
                     .That.HaveMetadata(expectedMetadataKey, "value");
             }
 
-            Action AssertCustomResultWithoutValue()
-            {
-                CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>(new Error("error").WithMetadata("key", "value"));
+            //Action AssertCustomResultWithoutValue()
+            //{
+            //    CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>(new Error("error").WithMetadata("key", "value"));
 
-                return () => result.Should().BeFailed()
-                    .And.HaveError("error")
-                    .That.HaveMetadata(expectedMetadataKey, "value");
-            }
+            //    return () => result.Should().BeFailed()
+            //        .And.HaveError("error")
+            //        .That.HaveMetadata(expectedMetadataKey, "value");
+            //}
 
-            Action AssertCustomResultWithValue()
-            {
-                CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>(new Error("error").WithMetadata("key", "value"));
+            //Action AssertCustomResultWithValue()
+            //{
+            //    CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>(new Error("error").WithMetadata("key", "value"));
 
-                return () => result.Should().BeFailed()
-                    .And.HaveError("error")
-                    .That.HaveMetadata(expectedMetadataKey, "value");
-            }
+            //    return () => result.Should().BeFailed()
+            //        .And.HaveError("error")
+            //        .That.HaveMetadata(expectedMetadataKey, "value");
+            //}
 
             Action action = this.mode switch
             {
                 TestMode.ResultWithoutValue => AssertResultWithoutValue(),
                 TestMode.ResultWithValue => AssertResultWithValue(),
-                TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
-                TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+                //TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
+                //TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
                 _ => throw new ArgumentOutOfRangeException()
             };
 
@@ -195,36 +195,36 @@
 
             Action AssertResultWithValue()
             {
-                Result<int> result = Result<int>.Ok(42).WithSuccess(new Success("success").WithMetadata("key", "value"));
+                Result<int> result = Result.Ok(42).WithSuccess(new Success("success").WithMetadata("key", "value"));
 
                 return () => result.Should().BeSuccessful()
                     .And.HaveSuccess("success")
                     .That.HaveMetadata("key", "value");
             }
 
-            Action AssertCustomResultWithoutValue()
-            {
-                CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>().WithSuccess(new Success("success").WithMetadata("key", "value"));
+            //Action AssertCustomResultWithoutValue()
+            //{
+            //    CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>().WithSuccess(new Success("success").WithMetadata("key", "value"));
 
-                return () => result.Should().BeSuccessful()
-                    .And.HaveSuccess("success")
-                    .That.HaveMetadata("key", "value");
-            }
+            //    return () => result.Should().BeSuccessful()
+            //        .And.HaveSuccess("success")
+            //        .That.HaveMetadata("key", "value");
+            //}
 
-            Action AssertCustomResultWithValue()
-            {
-                CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42).WithSuccess(new Success("success").WithMetadata("key", "value"));
-                return () => result.Should().BeSuccessful()
-                    .And.HaveSuccess("success")
-                    .That.HaveMetadata("key", "value");
-            }
+            //Action AssertCustomResultWithValue()
+            //{
+            //    CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42).WithSuccess(new Success("success").WithMetadata("key", "value"));
+            //    return () => result.Should().BeSuccessful()
+            //        .And.HaveSuccess("success")
+            //        .That.HaveMetadata("key", "value");
+            //}
 
             Action action = this.mode switch
             {
                 TestMode.ResultWithoutValue => AssertResultWithoutValue(),
                 TestMode.ResultWithValue => AssertResultWithValue(),
-                TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
-                TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+                //TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
+                //TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
                 _ => throw new ArgumentOutOfRangeException()
             };
 
@@ -248,36 +248,36 @@
 
             Action AssertResultWithValue()
             {
-                Result<int> result = Result<int>.Ok(42).WithSuccess(new Success("success").WithMetadata("key", "value"));
+                Result<int> result = Result.Ok(42).WithSuccess(new Success("success").WithMetadata("key", "value"));
 
                 return () => result.Should().BeSuccessful()
                     .And.HaveSuccess("success")
                     .That.HaveMetadata("key", expectedMetadataValue);
             }
 
-            Action AssertCustomResultWithoutValue()
-            {
-                CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>().WithSuccess(new Success("success").WithMetadata("key", "value"));
+            //Action AssertCustomResultWithoutValue()
+            //{
+            //    CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>().WithSuccess(new Success("success").WithMetadata("key", "value"));
 
-                return () => result.Should().BeSuccessful()
-                    .And.HaveSuccess("success")
-                    .That.HaveMetadata("key", expectedMetadataValue);
-            }
+            //    return () => result.Should().BeSuccessful()
+            //        .And.HaveSuccess("success")
+            //        .That.HaveMetadata("key", expectedMetadataValue);
+            //}
 
-            Action AssertCustomResultWithValue()
-            {
-                CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42).WithSuccess(new Success("success").WithMetadata("key", "value"));
-                return () => result.Should().BeSuccessful()
-                    .And.HaveSuccess("success")
-                    .That.HaveMetadata("key", expectedMetadataValue);
-            }
+            //Action AssertCustomResultWithValue()
+            //{
+            //    CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42).WithSuccess(new Success("success").WithMetadata("key", "value"));
+            //    return () => result.Should().BeSuccessful()
+            //        .And.HaveSuccess("success")
+            //        .That.HaveMetadata("key", expectedMetadataValue);
+            //}
 
             Action action = this.mode switch
             {
                 TestMode.ResultWithoutValue => AssertResultWithoutValue(),
                 TestMode.ResultWithValue => AssertResultWithValue(),
-                TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
-                TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+                //TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
+                //TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
                 _ => throw new ArgumentOutOfRangeException()
             };
 
@@ -302,36 +302,36 @@
 
             Action AssertResultWithValue()
             {
-                Result<int> result = Result<int>.Ok(42).WithSuccess(new Success("success").WithMetadata("key", "value"));
+                Result<int> result = Result.Ok(42).WithSuccess(new Success("success").WithMetadata("key", "value"));
 
                 return () => result.Should().BeSuccessful()
                     .And.HaveSuccess("success")
                     .That.HaveMetadata(expectedMetadataKey, "value");
             }
 
-            Action AssertCustomResultWithoutValue()
-            {
-                CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>().WithSuccess(new Success("success").WithMetadata("key", "value"));
+            //Action AssertCustomResultWithoutValue()
+            //{
+            //    CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>().WithSuccess(new Success("success").WithMetadata("key", "value"));
 
-                return () => result.Should().BeSuccessful()
-                    .And.HaveSuccess("success")
-                    .That.HaveMetadata(expectedMetadataKey, "value");
-            }
+            //    return () => result.Should().BeSuccessful()
+            //        .And.HaveSuccess("success")
+            //        .That.HaveMetadata(expectedMetadataKey, "value");
+            //}
 
-            Action AssertCustomResultWithValue()
-            {
-                CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42).WithSuccess(new Success("success").WithMetadata("key", "value"));
-                return () => result.Should().BeSuccessful()
-                    .And.HaveSuccess("success")
-                    .That.HaveMetadata(expectedMetadataKey, "value");
-            }
+            //Action AssertCustomResultWithValue()
+            //{
+            //    CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42).WithSuccess(new Success("success").WithMetadata("key", "value"));
+            //    return () => result.Should().BeSuccessful()
+            //        .And.HaveSuccess("success")
+            //        .That.HaveMetadata(expectedMetadataKey, "value");
+            //}
 
             Action action = this.mode switch
             {
                 TestMode.ResultWithoutValue => AssertResultWithoutValue(),
                 TestMode.ResultWithValue => AssertResultWithValue(),
-                TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
-                TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+                //TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
+                //TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
                 _ => throw new ArgumentOutOfRangeException()
             };
 

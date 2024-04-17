@@ -4,7 +4,7 @@
 	{
 		ResultWithoutValue,
 		ResultWithValue,
-		CustomResultWithoutValue,
-		CustomResultWithValue
+		//CustomResultWithoutValue,
+		//CustomResultWithValue
 	}
 }
