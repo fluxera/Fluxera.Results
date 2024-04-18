@@ -8,15 +8,10 @@ to indicate success or failure instead of throwing exceptions.
 - Default result implementations with and without a result value.
     - ```Result```
     - ```Result<int>```
-- Supports multiple error messages in a result.
+- Supports multiple error messages.
 - Supports optional multiple success messages.
-- Supports custom result implementations with and without a result value.
-    - ```ResultBase<TResult>```
-    - ```ResultBase<TResult, TValue>```
 - Supports custom error and success implementations.
-    - ```Error```
-    - ```Success```
-- Provides [FluentAssertions](https://fluentassertions.com/) extensions for simpler uni testing.
+- Provides [FluentAssertions](https://fluentassertions.com/) extensions for simpler unit testing.
 - Provides extensions to transform results to ```IActionResult``` instances for ASP.NET controllers.
 - Provides extensions to transform results to ```IResult``` instances to be used with Minimal APIs.
 
@@ -24,23 +19,22 @@ to indicate success or failure instead of throwing exceptions.
 
 ### Create Results
 
-To create result instances use the static helper methods found in the
-```Result``` and ```Result<T>```classes.
+To create result instances use the static helper methods found in the ```Result``` class.
 
 ```C#
 // Create a successful result without a value.
 Result result = Result.Ok();
 
 // Create a successful result with a value.
-Result<int> result = Result<int>.Ok(42);
+Result<int> result = Result.Ok(42);
 
 // Create a failed result without a value.
 Result result = Result.Fail("An error occurred.");
 Result result = Result.Fail(new Error("An error occurred));
 
 // Create a failed result for a result that can have a value.
-Result<int> result = Result<int>.Fail("An error occurred.");
-Result<int> result = Result<int>.Fail(new Error("An error occurred));
+Result<int> result = Result.Fail<int>("An error occurred.");
+Result<int> result = Result.Fail<int>(new Error("An error occurred));
 ```
 
 The result type ```Result``` is typically used by operations that have no return value.
@@ -64,7 +58,7 @@ public Result<int> PerformOperation()
 {
     if(this.State == State.Failed) 
     {
-        return Result<int>.Fail("The operation failed.");
+        return Result.Fail<int>("The operation failed.");
     }
 
     return Result.Ok(42);
@@ -74,7 +68,7 @@ public Result<int> PerformOperation()
 ### Process Results
 
 To process the result of an operation you can check if the operation was 
-successful or failed by accewssing the ```IsSuccessful``` and/or ```IsFailed```
+successful or failed by accessing the ```IsSuccessful``` or ```IsFailed```
 properties.
 
 ```C#
@@ -108,11 +102,6 @@ int value = result.Value;
 // Get the value oif the result is successful or will return the default of the value.
 int value = result.GetValueOrDefault();
 ```
-
-## Future
-
-- Store hierarchical error chain in a root error cause.
-- Support custom error and success types.
 
 ## References
 
