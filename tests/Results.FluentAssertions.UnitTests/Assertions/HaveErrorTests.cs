@@ -8,8 +8,8 @@
 
 	[TestFixture(TestMode.ResultWithoutValue)]
 	[TestFixture(TestMode.ResultWithValue)]
-	[TestFixture(TestMode.CustomResultWithoutValue)]
-	[TestFixture(TestMode.CustomResultWithValue)]
+	//[TestFixture(TestMode.CustomResultWithoutValue)]
+	//[TestFixture(TestMode.CustomResultWithValue)]
 	public class HaveErrorTests
 	{
 		private readonly TestMode mode;
@@ -32,34 +32,34 @@
 
 			Action AssertResultWithValue()
 			{
-				Result<int> result = Result<int>.Fail("error");
+				Result<int> result = Result.Fail<int>("error");
 
 				return () => result.Should().BeFailed()
 					.And.HaveError("error");
 			}
 
-			Action AssertCustomResultWithoutValue()
-			{
-				CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>("error");
+			//Action AssertCustomResultWithoutValue()
+			//{
+			//	CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>("error");
 
-				return () => result.Should().BeFailed()
-					.And.HaveError("error");
-			}
+			//	return () => result.Should().BeFailed()
+			//		.And.HaveError("error");
+			//}
 
-			Action AssertCustomResultWithValue()
-			{
-				CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>("error");
+			//Action AssertCustomResultWithValue()
+			//{
+			//	CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>("error");
 
-				return () => result.Should().BeFailed()
-					.And.HaveError("error");
-			}
+			//	return () => result.Should().BeFailed()
+			//		.And.HaveError("error");
+			//}
 
 			Action action = this.mode switch
 			{
 				TestMode.ResultWithoutValue => AssertResultWithoutValue(),
 				TestMode.ResultWithValue => AssertResultWithValue(),
-				TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
-				TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+				//TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
+				//TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
 				_ => throw new ArgumentOutOfRangeException()
 			};
 
@@ -82,34 +82,34 @@
 
 			Action AssertResultWithValue()
 			{
-				Result<int> result = Result<int>.Fail("this is an error message");
+				Result<int> result = Result.Fail<int>("this is an error message");
 
 				return () => result.Should().BeFailed()
 					.And.HaveError(expectedMessage, MessageComparison.Contains);
 			}
 
-			Action AssertCustomResultWithoutValue()
-			{
-				CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>("this is an error message");
+			//Action AssertCustomResultWithoutValue()
+			//{
+			//	CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>("this is an error message");
 
-				return () => result.Should().BeFailed()
-					.And.HaveError(expectedMessage, MessageComparison.Contains);
-			}
+			//	return () => result.Should().BeFailed()
+			//		.And.HaveError(expectedMessage, MessageComparison.Contains);
+			//}
 
-			Action AssertCustomResultWithValue()
-			{
-				CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>("this is an error message");
+			//Action AssertCustomResultWithValue()
+			//{
+			//	CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>("this is an error message");
 
-				return () => result.Should().BeFailed()
-					.And.HaveError(expectedMessage, MessageComparison.Contains);
-			}
+			//	return () => result.Should().BeFailed()
+			//		.And.HaveError(expectedMessage, MessageComparison.Contains);
+			//}
 
 			Action action = this.mode switch
 			{
 				TestMode.ResultWithoutValue => AssertResultWithoutValue(),
 				TestMode.ResultWithValue => AssertResultWithValue(),
-				TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
-				TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+				//TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
+				//TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
 				_ => throw new ArgumentOutOfRangeException()
 			};
 
@@ -129,34 +129,34 @@
 
 			Action AssertResultWithValue()
 			{
-				Result<int> result = Result<int>.Fail("error-message");
+				Result<int> result = Result.Fail<int>("error-message");
 
 				return () => result.Should().BeFailed()
 					.And.HaveError("error");
 			}
 
-			Action AssertCustomResultWithoutValue()
-			{
-				CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>("error-message");
+			//Action AssertCustomResultWithoutValue()
+			//{
+			//	CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>("error-message");
 
-				return () => result.Should().BeFailed()
-					.And.HaveError("error");
-			}
+			//	return () => result.Should().BeFailed()
+			//		.And.HaveError("error");
+			//}
 
-			Action AssertCustomResultWithValue()
-			{
-				CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>("error-message");
+			//Action AssertCustomResultWithValue()
+			//{
+			//	CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>("error-message");
 
-				return () => result.Should().BeFailed()
-					.And.HaveError("error");
-			}
+			//	return () => result.Should().BeFailed()
+			//		.And.HaveError("error");
+			//}
 
 			Action action = this.mode switch
 			{
 				TestMode.ResultWithoutValue => AssertResultWithoutValue(),
 				TestMode.ResultWithValue => AssertResultWithValue(),
-				TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
-				TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+				//TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
+				//TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
 				_ => throw new ArgumentOutOfRangeException()
 			};
 

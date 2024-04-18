@@ -12,7 +12,7 @@
 		[Test]
 		public void ShouldCreateOkResult()
 		{
-			Result<int> result = Result<int>.Ok(42);
+			Result<int> result = Result.Ok(42);
 
 			result.IsFailed.Should().BeFalse();
 			result.IsSuccessful.Should().BeTrue();
@@ -25,7 +25,7 @@
 		[Test]
 		public void ShouldCreateOkResult_WithSuccess()
 		{
-			Result<int> result = Result<int>.Ok(42).WithSuccess("first success");
+			Result<int> result = Result.Ok(42).WithSuccess("first success");
 
 			result.IsFailed.Should().BeFalse();
 			result.IsSuccessful.Should().BeTrue();
@@ -41,7 +41,7 @@
 		[Test]
 		public void ShouldCreateOkResult_MultipleWithSuccess()
 		{
-			Result<int> result = Result<int>.Ok(42).WithSuccess("first success").WithSuccess("second success");
+			Result<int> result = Result.Ok(42).WithSuccess("first success").WithSuccess("second success");
 
 			result.IsFailed.Should().BeFalse();
 			result.IsSuccessful.Should().BeTrue();
@@ -58,7 +58,7 @@
 		[Test]
 		public void ShouldCreateOkResult_WithSuccesses()
 		{
-			Result<int> result = Result<int>.Ok(42).WithSuccesses(new string[] { "first success", "second success" });
+			Result<int> result = Result.Ok(42).WithSuccesses(new string[] { "first success", "second success" });
 
 			result.IsFailed.Should().BeFalse();
 			result.IsSuccessful.Should().BeTrue();
@@ -75,7 +75,7 @@
 		[Test]
 		public void ShouldCreateFailResult()
 		{
-			Result<int> result = Result<int>.Fail("first error");
+			Result<int> result = Result.Fail<int>("first error");
 
 			result.IsFailed.Should().BeTrue();
 			result.IsSuccessful.Should().BeFalse();
@@ -91,7 +91,7 @@
 		[Test]
 		public void ShouldCreateFailResult_WithError()
 		{
-			Result<int> result = Result<int>.Fail("first error").WithError("second error");
+			Result<int> result = Result.Fail<int>("first error").WithError("second error");
 
 			result.IsFailed.Should().BeTrue();
 			result.IsSuccessful.Should().BeFalse();
@@ -108,7 +108,7 @@
 		[Test]
 		public void ShouldCreateFailResult_MultipleWithError()
 		{
-			Result<int> result = Result<int>.Fail("first error").WithError("second error").WithError("third error");
+			Result<int> result = Result.Fail<int>("first error").WithError("second error").WithError("third error");
 
 			result.IsFailed.Should().BeTrue();
 			result.IsSuccessful.Should().BeFalse();
@@ -126,7 +126,7 @@
 		[Test]
 		public void ShouldCreateFailResult_WithErrors()
 		{
-			Result<int> result = Result<int>.Fail("first error").WithErrors(new string[] { "second error", "third error" });
+			Result<int> result = Result.Fail<int>("first error").WithErrors(new string[] { "second error", "third error" });
 
 			result.IsFailed.Should().BeTrue();
 			result.IsSuccessful.Should().BeFalse();
@@ -144,7 +144,7 @@
 		[Test]
 		public void ShouldCreateOkIfResult_Ok()
 		{
-			Result<int> result = Result<int>.OkIf(true, 42, "first error");
+			Result<int> result = Result.OkIf(true, 42, "first error");
 
 			result.IsFailed.Should().BeFalse();
 			result.IsSuccessful.Should().BeTrue();
@@ -157,7 +157,7 @@
 		[Test]
 		public void ShouldCreateOkIfResult_Fail()
 		{
-			Result<int> result = Result<int>.OkIf(false, 42, "first error");
+			Result<int> result = Result.OkIf(false, 42, "first error");
 
 			result.IsFailed.Should().BeTrue();
 			result.IsSuccessful.Should().BeFalse();
@@ -173,7 +173,7 @@
 		[Test]
 		public void ShouldCreateFailIfResult_Ok()
 		{
-			Result<int> result = Result<int>.FailIf(false, 42, "first error");
+			Result<int> result = Result.FailIf(false, 42, "first error");
 
 			result.IsFailed.Should().BeFalse();
 			result.IsSuccessful.Should().BeTrue();
@@ -186,7 +186,7 @@
 		[Test]
 		public void ShouldCreateFailIfResult_Fail()
 		{
-			Result<int> result = Result<int>.FailIf(true, 42, "first error");
+			Result<int> result = Result.FailIf(true, 42, "first error");
 
 			result.IsFailed.Should().BeTrue();
 			result.IsSuccessful.Should().BeFalse();
@@ -202,7 +202,7 @@
 		[Test]
 		public void ShouldMergeResults_Ok()
 		{
-			Result<IEnumerable<int>> result = Result<int>.Merge(Result<int>.Ok(42).WithSuccess("first success"), Result<int>.Ok(43));
+			Result<IEnumerable<int>> result = Result.Merge(Result.Ok(42).WithSuccess("first success"), Result.Ok(43));
 
 			result.IsFailed.Should().BeFalse();
 			result.IsSuccessful.Should().BeTrue();
@@ -214,31 +214,7 @@
 		[Test]
 		public void ShouldMergeResults_Fail()
 		{
-			Result<IEnumerable<int>> result = Result<int>.Merge(Result<int>.Ok(42), Result<int>.Fail("first error"));
-
-			result.IsFailed.Should().BeTrue();
-			result.IsSuccessful.Should().BeFalse();
-
-			result.Errors.Should().NotBeEmpty();
-			result.Successes.Should().BeEmpty();
-		}
-
-		[Test]
-		public void ShouldBatchResults_Ok()
-		{
-			BatchResult<Result<int>, int> result = Result<int>.Batch(Result<int>.Ok(42).WithSuccess("first success"), Result<int>.Ok(43));
-
-			result.IsFailed.Should().BeFalse();
-			result.IsSuccessful.Should().BeTrue();
-
-			result.Errors.Should().BeEmpty();
-			result.Successes.Should().NotBeEmpty();
-		}
-
-		[Test]
-		public void ShouldBatchResults_Fail()
-		{
-			BatchResult<Result<int>, int> result = Result<int>.Batch(Result<int>.Ok(42), Result<int>.Fail("first error"));
+			Result<IEnumerable<int>> result = Result.Merge(Result.Ok(42), Result.Fail<int>("first error"));
 
 			result.IsFailed.Should().BeTrue();
 			result.IsSuccessful.Should().BeFalse();

@@ -1,6 +1,7 @@
 ﻿namespace MadEyeMatt.Results
 {
 	using JetBrains.Annotations;
+	using System;
 	using System.Collections.Generic;
 	using System.Linq;
 
@@ -8,26 +9,46 @@
 	///		A default result type without a value.
 	/// </summary>
 	[PublicAPI]
-	public sealed class Result : ResultBase<Result>
+	public sealed class Result : IResult
 	{
+		/// <summary>
+		///		Initializes a new instance of the <see cref="Result"/> type.
+		/// </summary>
+		public Result()
+		{
+			this.Errors = new List<IError>();
+			this.Successes = new List<ISuccess>();
+		}
+
+		/// <inheritdoc />
+		public bool IsFailed => this.Errors.Any();
+
+		/// <inheritdoc />
+		public bool IsSuccessful => !this.IsFailed;
+
+		/// <inheritdoc />
+		public IList<IError> Errors { get; }
+
+		/// <inheritdoc />
+		public IList<ISuccess> Successes { get; }
+
 		/// <summary>
 		///		Creates a successful result.
 		/// </summary>
 		/// <returns></returns>
 		public static Result Ok()
 		{
-			return Ok<Result>();
+			return new Result();
 		}
 
 		/// <summary>
-		///		Creates a successful result.
+		///		Creates a successful result with the given value.
 		/// </summary>
-		/// <typeparam name="TResult"></typeparam>
+		/// <param name="value"></param>
 		/// <returns></returns>
-		public static TResult Ok<TResult>() 
-            where TResult : ResultBase<TResult>, new()
+		public static Result<TValue> Ok<TValue>(TValue value)
 		{
-			return new TResult();
+			return new Result<TValue>().WithValue(value);
 		}
 
 		/// <summary>
@@ -38,20 +59,7 @@
 		/// <returns></returns>
 		public static Result OkIf(bool isSuccessful, IError error)
 		{
-			return OkIf<Result>(isSuccessful, error);
-		}
-
-		/// <summary>
-		///		Create a successful or a failed result depending on the parameter <paramref name="isSuccessful"/>.
-		/// </summary>
-		/// <typeparam name="TResult"></typeparam>
-		/// <param name="isSuccessful"></param>
-		/// <param name="error"></param>
-		/// <returns></returns>
-		public static TResult OkIf<TResult>(bool isSuccessful, IError error) 
-            where TResult : ResultBase<TResult>, new()
-		{
-			return isSuccessful ? Ok<TResult>() : Fail<TResult>(error);
+			return isSuccessful ? Ok() : Fail(error);
 		}
 
 		/// <summary>
@@ -62,20 +70,31 @@
 		/// <returns></returns>
 		public static Result OkIf(bool isSuccessful, string errorMessage)
 		{
-			return OkIf<Result>(isSuccessful, errorMessage);
+			return isSuccessful ? Ok() : Fail(errorMessage);
 		}
 
-		/// <summary>
-		///		Create a successful or a failed result depending on the parameter <paramref name="isSuccessful"/>.
-		/// </summary>
-		/// <typeparam name="TResult"></typeparam>
-		/// <param name="isSuccessful"></param>
-		/// <param name="errorMessage"></param>
-		/// <returns></returns>
-		public static TResult OkIf<TResult>(bool isSuccessful, string errorMessage) 
-            where TResult : ResultBase<TResult>, new()
+		///  <summary>
+		/// 	Create a successful or a failed result depending on the parameter <paramref name="isSuccessful"/>.
+		///  </summary>
+		///  <param name="isSuccessful"></param>
+		///  <param name="value"></param>
+		///  <param name="error"></param>
+		///  <returns></returns>
+		public static Result<TValue> OkIf<TValue>(bool isSuccessful, TValue value, IError error)
 		{
-			return isSuccessful ? Ok<TResult>() : Fail<TResult>(errorMessage);
+			return isSuccessful ? Ok(value) : Fail<TValue>(error);
+		}
+
+		///  <summary>
+		/// 	Create a successful or a failed result depending on the parameter <paramref name="isSuccessful"/>.
+		///  </summary>
+		///  <param name="isSuccessful"></param>
+		///  <param name="value"></param>
+		///  <param name="errorMessage"></param>
+		///  <returns></returns>
+		public static Result<TValue> OkIf<TValue>(bool isSuccessful, TValue value, string errorMessage)
+		{
+			return isSuccessful ? Ok(value) : Fail<TValue>(errorMessage);
 		}
 
 		/// <summary>
@@ -85,19 +104,7 @@
 		/// <returns></returns>
 		public static Result Fail(IError error)
 		{
-			return Fail<Result>(error);
-		}
-
-		/// <summary>
-		///		Creates a failed result with the given error.
-		/// </summary>
-		/// <typeparam name="TResult"></typeparam>
-		/// <param name="error"></param>
-		/// <returns></returns>
-		public static TResult Fail<TResult>(IError error) 
-            where TResult : ResultBase<TResult>, new()
-		{
-			TResult result = new TResult();
+			Result result = new Result();
 			result.WithError(error);
 			return result;
 		}
@@ -109,19 +116,7 @@
 		/// <returns></returns>
 		public static Result Fail(string errorMessage)
 		{
-			return Fail<Result>(errorMessage);
-		}
-
-		/// <summary>
-		///		Creates a failed result with the given error message.
-		/// </summary>
-		/// <typeparam name="TResult"></typeparam>
-		/// <param name="errorMessage"></param>
-		/// <returns></returns>
-		public static TResult Fail<TResult>(string errorMessage) 
-            where TResult : ResultBase<TResult>, new()
-		{
-			TResult result = new TResult();
+			Result result = new Result();
 			result.WithError(errorMessage);
 			return result;
 		}
@@ -133,19 +128,7 @@
 		/// <returns></returns>
 		public static Result Fail(IEnumerable<IError> errors)
 		{
-			return Fail<Result>(errors);
-		}
-
-		/// <summary>
-		///		Creates a failed result with the given errors.
-		/// </summary>
-		/// <typeparam name="TResult"></typeparam>
-		/// <param name="errors"></param>
-		/// <returns></returns>
-		public static TResult Fail<TResult>(IEnumerable<IError> errors) 
-            where TResult : ResultBase<TResult>, new()
-		{
-			TResult result = new TResult();
+			Result result = new Result();
 			result.WithErrors(errors);
 			return result;
 		}
@@ -157,19 +140,55 @@
 		/// <returns></returns>
 		public static Result Fail(IEnumerable<string> errorMessages)
 		{
-			return Fail<Result>(errorMessages);
+			Result result = new Result();
+			result.WithErrors(errorMessages);
+			return result;
+		}
+
+		/// <summary>
+		///		Creates a failed result with the given error.
+		/// </summary>
+		/// <param name="error"></param>
+		/// <returns></returns>
+		public static Result<TValue> Fail<TValue>(IError error)
+		{
+			Result<TValue> result = new Result<TValue>();
+			result.WithError(error);
+			return result;
+		}
+
+		/// <summary>
+		///		Creates a failed result with the given error message.
+		/// </summary>
+		/// <param name="errorMessage"></param>
+		/// <returns></returns>
+		public static Result<TValue> Fail<TValue>(string errorMessage)
+		{
+			Result<TValue> result = new Result<TValue>();
+			result.WithError(errorMessage);
+			return result;
+		}
+
+		/// <summary>
+		///		Creates a failed result with the given errors.
+		/// </summary>
+		/// <param name="errors"></param>
+		/// <returns></returns>
+		public static Result<TValue> Fail<TValue>(IEnumerable<IError> errors)
+		{
+			Result<TValue> result = new Result<TValue>();
+			result.WithErrors(errors);
+			return result;
 		}
 
 		/// <summary>
 		///		Creates a failed result with the given error messages.
 		/// </summary>
-		/// <typeparam name="TResult"></typeparam>
 		/// <param name="errorMessages"></param>
 		/// <returns></returns>
-		public static TResult Fail<TResult>(IEnumerable<string> errorMessages) 
-            where TResult : ResultBase<TResult>, new()
+		public static Result<TValue> Fail<TValue>(IEnumerable<string> errorMessages)
 		{
-			TResult result = new TResult();
+			Result<TValue> result = new Result<TValue>();
 			result.WithErrors(errorMessages);
 			return result;
 		}
@@ -182,20 +201,7 @@
 		/// <returns></returns>
 		public static Result FailIf(bool isFailure, IError error)
 		{
-			return FailIf<Result>(isFailure, error);
-		}
-
-		/// <summary>
-		///		Create a successful or a failed result depending on the parameter <paramref name="isFailure"/>.
-		/// </summary>
-		/// <typeparam name="TResult"></typeparam>
-		/// <param name="isFailure"></param>
-		/// <param name="error"></param>
-		/// <returns></returns>
-		public static TResult FailIf<TResult>(bool isFailure, IError error) 
-            where TResult : ResultBase<TResult>, new()
-		{
-			return isFailure ? Fail<TResult>(error) : Ok<TResult>();
+			return isFailure ? Fail(error) : Ok();
 		}
 
 		/// <summary>
@@ -206,20 +212,31 @@
 		/// <returns></returns>
 		public static Result FailIf(bool isFailure, string errorMessage)
 		{
-			return FailIf<Result>(isFailure, errorMessage);
+			return isFailure ? Fail(errorMessage) : Ok();
 		}
 
-		/// <summary>
-		///		Create a successful or a failed result depending on the parameter <paramref name="isFailure"/>.
-		/// </summary>
-		/// <typeparam name="TResult"></typeparam>
-		/// <param name="isFailure"></param>
-		/// <param name="errorMessage"></param>
-		/// <returns></returns>
-		public static TResult FailIf<TResult>(bool isFailure, string errorMessage) 
-            where TResult : ResultBase<TResult>, new()
+		///  <summary>
+		/// 	Create a successful or a failed result depending on the parameter <paramref name="isFailure"/>.
+		///  </summary>
+		///  <param name="isFailure"></param>
+		///  <param name="value"></param>
+		///  <param name="error"></param>
+		///  <returns></returns>
+		public static Result<TValue> FailIf<TValue>(bool isFailure, TValue value, IError error)
 		{
-			return isFailure ? Fail<TResult>(errorMessage) : Ok<TResult>();
+			return isFailure ? Fail<TValue>(error) : Ok(value);
+		}
+
+		///  <summary>
+		/// 	Create a successful or a failed result depending on the parameter <paramref name="isFailure"/>.
+		///  </summary>
+		///  <param name="isFailure"></param>
+		///  <param name="value"></param>
+		///  <param name="errorMessage"></param>
+		///  <returns></returns>
+		public static Result<TValue> FailIf<TValue>(bool isFailure, TValue value, string errorMessage)
+		{
+			return isFailure ? Fail<TValue>(errorMessage) : Ok(value);
 		}
 
 		/// <summary>
@@ -229,304 +246,18 @@
 		/// <returns></returns>
 		public static Result Merge(params Result[] results)
 		{
-			return Merge<Result>(results);
-		}
-
-		/// <summary>
-		///		Merge multiple results into one single result.
-		/// </summary>
-		/// <param name="results"></param>
-		/// <returns></returns>
-		public static TResult Merge<TResult>(params TResult[] results) 
-            where TResult : ResultBase<TResult>, new()
-		{
-			TResult result = new TResult();
+			Result result = new Result();
 			result.WithErrors(results.SelectMany(x => x.Errors));
 			result.WithSuccesses(results.SelectMany(x => x.Successes));
 			return result;
 		}
 
 		/// <summary>
-		///		Batches multiple results into one batch result.
-		/// </summary>
-		/// <param name="results"></param>
-		/// <returns></returns>
-		public static BatchResult<Result> Batch(params Result[] results)
-		{
-			return Batch<Result>(results);
-		}
-
-		/// <summary>
-		///		Batches multiple results into one batch result.
-		/// </summary>
-		/// <typeparam name="TResult"></typeparam>
-		/// <param name="results"></param>
-		/// <returns></returns>
-		public static BatchResult<TResult> Batch<TResult>(params TResult[] results) 
-            where TResult : ResultBase<TResult>, new()
-		{
-			BatchResult<TResult> result = new BatchResult<TResult>();
-			result.WithResults(results);
-			return result;
-		}
-	}
-
-	/// <summary>
-	///		A default result type with a value.
-	/// </summary>
-	[PublicAPI]
-	public sealed class Result<TValue> : ResultBase<Result<TValue>, TValue>
-	{
-		/// <summary>
-		///		Converts the result with value to result without value.
-		/// </summary>
-		/// <returns></returns>
-		public Result ToResult()
-		{
-			return new Result().WithErrors(this.Errors);
-		}
-
-		/// <summary>
-		///		Creates a successful result with the given value.
-		/// </summary>
-		/// <param name="value"></param>
-		/// <returns></returns>
-		public static Result<TValue> Ok(TValue value)
-		{
-			return Ok<Result<TValue>>(value);
-		}
-
-		/// <summary>
-		///		Creates a successful result with the given value.
-		/// </summary>
-		/// <typeparam name="TResult"></typeparam>
-		/// <param name="value"></param>
-		/// <returns></returns>
-		public static TResult Ok<TResult>(TValue value) 
-            where TResult : ResultBase<TResult, TValue>, new()
-		{
-			TResult result = new TResult();
-			result.WithValue(value);
-			return result;
-		}
-
-		///  <summary>
-		/// 	Create a successful or a failed result depending on the parameter <paramref name="isSuccessful"/>.
-		///  </summary>
-		///  <param name="isSuccessful"></param>
-		///  <param name="value"></param>
-		///  <param name="error"></param>
-		///  <returns></returns>
-		public static Result<TValue> OkIf(bool isSuccessful, TValue value, IError error)
-		{
-			return OkIf<Result<TValue>>(isSuccessful, value, error);
-		}
-
-		///  <summary>
-		/// 	Create a successful or a failed result depending on the parameter <paramref name="isSuccessful"/>.
-		///  </summary>
-		///  <typeparam name="TResult"></typeparam>
-		///  <param name="isSuccessful"></param>
-		///  <param name="value"></param>
-		///  <param name="error"></param>
-		///  <returns></returns>
-		public static TResult OkIf<TResult>(bool isSuccessful, TValue value, IError error) 
-            where TResult : ResultBase<TResult, TValue>, new()
-		{
-			return isSuccessful ? Ok<TResult>(value) : Fail<TResult>(error);
-		}
-
-		///  <summary>
-		/// 	Create a successful or a failed result depending on the parameter <paramref name="isSuccessful"/>.
-		///  </summary>
-		///  <param name="isSuccessful"></param>
-		///  <param name="value"></param>
-		///  <param name="errorMessage"></param>
-		///  <returns></returns>
-		public static Result<TValue> OkIf(bool isSuccessful, TValue value, string errorMessage)
-		{
-			return OkIf<Result<TValue>>(isSuccessful, value, errorMessage);
-		}
-
-		///  <summary>
-		/// 	Create a successful or a failed result depending on the parameter <paramref name="isSuccessful"/>.
-		///  </summary>
-		///  <typeparam name="TResult"></typeparam>
-		///  <param name="isSuccessful"></param>
-		///  <param name="value"></param>
-		///  <param name="errorMessage"></param>
-		///  <returns></returns>
-		public static TResult OkIf<TResult>(bool isSuccessful, TValue value, string errorMessage) 
-            where TResult : ResultBase<TResult, TValue>, new()
-		{
-			return isSuccessful ? Ok<TResult>(value) : Fail<TResult>(errorMessage);
-		}
-
-		/// <summary>
-		///		Creates a failed result with the given error.
-		/// </summary>
-		/// <param name="error"></param>
-		/// <returns></returns>
-		public static Result<TValue> Fail(IError error)
-		{
-			return Fail<Result<TValue>>(error);
-		}
-
-		/// <summary>
-		///		Creates a failed result with the given error.
-		/// </summary>
-		/// <typeparam name="TResult"></typeparam>
-		/// <param name="error"></param>
-		/// <returns></returns>
-		public static TResult Fail<TResult>(IError error) 
-            where TResult : ResultBase<TResult, TValue>, new()
-		{
-			TResult result = new TResult();
-			result.WithError(error);
-			return result;
-		}
-
-		/// <summary>
-		///		Creates a failed result with the given error message.
-		/// </summary>
-		/// <param name="errorMessage"></param>
-		/// <returns></returns>
-		public static Result<TValue> Fail(string errorMessage)
-		{
-			return Fail<Result<TValue>>(errorMessage);
-		}
-
-		/// <summary>
-		///		Creates a failed result with the given error message.
-		/// </summary>
-		/// <typeparam name="TResult"></typeparam>
-		/// <param name="errorMessage"></param>
-		/// <returns></returns>
-		public static TResult Fail<TResult>(string errorMessage) 
-            where TResult : ResultBase<TResult, TValue>, new()
-		{
-			TResult result = new TResult();
-			result.WithError(errorMessage);
-			return result;
-		}
-
-		/// <summary>
-		///		Creates a failed result with the given errors.
-		/// </summary>
-		/// <param name="errors"></param>
-		/// <returns></returns>
-		public static Result<TValue> Fail(IEnumerable<IError> errors)
-		{
-			return Fail<Result<TValue>>(errors);
-		}
-
-		/// <summary>
-		///		Creates a failed result with the given errors.
-		/// </summary>
-		/// <typeparam name="TResult"></typeparam>
-		/// <param name="errors"></param>
-		/// <returns></returns>
-		public static TResult Fail<TResult>(IEnumerable<IError> errors) 
-            where TResult : ResultBase<TResult, TValue>, new()
-		{
-			TResult result = new TResult();
-			result.WithErrors(errors);
-			return result;
-		}
-
-		/// <summary>
-		///		Creates a failed result with the given error messages.
-		/// </summary>
-		/// <param name="errorMessages"></param>
-		/// <returns></returns>
-		public static Result<TValue> Fail(IEnumerable<string> errorMessages)
-		{
-			return Fail<Result<TValue>>(errorMessages);
-		}
-
-		/// <summary>
-		///		Creates a failed result with the given error messages.
-		/// </summary>
-		/// <typeparam name="TResult"></typeparam>
-		/// <param name="errorMessages"></param>
-		/// <returns></returns>
-		public static TResult Fail<TResult>(IEnumerable<string> errorMessages)
-            where TResult : ResultBase<TResult, TValue>, new()
-		{
-			TResult result = new TResult();
-			result.WithErrors(errorMessages);
-			return result;
-		}
-
-		///  <summary>
-		/// 	Create a successful or a failed result depending on the parameter <paramref name="isFailure"/>.
-		///  </summary>
-		///  <param name="isFailure"></param>
-		///  <param name="value"></param>
-		///  <param name="error"></param>
-		///  <returns></returns>
-		public static Result<TValue> FailIf(bool isFailure, TValue value, IError error)
-		{
-			return FailIf<Result<TValue>>(isFailure, value, error);
-		}
-
-		///  <summary>
-		/// 	Create a successful or a failed result depending on the parameter <paramref name="isFailure"/>.
-		///  </summary>
-		///  <typeparam name="TResult"></typeparam>
-		///  <param name="isFailure"></param>
-		///  <param name="value"></param>
-		///  <param name="error"></param>
-		///  <returns></returns>
-		public static TResult FailIf<TResult>(bool isFailure, TValue value, IError error) 
-            where TResult : ResultBase<TResult, TValue>, new()
-		{
-			return isFailure ? Fail<TResult>(error) : Ok<TResult>(value);
-		}
-
-		///  <summary>
-		/// 	Create a successful or a failed result depending on the parameter <paramref name="isFailure"/>.
-		///  </summary>
-		///  <param name="isFailure"></param>
-		///  <param name="value"></param>
-		///  <param name="errorMessage"></param>
-		///  <returns></returns>
-		public static Result<TValue> FailIf(bool isFailure, TValue value, string errorMessage)
-		{
-			return FailIf<Result<TValue>>(isFailure, value, errorMessage);
-		}
-
-		///  <summary>
-		/// 	Create a successful or a failed result depending on the parameter <paramref name="isFailure"/>.
-		///  </summary>
-		///  <typeparam name="TResult"></typeparam>
-		///  <param name="isFailure"></param>
-		///  <param name="value"></param>
-		///  <param name="errorMessage"></param>
-		///  <returns></returns>
-		public static TResult FailIf<TResult>(bool isFailure, TValue value, string errorMessage) 
-            where TResult : ResultBase<TResult, TValue>, new()
-		{
-			return isFailure ? Fail<TResult>(errorMessage) : Ok<TResult>(value);
-		}
-
-		/// <summary>
 		///		Merge multiple results into one single result.
 		/// </summary>
 		/// <param name="results"></param>
 		/// <returns></returns>
-		public static Result<IEnumerable<TValue>> Merge(params Result<TValue>[] results)
-		{
-			return Merge<Result<TValue>>(results);
-		}
-
-		/// <summary>
-		///		Merge multiple results into one single result.
-		/// </summary>
-		/// <param name="results"></param>
-		/// <returns></returns>
-		public static Result<IEnumerable<TValue>> Merge<TResult>(params TResult[] results) 
-            where TResult : ResultBase<TResult, TValue>, new()
+		public static Result<IEnumerable<TValue>> Merge<TValue>(params Result<TValue>[] results)
 		{
 			Result<IEnumerable<TValue>> result = new Result<IEnumerable<TValue>>();
 			result.WithErrors(results.SelectMany(x => x.Errors));
@@ -541,27 +272,151 @@
 		}
 
 		/// <summary>
-		///		Batches multiple results into one batch result.
+		///		Deconstructs the result.
 		/// </summary>
-		/// <param name="results"></param>
-		/// <returns></returns>
-		public static BatchResult<Result<TValue>, TValue> Batch(params Result<TValue>[] results)
+		/// <param name="isSuccessful"></param>
+		/// <param name="errors"></param>
+		public void Deconstruct(out bool isSuccessful, out IList<IError> errors)
 		{
-			return Batch<Result<TValue>>(results);
+			isSuccessful = this.IsSuccessful;
+			errors = this.Errors;
 		}
 
 		/// <summary>
-		///		Batches multiple results into one batch result.
+		///		Deconstructs the result.
 		/// </summary>
-		/// <typeparam name="TResult"></typeparam>
-		/// <param name="results"></param>
-		/// <returns></returns>
-		public static BatchResult<TResult, TValue> Batch<TResult>(params TResult[] results) 
-            where TResult : ResultBase<TResult, TValue>, new()
+		/// <param name="isSuccessful"></param>
+		/// <param name="successes"></param>
+		public void Deconstruct(out bool isSuccessful, out IList<ISuccess> successes)
 		{
-			BatchResult<TResult, TValue> result = new BatchResult<TResult, TValue>();
-			result.WithResults(results);
-			return result;
+			isSuccessful = this.IsSuccessful;
+			successes = this.Successes;
+		}
+
+		///  <summary>
+		/// 		Deconstructs the result.
+		///  </summary>
+		///  <param name="isSuccessful"></param>
+		///  <param name="errors"></param>
+		///  <param name="successes"></param>
+		public void Deconstruct(out bool isSuccessful, out IList<IError> errors, out IList<ISuccess> successes)
+		{
+			isSuccessful = this.IsSuccessful;
+			errors = this.Errors;
+			successes = this.Successes;
+		}
+	}
+
+	/// <summary>
+	///		A default result type with a value.
+	/// </summary>
+	[PublicAPI]
+	public sealed class Result<TValue> : IResult<TValue>
+	{
+		private TValue currentValue;
+
+		/// <summary>
+		///		Initializes a new instance of the <see cref="Result{TValue}"/> type.
+		/// </summary>
+		public Result()
+		{
+			this.Errors = new List<IError>();
+			this.Successes = new List<ISuccess>();
+		}
+
+		/// <inheritdoc />
+		public bool IsFailed => this.Errors.Any();
+
+		/// <inheritdoc />
+		public bool IsSuccessful => !this.IsFailed;
+
+		/// <inheritdoc />
+		public IList<IError> Errors { get; }
+
+		/// <inheritdoc />
+		public IList<ISuccess> Successes { get; }
+
+		/// <inheritdoc />
+		public TValue Value
+		{
+			get
+			{
+				this.ThrowIfFailed();
+
+				return this.currentValue;
+			}
+			internal set
+			{
+				this.ThrowIfFailed();
+
+				this.currentValue = value;
+			}
+		}
+
+		/// <inheritdoc />
+		public TValue GetValueOrDefault(TValue defaultValue = default)
+		{
+			return this.currentValue.Equals(default) ? defaultValue : this.currentValue;
+		}
+
+		///  <summary>
+		/// 	Deconstructs the result.
+		///  </summary>
+		///  <param name="isSuccessful"></param>
+		///  <param name="value"></param>
+		public void Deconstruct(out bool isSuccessful, out TValue value)
+		{
+			isSuccessful = this.IsSuccessful;
+			value = this.IsSuccessful ? this.Value : default;
+		}
+
+		///  <summary>
+		/// 	Deconstructs the result.
+		///  </summary>
+		///  <param name="isSuccessful"></param>
+		///  <param name="value"></param>
+		///  <param name="errors"></param>
+		public void Deconstruct(out bool isSuccessful, out TValue value, out IList<IError> errors)
+		{
+			isSuccessful = this.IsSuccessful;
+			value = this.IsSuccessful ? this.Value : default;
+			errors = this.Errors;
+		}
+
+		///  <summary>
+		/// 	Deconstructs the result.
+		///  </summary>
+		///  <param name="isSuccessful"></param>
+		///  <param name="value"></param>
+		///  <param name="successes"></param>
+		public void Deconstruct(out bool isSuccessful, out TValue value, out IList<ISuccess> successes)
+		{
+			isSuccessful = this.IsSuccessful;
+			value = this.IsSuccessful ? this.Value : default;
+			successes = this.Successes;
+		}
+
+		///  <summary>
+		/// 	Deconstructs the result.
+		///  </summary>
+		///  <param name="isSuccessful"></param>
+		///  <param name="value"></param>
+		///  <param name="errors"></param>
+		///  <param name="successes"></param>
+		public void Deconstruct(out bool isSuccessful, out TValue value, out IList<IError> errors, out IList<ISuccess> successes)
+		{
+			isSuccessful = this.IsSuccessful;
+			value = this.IsSuccessful ? this.Value : default;
+			errors = this.Errors;
+			successes = this.Successes;
+		}
+
+		private void ThrowIfFailed()
+		{
+			if (this.IsFailed)
+			{
+				throw new InvalidOperationException("The result is failed. The value is not set.");
+			}
 		}
 	}
 }

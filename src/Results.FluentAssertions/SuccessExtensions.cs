@@ -17,7 +17,10 @@
 		/// <exception cref="ArgumentNullException"></exception>
 		public static SuccessAssertions Should(this ISuccess success)
 		{
-			if (success == null) throw new ArgumentNullException(nameof(success));
+			if (success == null)
+			{
+				throw new ArgumentNullException(nameof(success));
+			}
 
 			return new SuccessAssertions(success);
 		}

@@ -8,8 +8,8 @@
 
     [TestFixture(TestMode.ResultWithoutValue)]
     [TestFixture(TestMode.ResultWithValue)]
-    [TestFixture(TestMode.CustomResultWithoutValue)]
-    [TestFixture(TestMode.CustomResultWithValue)]
+    //[TestFixture(TestMode.CustomResultWithoutValue)]
+    //[TestFixture(TestMode.CustomResultWithValue)]
     public class BeSuccessfulTests
     {
         private readonly TestMode mode;
@@ -31,31 +31,31 @@
 
             Action AssertResultWithValue()
             {
-                Result<int> result = Result<int>.Ok(42);
+                Result<int> result = Result.Ok(42);
 
                 return () => result.Should().BeSuccessful();
             }
 
-            Action AssertCustomResultWithoutValue()
-            {
-                CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>();
+            //Action AssertCustomResultWithoutValue()
+            //{
+            //    CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>();
 
-                return () => result.Should().BeSuccessful();
-            }
+            //    return () => result.Should().BeSuccessful();
+            //}
 
-            Action AssertCustomResultWithValue()
-            {
-                CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42);
+            //Action AssertCustomResultWithValue()
+            //{
+            //    CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42);
 
-                return () => result.Should().BeSuccessful();
-            }
+            //    return () => result.Should().BeSuccessful();
+            //}
 
             Action action = this.mode switch
             {
                 TestMode.ResultWithoutValue => AssertResultWithoutValue(),
                 TestMode.ResultWithValue => AssertResultWithValue(),
-                TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
-                TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+                //TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
+                //TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
                 _ => throw new ArgumentOutOfRangeException()
             };
 
@@ -74,31 +74,31 @@
 
             Action AssertResultWithValue()
             {
-                Result<int> result = Result<int>.Fail("error");
+                Result<int> result = Result.Fail<int>("error");
 
                 return () => result.Should().BeSuccessful();
             }
 
-            Action AssertCustomResultWithoutValue()
-            {
-                CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>("error");
+            //Action AssertCustomResultWithoutValue()
+            //{
+            //    CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>("error");
 
-                return () => result.Should().BeSuccessful();
-            }
+            //    return () => result.Should().BeSuccessful();
+            //}
 
-            Action AssertCustomResultWithValue()
-            {
-                CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>("error");
+            //Action AssertCustomResultWithValue()
+            //{
+            //    CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>("error");
 
-                return () => result.Should().BeSuccessful();
-            }
+            //    return () => result.Should().BeSuccessful();
+            //}
 
             Action action = this.mode switch
             {
                 TestMode.ResultWithoutValue => AssertResultWithoutValue(),
                 TestMode.ResultWithValue => AssertResultWithValue(),
-                TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
-                TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
+                //TestMode.CustomResultWithoutValue => AssertCustomResultWithoutValue(),
+                //TestMode.CustomResultWithValue => AssertCustomResultWithValue(),
                 _ => throw new ArgumentOutOfRangeException()
             };
 

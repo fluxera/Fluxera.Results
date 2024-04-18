@@ -7,7 +7,6 @@
     using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
     using Microsoft.Extensions.DependencyInjection;
-    using IResult = MadEyeMatt.Results.IResult;
 
 	/// <summary>
 	///		The default implementation with sane, opinionated transformation rules.
@@ -31,7 +30,7 @@
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        protected override IActionResult TransformFailedResult(IResult result)
+        protected override IActionResult TransformFailedResult(Result result)
         {
             ModelStateDictionary modelState = new ModelStateDictionary();
 
@@ -53,7 +52,7 @@
         ///  <typeparam name="TValue"></typeparam>
         ///  <param name="result"></param>
         ///  <returns></returns>
-        protected override IActionResult TransformFailedResult<TValue>(IResult<TValue> result)
+        protected override IActionResult TransformFailedResult<TValue>(Result<TValue> result)
         {
             ModelStateDictionary modelState = new ModelStateDictionary();
 

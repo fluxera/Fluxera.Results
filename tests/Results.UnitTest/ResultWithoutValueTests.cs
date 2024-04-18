@@ -209,29 +209,5 @@
 			result.Errors.Should().NotBeEmpty();
 			result.Successes.Should().BeEmpty();
 		}
-
-		[Test]
-		public void ShouldBatchResults_Ok()
-		{
-			BatchResult<Result> result = Result.Batch(Result.Ok().WithSuccess("first success"), Result.Ok());
-
-			result.IsFailed.Should().BeFalse();
-			result.IsSuccessful.Should().BeTrue();
-
-			result.Errors.Should().BeEmpty();
-			result.Successes.Should().NotBeEmpty();
-		}
-
-		[Test]
-		public void ShouldBatchResults_Fail()
-		{
-			BatchResult<Result> result = Result.Batch(Result.Ok(), Result.Fail("first error"));
-
-			result.IsFailed.Should().BeTrue();
-			result.IsSuccessful.Should().BeFalse();
-
-			result.Errors.Should().NotBeEmpty();
-			result.Successes.Should().BeEmpty();
-		}
 	}
 }

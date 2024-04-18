@@ -57,141 +57,73 @@
 					{
 						builder.MapControllers();
 
-                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/ok", (Delegate)((IHttpResultTransformer transformer) =>
-                        {
-                            Result result = Result.Ok();
-                            return result.ToHttpResult(transformer);
-                        }));
+                        builder.MapGet("api/test/ok", (IHttpResultTransformer transformer) =>
+						{
+							Result result = Result.Ok();
+							return result.ToHttpResult(transformer);
+						});
 
-                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/ok/custom", (Delegate)((IHttpResultTransformer transformer) =>
-                        {
-                            CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>();
-                            return result.ToHttpResult(transformer);
-                        }));
+                        builder.MapGet("api/test/ok/value", (IHttpResultTransformer transformer) =>
+						{
+							Result<int> result = Result.Ok(42);
+							return result.ToHttpResult(transformer);
+						});
 
-                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/ok/value", (Delegate)((IHttpResultTransformer transformer) =>
-                        {
-                            Result<int> result = Result<int>.Ok(42);
-                            return result.ToHttpResult(transformer);
-                        }));
+                        builder.MapGet("api/test/ok/async", (IHttpResultTransformer transformer) =>
+						{
+							Task<Result> CreateResult()
+							{
+								return Task.FromResult(Result.Ok());
+							}
 
-                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/ok/value/custom", (Delegate)((IHttpResultTransformer transformer) =>
-                        {
-                            CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42);
-                            return result.ToHttpResult(transformer);
-                        }));
+							Task<Result> result = CreateResult();
+							return result.ToHttpResult(transformer);
+						});
 
-                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/ok/async", (Delegate)((IHttpResultTransformer transformer) =>
-                        {
-                            Task<Result> CreateResult()
-                            {
-                                return Task.FromResult(Result.Ok());
-                            }
+						builder.MapGet("api/test/ok/value/async", (IHttpResultTransformer transformer) =>
+						{
+							Task<Result<int>> CreateResult()
+							{
+								return Task.FromResult(Result.Ok(42));
+							}
 
-                            Task<Result> result = CreateResult();
-                            return result.ToHttpResult(transformer);
-                        }));
+							Task<Result<int>> result = CreateResult();
+							return result.ToHttpResult(transformer);
+						});
 
-                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/ok/async/custom", (Delegate)((IHttpResultTransformer transformer) =>
-                        {
-                            Task<CustomResultWithoutValue> CreateResult()
-                            {
-                                return Task.FromResult(Result.Ok<CustomResultWithoutValue>());
-                            }
+						builder.MapGet("api/test/fail", (IHttpResultTransformer transformer) =>
+						{
+							Result result = Result.Fail("An error occurred.");
+							return result.ToHttpResult(transformer);
+						});
 
-                            Task<CustomResultWithoutValue> result = CreateResult();
-                            return result.ToHttpResult(transformer);
-                        }));
+                        builder.MapGet("api/test/fail/value", (IHttpResultTransformer transformer) =>
+						{
+							Result<int> result = Result.Fail<int>("An error occurred.");
+							return result.ToHttpResult(transformer);
+						});
 
-                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/ok/value/async", (Delegate)((IHttpResultTransformer transformer) =>
-                        {
-                            Task<Result<int>> CreateResult()
-                            {
-                                return Task.FromResult(Result<int>.Ok(42));
-                            }
+                        builder.MapGet("api/test/fail/async", (IHttpResultTransformer transformer) =>
+						{
+							Task<Result> CreateResult()
+							{
+								return Task.FromResult(Result.Fail("An error occurred."));
+							}
 
-                            Task<Result<int>> result = CreateResult();
-                            return result.ToHttpResult<Result<int>, int>(transformer);
-                        }));
+							Task<Result> result = CreateResult();
+							return result.ToHttpResult(transformer);
+						});
 
-                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/ok/value/async/custom", (Delegate)((IHttpResultTransformer transformer) =>
-                        {
-                            Task<CustomResultWithValue> CreateResult()
-                            {
-                                return Task.FromResult(Result<int>.Ok<CustomResultWithValue>(42));
-                            }
+						builder.MapGet("api/test/fail/value/async", (IHttpResultTransformer transformer) =>
+						{
+							Task<Result<int>> CreateResult()
+							{
+								return Task.FromResult(Result.Fail<int>("An error occurred."));
+							}
 
-                            Task<CustomResultWithValue> result = CreateResult();
-                            return result.ToHttpResult<CustomResultWithValue, int>(transformer);
-                        }));
-
-                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/fail", (Delegate)((IHttpResultTransformer transformer) =>
-                        {
-                            Result result = Result.Fail("An error occurred.");
-                            return result.ToHttpResult(transformer);
-                        }));
-
-                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/fail/custom", (Delegate)((IHttpResultTransformer transformer) =>
-                        {
-                            CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>("An error occurred.");
-                            return result.ToHttpResult(transformer);
-                        }));
-
-                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/fail/value", (Delegate)((IHttpResultTransformer transformer) =>
-                        {
-                            Result<int> result = Result<int>.Fail("An error occurred.");
-                            return result.ToHttpResult(transformer);
-                        }));
-
-                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/fail/value/custom", (Delegate)((IHttpResultTransformer transformer) =>
-                        {
-                            CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>("An error occurred.");
-                            return result.ToHttpResult(transformer);
-                        }));
-
-                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/fail/async", (Delegate)((IHttpResultTransformer transformer) =>
-                        {
-                            Task<Result> CreateResult()
-                            {
-                                return Task.FromResult(Result.Fail("An error occurred."));
-                            }
-
-                            Task<Result> result = CreateResult();
-                            return result.ToHttpResult(transformer);
-                        }));
-
-                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/fail/async/custom", (Delegate)((IHttpResultTransformer transformer) =>
-                        {
-                            Task<CustomResultWithoutValue> CreateResult()
-                            {
-                                return Task.FromResult(Result.Fail<CustomResultWithoutValue>("An error occurred."));
-                            }
-
-                            Task<CustomResultWithoutValue> result = CreateResult();
-                            return result.ToHttpResult(transformer);
-                        }));
-
-                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/fail/value/async", (Delegate)((IHttpResultTransformer transformer) =>
-                        {
-                            Task<Result<int>> CreateResult()
-                            {
-                                return Task.FromResult(Result<int>.Fail("An error occurred."));
-                            }
-
-                            Task<Result<int>> result = CreateResult();
-                            return result.ToHttpResult<Result<int>, int>(transformer);
-                        }));
-
-                        EndpointRouteBuilderExtensions.MapGet(builder, (string)"api/test/fail/value/async/custom", (Delegate)((IHttpResultTransformer transformer) =>
-                        {
-                            Task<CustomResultWithValue> CreateResult()
-                            {
-                                return Task.FromResult(Result<int>.Fail<CustomResultWithValue>("An error occurred."));
-                            }
-
-                            Task<CustomResultWithValue> result = CreateResult();
-                            return result.ToHttpResult<CustomResultWithValue, int>(transformer);
-                        }));
+							Task<Result<int>> result = CreateResult();
+							return result.ToHttpResult(transformer);
+						});
 					});
 				});
 
@@ -215,14 +147,6 @@
 		}
 
 		[Test]
-		public async Task ShouldReturnStatusCode200_ForOkCustomResultWithoutValue()
-		{
-            string route = this.mode == "Controller" ? "test/ok/custom" : "api/test/ok/custom";
-            HttpResponseMessage response = await this.testClient.GetAsync(route);
-			response.StatusCode.Should().Be(HttpStatusCode.OK);
-		}
-
-		[Test]
 		public async Task ShouldReturnStatusCode200_ForOkResultWithValue()
 		{
             string route = this.mode == "Controller" ? "test/ok/value" : "api/test/ok/value";
@@ -234,28 +158,9 @@
 		}
 
 		[Test]
-		public async Task ShouldReturnStatusCode200_ForOkCustomResultWithValue()
-		{
-            string route = this.mode == "Controller" ? "test/ok/value/custom" : "api/test/ok/value/custom";
-            HttpResponseMessage response = await this.testClient.GetAsync(route);
-			response.StatusCode.Should().Be(HttpStatusCode.OK);
-
-			int value = await response.Content.ReadFromJsonAsync<int>();
-			value.Should().Be(42);
-		}
-
-		[Test]
 		public async Task ShouldReturnStatusCode200_ForOkResultWithoutValueAsync()
 		{
             string route = this.mode == "Controller" ? "test/ok/async" : "api/test/ok/async";
-            HttpResponseMessage response = await this.testClient.GetAsync(route);
-			response.StatusCode.Should().Be(HttpStatusCode.OK);
-		}
-
-		[Test]
-		public async Task ShouldReturnStatusCode200_ForOkCustomResultWithoutValueAsync()
-		{
-            string route = this.mode == "Controller" ? "test/ok/async/custom" : "api/test/ok/async/custom";
             HttpResponseMessage response = await this.testClient.GetAsync(route);
 			response.StatusCode.Should().Be(HttpStatusCode.OK);
 		}
@@ -285,35 +190,9 @@
 		}
 
 		[Test]
-		public async Task ShouldReturnStatusCode400_ForFailedCustomResultWithoutValue()
-		{
-            string route = this.mode == "Controller" ? "test/fail/custom" : "api/test/fail/custom";
-            HttpResponseMessage response = await this.testClient.GetAsync(route);
-			response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-
-            ValidationProblemDetails problemDetails = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
-			problemDetails.Should().NotBeNull();
-            problemDetails.Errors.Should().HaveCount(1);
-			problemDetails.Should().HaveError("An error occurred.");
-		}
-
-		[Test]
 		public async Task ShouldReturnStatusCode400_ForFailedResultWithValue()
 		{
             string route = this.mode == "Controller" ? "test/fail/value" : "api/test/fail/value";
-            HttpResponseMessage response = await this.testClient.GetAsync(route);
-			response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-
-            ValidationProblemDetails problemDetails = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
-			problemDetails.Should().NotBeNull();
-            problemDetails.Errors.Should().HaveCount(1);
-			problemDetails.Should().HaveError("An error occurred.");
-		}
-
-		[Test]
-		public async Task ShouldReturnStatusCode400_ForFailedCustomResultWithValue()
-		{
-            string route = this.mode == "Controller" ? "test/fail/value/custom" : "api/test/fail/value/custom";
             HttpResponseMessage response = await this.testClient.GetAsync(route);
 			response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
@@ -336,19 +215,6 @@
 		}
 
 		[Test]
-		public async Task ShouldReturnStatusCode400_ForFailedCustomResultWithoutValueAsync()
-		{
-            string route = this.mode == "Controller" ? "test/fail/async/custom" : "api/test/fail/async/custom";
-            HttpResponseMessage response = await this.testClient.GetAsync(route);
-            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-
-			ValidationProblemDetails problemDetails = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
-			problemDetails.Should().NotBeNull();
-            problemDetails.Errors.Should().HaveCount(1);
-			problemDetails.Should().HaveError("An error occurred.");
-		}
-
-		[Test]
 		public async Task ShouldReturnStatusCode400_ForFailedResultWithValueAsync()
 		{
             string route = this.mode == "Controller" ? "test/fail/value/async" : "api/test/fail/value/async";
@@ -356,19 +222,6 @@
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
 			ValidationProblemDetails problemDetails = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
-			problemDetails.Should().NotBeNull();
-            problemDetails.Errors.Should().HaveCount(1);
-			problemDetails.Should().HaveError("An error occurred.");
-		}
-
-		[Test]
-		public async Task ShouldReturnStatusCode400_ForFailedCustomResultWithValueAsync()
-		{
-            string route = this.mode == "Controller" ? "test/fail/value/async/custom" : "api/test/fail/value/async/custom";
-            HttpResponseMessage response = await this.testClient.GetAsync(route);
-			response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-
-            ValidationProblemDetails problemDetails = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
 			problemDetails.Should().NotBeNull();
             problemDetails.Errors.Should().HaveCount(1);
 			problemDetails.Should().HaveError("An error occurred.");

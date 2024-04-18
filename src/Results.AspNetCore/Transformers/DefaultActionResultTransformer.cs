@@ -11,7 +11,7 @@
     public class DefaultActionResultTransformer : IActionResultTransformer
     {
         /// <inheritdoc />
-        public IActionResult Transform(IResult result)
+        public IActionResult Transform(Result result)
         {
             return result.IsFailed
                 ? this.TransformFailedResult(result)
@@ -19,7 +19,7 @@
         }
 
         /// <inheritdoc />
-        public IActionResult Transform<TValue>(IResult<TValue> result)
+        public IActionResult Transform<TValue>(Result<TValue> result)
         {
             return result.IsFailed
                 ? this.TransformFailedResult(result)
@@ -31,7 +31,7 @@
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        protected virtual IActionResult TransformSuccessfulResult(IResult result)
+        protected virtual IActionResult TransformSuccessfulResult(Result result)
         {
             return new OkResult();
         }
@@ -42,7 +42,7 @@
         ///  <typeparam name="TValue"></typeparam>
         ///  <param name="result"></param>
         ///  <returns></returns>
-        protected virtual IActionResult TransformSuccessfulResult<TValue>(IResult<TValue> result)
+        protected virtual IActionResult TransformSuccessfulResult<TValue>(Result<TValue> result)
         {
             return new OkObjectResult(result.GetValueOrDefault());
         }
@@ -52,7 +52,7 @@
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        protected virtual IActionResult TransformFailedResult(IResult result)
+        protected virtual IActionResult TransformFailedResult(Result result)
         {
             ModelStateDictionary modelState = new ModelStateDictionary();
 
@@ -70,7 +70,7 @@
         ///  <typeparam name="TValue"></typeparam>
         ///  <param name="result"></param>
         ///  <returns></returns>
-        protected virtual IActionResult TransformFailedResult<TValue>(IResult<TValue> result)
+        protected virtual IActionResult TransformFailedResult<TValue>(Result<TValue> result)
         {
             ModelStateDictionary modelState = new ModelStateDictionary();
 
