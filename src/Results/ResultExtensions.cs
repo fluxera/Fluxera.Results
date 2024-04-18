@@ -186,10 +186,6 @@
 			return result;
 		}
 
-
-
-
-
 		///  <summary>
 		/// 	Adds a success to the result.
 		///  </summary>

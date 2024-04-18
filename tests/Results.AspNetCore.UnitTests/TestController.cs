@@ -25,26 +25,12 @@
 			return result.ToActionResult(this.transformer);
 		}
 
-		//[HttpGet("ok/custom")]
-		//public IActionResult OkCustom()
-		//{
-		//	CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>();
-		//	return result.ToActionResult(this.transformer);
-		//}
-
 		[HttpGet("ok/value")]
 		public IActionResult OkValue()
 		{
 			Result<int> result = Result.Ok(42);
 			return result.ToActionResult(this.transformer);
 		}
-
-		//[HttpGet("ok/value/custom")]
-		//public IActionResult OkValueCustom()
-		//{
-		//	CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42);
-		//	return result.ToActionResult(this.transformer);
-		//}
 
 		[HttpGet("ok/async")]
 		public Task<IActionResult> OkAsync()
@@ -58,18 +44,6 @@
 			return result.ToActionResult(this.transformer);
 		}
 
-		//[HttpGet("ok/async/custom")]
-		//public Task<IActionResult> OkAsyncCustom()
-		//{
-		//	Task<CustomResultWithoutValue> CreateResult()
-		//	{
-		//		return Task.FromResult(Result.Ok<CustomResultWithoutValue>());
-		//	}
-
-		//	Task<CustomResultWithoutValue> result = CreateResult();
-		//	return result.ToActionResult(this.transformer);
-		//}
-
 		[HttpGet("ok/value/async")]
 		public Task<IActionResult> OkValueAsync()
 		{
@@ -82,18 +56,6 @@
 			return result.ToActionResult(this.transformer);
 		}
 
-		//[HttpGet("ok/value/async/custom")]
-		//public Task<IActionResult> OkValueAsyncCustom()
-		//{
-		//	Task<CustomResultWithValue> CreateResult()
-		//	{
-		//		return Task.FromResult(Result<int>.Ok<CustomResultWithValue>(42));
-		//	}
-
-		//	Task<CustomResultWithValue> result = CreateResult();
-		//	return result.ToActionResult<CustomResultWithValue, int>(this.transformer);
-		//}
-
 		[HttpGet("fail")]
 		public IActionResult Fail()
 		{
@@ -101,26 +63,12 @@
 			return result.ToActionResult(this.transformer);
 		}
 
-		//[HttpGet("fail/custom")]
-		//public IActionResult FailCustom()
-		//{
-		//	CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>("An error occurred.");
-		//	return result.ToActionResult(this.transformer);
-		//}
-
 		[HttpGet("fail/value")]
 		public IActionResult FailValue()
 		{
 			Result<int> result = Result.Fail<int>("An error occurred.");
 			return result.ToActionResult(this.transformer);
 		}
-
-		//[HttpGet("fail/value/custom")]
-		//public IActionResult FailValueCustom()
-		//{
-		//	CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>("An error occurred.");
-		//	return result.ToActionResult(this.transformer);
-		//}
 
 		[HttpGet("fail/async")]
 		public Task<IActionResult> FailAsync()
@@ -134,18 +82,6 @@
 			return result.ToActionResult(this.transformer);
 		}
 
-		//[HttpGet("fail/async/custom")]
-		//public Task<IActionResult> FailAsyncCustom()
-		//{
-		//	Task<CustomResultWithoutValue> CreateResult()
-		//	{
-		//		return Task.FromResult(Result.Fail<CustomResultWithoutValue>("An error occurred."));
-		//	}
-
-		//	Task<CustomResultWithoutValue> result = CreateResult();
-		//	return result.ToActionResult(this.transformer);
-		//}
-
 		[HttpGet("fail/value/async")]
 		public Task<IActionResult> FailValueAsync()
 		{
@@ -157,17 +93,5 @@
 			Task<Result<int>> result = CreateResult();
 			return result.ToActionResult(this.transformer);
 		}
-
-		//[HttpGet("fail/value/async/custom")]
-		//public Task<IActionResult> FailValueAsyncCustom()
-		//{
-		//	Task<CustomResultWithValue> CreateResult()
-		//	{
-		//		return Task.FromResult(Result<int>.Fail<CustomResultWithValue>("An error occurred."));
-		//	}
-
-		//	Task<CustomResultWithValue> result = CreateResult();
-		//	return result.ToActionResult<CustomResultWithValue, int>(this.transformer);
-		//}
 	}
 }

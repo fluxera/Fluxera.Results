@@ -9,15 +9,28 @@
 	///		A default result type without a value.
 	/// </summary>
 	[PublicAPI]
-	public class Result : Result<Unit>
+	public sealed class Result : IResult
 	{
 		/// <summary>
 		///		Initializes a new instance of the <see cref="Result"/> type.
 		/// </summary>
 		public Result()
 		{
-			this.WithValue(new Unit());
+			this.Errors = new List<IError>();
+			this.Successes = new List<ISuccess>();
 		}
+
+		/// <inheritdoc />
+		public bool IsFailed => this.Errors.Any();
+
+		/// <inheritdoc />
+		public bool IsSuccessful => !this.IsFailed;
+
+		/// <inheritdoc />
+		public IList<IError> Errors { get; }
+
+		/// <inheritdoc />
+		public IList<ISuccess> Successes { get; }
 
 		/// <summary>
 		///		Creates a successful result.
@@ -257,13 +270,48 @@
 
 			return result;
 		}
+
+		/// <summary>
+		///		Deconstructs the result.
+		/// </summary>
+		/// <param name="isSuccessful"></param>
+		/// <param name="errors"></param>
+		public void Deconstruct(out bool isSuccessful, out IList<IError> errors)
+		{
+			isSuccessful = this.IsSuccessful;
+			errors = this.Errors;
+		}
+
+		/// <summary>
+		///		Deconstructs the result.
+		/// </summary>
+		/// <param name="isSuccessful"></param>
+		/// <param name="successes"></param>
+		public void Deconstruct(out bool isSuccessful, out IList<ISuccess> successes)
+		{
+			isSuccessful = this.IsSuccessful;
+			successes = this.Successes;
+		}
+
+		///  <summary>
+		/// 		Deconstructs the result.
+		///  </summary>
+		///  <param name="isSuccessful"></param>
+		///  <param name="errors"></param>
+		///  <param name="successes"></param>
+		public void Deconstruct(out bool isSuccessful, out IList<IError> errors, out IList<ISuccess> successes)
+		{
+			isSuccessful = this.IsSuccessful;
+			errors = this.Errors;
+			successes = this.Successes;
+		}
 	}
 
 	/// <summary>
 	///		A default result type with a value.
 	/// </summary>
 	[PublicAPI]
-	public class Result<TValue> : IResult<TValue>
+	public sealed class Result<TValue> : IResult<TValue>
 	{
 		private TValue currentValue;
 
@@ -309,41 +357,6 @@
 		public TValue GetValueOrDefault(TValue defaultValue = default)
 		{
 			return this.currentValue.Equals(default) ? defaultValue : this.currentValue;
-		}
-
-		/// <summary>
-		///		Deconstructs the result.
-		/// </summary>
-		/// <param name="isSuccessful"></param>
-		/// <param name="errors"></param>
-		public void Deconstruct(out bool isSuccessful, out IList<IError> errors)
-		{
-			isSuccessful = this.IsSuccessful;
-			errors = this.Errors;
-		}
-
-		/// <summary>
-		///		Deconstructs the result.
-		/// </summary>
-		/// <param name="isSuccessful"></param>
-		/// <param name="successes"></param>
-		public void Deconstruct(out bool isSuccessful, out IList<ISuccess> successes)
-		{
-			isSuccessful = this.IsSuccessful;
-			successes = this.Successes;
-		}
-
-		///  <summary>
-		/// 		Deconstructs the result.
-		///  </summary>
-		///  <param name="isSuccessful"></param>
-		///  <param name="errors"></param>
-		///  <param name="successes"></param>
-		public void Deconstruct(out bool isSuccessful, out IList<IError> errors, out IList<ISuccess> successes)
-		{
-			isSuccessful = this.IsSuccessful;
-			errors = this.Errors;
-			successes = this.Successes;
 		}
 
 		///  <summary>

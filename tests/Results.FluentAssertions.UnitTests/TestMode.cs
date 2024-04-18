@@ -3,8 +3,6 @@
 	public enum TestMode
 	{
 		ResultWithoutValue,
-		ResultWithValue,
-		//CustomResultWithoutValue,
-		//CustomResultWithValue
+		ResultWithValue
 	}
 }

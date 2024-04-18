@@ -35,30 +35,6 @@
 			actionResult.Should().BeOfType<OkObjectResult>().Which.Value.Should().Be(42);
 		}
 
-		//[Test]
-		//public void ShouldTransformCustomOkResultWithoutValue()
-		//{
-		//	CustomResultWithoutValue result = Result.Ok<CustomResultWithoutValue>();
-
-		//	IActionResultTransformer transformer = new DefaultActionResultTransformer();
-		//	IActionResult actionResult = transformer.Transform(result);
-
-		//	actionResult.Should().NotBeNull();
-		//	actionResult.Should().BeOfType<OkResult>();
-		//}
-
-		//[Test]
-		//public void ShouldTransformCustomOkResultWithValue()
-		//{
-		//	CustomResultWithValue result = Result<int>.Ok<CustomResultWithValue>(42);
-
-		//	IActionResultTransformer transformer = new DefaultActionResultTransformer();
-		//	IActionResult actionResult = transformer.Transform(result);
-
-		//	actionResult.Should().NotBeNull();
-		//	actionResult.Should().BeOfType<OkObjectResult>();
-		//}
-
 		[Test]
 		public void ShouldTransformFailedResultWithoutValue()
 		{
@@ -100,41 +76,5 @@
 			string[] value = (string[])serializableError.Values.First();
 			value[0].Should().Be("An error occurred.");
 		}
-
-		//[Test]
-		//public void ShouldTransformCustomFailedResultWithoutValue()
-		//{
-		//	CustomResultWithoutValue result = Result.Fail<CustomResultWithoutValue>("An error occurred.");
-
-		//	IActionResultTransformer transformer = new DefaultActionResultTransformer();
-		//	IActionResult actionResult = transformer.Transform(result);
-
-		//	BadRequestObjectResult badRequestObjectResult = (BadRequestObjectResult)actionResult;
-		//	badRequestObjectResult.Value.Should().BeOfType<SerializableError>();
-
-		//	SerializableError serializableError = (SerializableError)badRequestObjectResult.Value;
-		//	serializableError.Should().NotBeNull();
-		//	serializableError.Should().HaveCount(1);
-		//	string[] value = (string[])serializableError.Values.First();
-		//	value[0].Should().Be("An error occurred.");
-		//}
-
-		//[Test]
-		//public void ShouldTransformCustomFailedResultWithValue()
-		//{
-		//	CustomResultWithValue result = Result<int>.Fail<CustomResultWithValue>("An error occurred.");
-
-		//	IActionResultTransformer transformer = new DefaultActionResultTransformer();
-		//	IActionResult actionResult = transformer.Transform(result);
-
-		//	BadRequestObjectResult badRequestObjectResult = (BadRequestObjectResult)actionResult;
-		//	badRequestObjectResult.Value.Should().BeOfType<SerializableError>();
-
-		//	SerializableError serializableError = (SerializableError)badRequestObjectResult.Value;
-		//	serializableError.Should().NotBeNull();
-		//	serializableError.Should().HaveCount(1);
-		//	string[] value = (string[])serializableError.Values.First();
-		//	value[0].Should().Be("An error occurred.");
-		//}
 	}
 }

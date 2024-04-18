@@ -7,7 +7,10 @@
 	{
 		public static ValidationProblemDetailsAssertions Should(this ValidationProblemDetails problemDetails)
 		{
-			if (problemDetails == null) throw new ArgumentNullException(nameof(problemDetails));
+			if (problemDetails == null)
+			{
+				throw new ArgumentNullException(nameof(problemDetails));
+			}
 
 			return new ValidationProblemDetailsAssertions(problemDetails);
 		}
