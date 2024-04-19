@@ -222,5 +222,17 @@
 			result.Errors.Should().NotBeEmpty();
 			result.Successes.Should().BeEmpty();
 		}
+
+		[Test]
+		public void ShouldGetDefaultValueForFailResult()
+		{
+			Result<int> intResult = Result.Fail<int>("error");
+			int intValue = intResult.GetValueOrDefault();
+			intValue.Should().Be(0);
+
+			Result<string> stringResult = Result.Fail<string>("error");
+			string stringValue = stringResult.GetValueOrDefault();
+			stringValue.Should().Be(null);
+		}
 	}
 }

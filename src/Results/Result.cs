@@ -356,7 +356,7 @@
 		/// <inheritdoc />
 		public TValue GetValueOrDefault(TValue defaultValue = default)
 		{
-			return this.currentValue.Equals(default) ? defaultValue : this.currentValue;
+			return this.currentValue == null || this.currentValue.Equals(default) ? defaultValue : this.currentValue;
 		}
 
 		///  <summary>
