@@ -2,27 +2,27 @@
 namespace MadEyeMatt.Results.AspNetCore
 {
     using JetBrains.Annotations;
-    using IHttpResult = Microsoft.AspNetCore.Http.IResult;
+	using Microsoft.AspNetCore.Http;
 
 	/// <summary>
-	///		A contract for transformer services that transform a <see cref="Result"/> to <see cref="IHttpResult"/>.
+	///		A contract for transformer services that transform a <see cref="Result"/> to <see cref="IResult"/>.
 	/// </summary>
 	[PublicAPI]
     public interface IHttpResultTransformer
     {
 		/// <summary>
-		///		Transforms the given result to <see cref="IHttpResult"/>.
+		///		Transforms the given result to <see cref="IResult"/>.
 		/// </summary>
 		/// <param name="result"></param>
 		/// <returns></returns>
-		IHttpResult Transform(IResult result);
+		IResult Transform(Result result);
 
 		/// <summary>
-		///		Transforms the given result to <see cref="IHttpResult"/>.
+		///		Transforms the given result to <see cref="IResult"/>.
 		/// </summary>
 		/// <param name="result"></param>
 		/// <returns></returns>
-		IHttpResult Transform<TValue>(IResult<TValue> result);
+		IResult Transform<TValue>(Result<TValue> result);
     }
 }
 #endif
