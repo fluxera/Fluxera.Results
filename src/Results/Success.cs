@@ -32,7 +32,6 @@
 		/// <inheritdoc />
 		public IDictionary<string, object> Metadata { get; }
 
-
 		/// <inheritdoc />
 		public ISuccess WithMessage(string message)
 		{

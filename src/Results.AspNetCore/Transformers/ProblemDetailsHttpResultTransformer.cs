@@ -9,8 +9,6 @@ namespace MadEyeMatt.Results.AspNetCore.Transformers
     using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.AspNetCore.Mvc.ModelBinding;
     using Microsoft.Extensions.DependencyInjection;
-    using IResult = MadEyeMatt.Results.IResult;
-    using IHttpResult = Microsoft.AspNetCore.Http.IResult;
 
 	/// <summary>
 	///		The default implementation with sane, opinionated transformation rules.
@@ -34,7 +32,7 @@ namespace MadEyeMatt.Results.AspNetCore.Transformers
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        protected override IHttpResult TransformFailedResult(IResult result)
+        protected override IResult TransformFailedResult(Result result)
         {
             ModelStateDictionary modelState = new ModelStateDictionary();
 
@@ -56,7 +54,7 @@ namespace MadEyeMatt.Results.AspNetCore.Transformers
         ///  <typeparam name="TValue"></typeparam>
         ///  <param name="result"></param>
         ///  <returns></returns>
-        protected override IHttpResult TransformFailedResult<TValue>(IResult<TValue> result)
+        protected override IResult TransformFailedResult<TValue>(Result<TValue> result)
         {
             ModelStateDictionary modelState = new ModelStateDictionary();
 

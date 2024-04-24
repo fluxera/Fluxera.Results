@@ -9,7 +9,7 @@
 	///		A default result type without a value.
 	/// </summary>
 	[PublicAPI]
-	public sealed class Result : IResult
+	public sealed class Result
 	{
 		/// <summary>
 		///		Initializes a new instance of the <see cref="Result"/> type.
@@ -20,17 +20,119 @@
 			this.Successes = new List<ISuccess>();
 		}
 
-		/// <inheritdoc />
+		/// <summary>
+		///		Flag, indicating that there is at least one error.
+		/// </summary>
 		public bool IsFailed => this.Errors.Any();
 
-		/// <inheritdoc />
+		/// <summary>
+		///		Flag, indicating that there are no errors.
+		/// </summary>
 		public bool IsSuccessful => !this.IsFailed;
 
-		/// <inheritdoc />
+		/// <summary>
+		///		Gets the existing errors.
+		/// </summary>
 		public IList<IError> Errors { get; }
 
-		/// <inheritdoc />
+		/// <summary>
+		///		Gets the existing successes.
+		/// </summary>
 		public IList<ISuccess> Successes { get; }
+
+		///  <summary>
+		/// 	Adds an error to the result.
+		///  </summary>
+		///  <param name="error"></param>
+		///  <returns></returns>
+		public Result WithError(IError error)
+		{
+			this.Errors.Add(error);
+			return this;
+		}
+
+		///  <summary>
+		/// 	Adds an error message to the result.
+		///  </summary>
+		///  <param name="errorMessage"></param>
+		///  <returns></returns>
+		public Result WithError(string errorMessage)
+		{
+			return this.WithError(new Error(errorMessage));
+		}
+
+		///  <summary>
+		/// 	Adds multiple errors to the result.
+		///  </summary>
+		///  <param name="errors"></param>
+		///  <returns></returns>
+		public Result WithErrors(IEnumerable<IError> errors)
+		{
+			foreach (IError error in errors ?? [])
+			{
+				this.Errors.Add(error);
+			}
+
+			return this;
+		}
+
+		///  <summary>
+		/// 	Adds multiple error messages to the result.
+		///  </summary>
+		///  <param name="errorMessages"></param>
+		///  <returns></returns>
+		public Result WithErrors(IEnumerable<string> errorMessages)
+		{
+			errorMessages ??= [];
+			return this.WithErrors(errorMessages.Select(x => new Error(x)));
+		}
+
+		///  <summary>
+		/// 	Adds a success to the result.
+		///  </summary>
+		///  <param name="success"></param>
+		///  <returns></returns>
+		public Result WithSuccess(ISuccess success)
+		{
+			this.Successes.Add(success);
+			return this;
+		}
+
+		///  <summary>
+		/// 	Adds a success message to the result.
+		///  </summary>
+		///  <param name="successMessage"></param>
+		///  <returns></returns>
+		public Result WithSuccess(string successMessage)
+		{
+			return this.WithSuccess(new Success(successMessage));
+		}
+
+		///  <summary>
+		/// 	Adds multiple successes to the result.
+		///  </summary>
+		///  <param name="successes"></param>
+		///  <returns></returns>
+		public Result WithSuccesses(IEnumerable<ISuccess> successes)
+		{
+			foreach (ISuccess success in successes ?? [])
+			{
+				this.Successes.Add(success);
+			}
+
+			return this;
+		}
+
+		///  <summary>
+		/// 	Adds multiple success messages to the result.
+		///  </summary>
+		///  <param name="successMessages"></param>
+		///  <returns></returns>
+		public Result WithSuccesses(IEnumerable<string> successMessages)
+		{
+			successMessages ??= [];
+			return this.WithSuccesses(successMessages.Select(x => new Success(x)));
+		}
 
 		/// <summary>
 		///		Creates a successful result.
@@ -311,7 +413,7 @@
 	///		A default result type with a value.
 	/// </summary>
 	[PublicAPI]
-	public sealed class Result<TValue> : IResult<TValue>
+	public sealed class Result<TValue>
 	{
 		private TValue currentValue;
 
@@ -324,19 +426,32 @@
 			this.Successes = new List<ISuccess>();
 		}
 
-		/// <inheritdoc />
+		/// <summary>
+		///		Flag, indicating that there is at least one error.
+		/// </summary>
 		public bool IsFailed => this.Errors.Any();
 
-		/// <inheritdoc />
+		/// <summary>
+		///		Flag, indicating that there are no errors.
+		/// </summary>
 		public bool IsSuccessful => !this.IsFailed;
 
-		/// <inheritdoc />
+		/// <summary>
+		///		Gets the existing errors.
+		/// </summary>
 		public IList<IError> Errors { get; }
 
-		/// <inheritdoc />
+		/// <summary>
+		///		Gets the existing successes.
+		/// </summary>
 		public IList<ISuccess> Successes { get; }
 
-		/// <inheritdoc />
+		/// <summary>
+		///		Gets the value.
+		/// </summary>
+		/// <remarks>
+		///		If the result is failed, an exception is thrown, because a failed result has no value.
+		/// </remarks>
 		public TValue Value
 		{
 			get
@@ -353,10 +468,121 @@
 			}
 		}
 
-		/// <inheritdoc />
+		/// <summary>
+		///		Gets the value or its default value.
+		/// </summary>
+		/// <remarks>
+		///		If the result is failed, the default value is returned.
+		/// </remarks>
+		/// <returns></returns>
 		public TValue GetValueOrDefault(TValue defaultValue = default)
 		{
 			return this.currentValue == null || this.currentValue.Equals(default) ? defaultValue : this.currentValue;
+		}
+
+		///  <summary>
+		/// 	Sets the value of the result.
+		///  </summary>
+		///  <param name="value"></param>
+		///  <returns></returns>
+		public Result<TValue> WithValue(TValue value)
+		{
+			this.Value = value;
+			return this;
+		}
+
+		///  <summary>
+		/// 	Adds an error to the result.
+		///  </summary>
+		///  <param name="error"></param>
+		///  <returns></returns>
+		public Result<TValue> WithError(IError error)
+		{
+			this.Errors.Add(error);
+			return this;
+		}
+
+		///  <summary>
+		/// 	Adds an error message to the result.
+		///  </summary>
+		///  <param name="errorMessage"></param>
+		///  <returns></returns>
+		public Result<TValue> WithError(string errorMessage)
+		{
+			return this.WithError(new Error(errorMessage));
+		}
+
+		///  <summary>
+		/// 	Adds multiple errors to the result.
+		///  </summary>
+		///  <param name="errors"></param>
+		///  <returns></returns>
+		public Result<TValue> WithErrors(IEnumerable<IError> errors)
+		{
+			foreach (IError error in errors ?? [])
+			{
+				this.Errors.Add(error);
+			}
+
+			return this;
+		}
+
+		///  <summary>
+		/// 	Adds multiple error messages to the result.
+		///  </summary>
+		///  <param name="errorMessages"></param>
+		///  <returns></returns>
+		public Result<TValue> WithErrors(IEnumerable<string> errorMessages)
+		{
+			errorMessages ??= [];
+			return this.WithErrors(errorMessages.Select(x => new Error(x)));
+		}
+
+		///  <summary>
+		/// 	Adds a success to the result.
+		///  </summary>
+		///  <param name="success"></param>
+		///  <returns></returns>
+		public Result<TValue> WithSuccess(ISuccess success)
+		{
+			this.Successes.Add(success);
+			return this;
+		}
+
+		///  <summary>
+		/// 	Adds a success message to the result.
+		///  </summary>
+		///  <param name="successMessage"></param>
+		///  <returns></returns>
+		public Result<TValue> WithSuccess(string successMessage)
+		{
+			return this.WithSuccess(new Success(successMessage));
+		}
+
+		///  <summary>
+		/// 	Adds multiple successes to the result.
+		///  </summary>
+		///  <param name="successes"></param>
+		///  <returns></returns>
+		public Result<TValue> WithSuccesses(IEnumerable<ISuccess> successes)
+		{
+			foreach (ISuccess success in successes ?? [])
+			{
+				this.Successes.Add(success);
+			}
+
+			return this;
+		}
+
+		///  <summary>
+		/// 	Adds multiple success messages to the result.
+		///  </summary>
+		///  <param name="successMessages"></param>
+		///  <returns></returns>
+		public Result<TValue> WithSuccesses(IEnumerable<string> successMessages)
+		{
+			successMessages ??= [];
+			return this.WithSuccesses(successMessages.Select(x => new Success(x)));
 		}
 
 		///  <summary>

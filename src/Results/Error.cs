@@ -47,7 +47,7 @@
 		public IError WithException(Exception exception)
 		{
 			this.Exception = exception;
-			return this.WithMessage(exception.Message);
+			return this;
 		}
 
 		/// <inheritdoc />
