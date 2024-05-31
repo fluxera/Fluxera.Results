@@ -3,7 +3,9 @@
 	using System.Threading.Tasks;
 	using Fluxera.Results.AspNetCore.Transformers;
 	using JetBrains.Annotations;
+#if NET7_0_OR_GREATER
 	using Microsoft.AspNetCore.Http;
+#endif
 	using Microsoft.AspNetCore.Mvc;
 
 	/// <summary>
@@ -64,7 +66,7 @@
 
 #if NET7_0_OR_GREATER
 		///  <summary>
-		/// 	Converts the given <see cref="Result"/> to <see cref="IHttpResult"/>.
+		/// 	Converts the given <see cref="Result"/> to <see cref="IResult"/>.
 		///  </summary>
 		///  <param name="result"></param>
 		///  <param name="transformer"></param>
@@ -77,7 +79,7 @@
         }
 
 		///  <summary>
-		/// 	Converts the given <see cref="Result"/> to <see cref="IHttpResult"/>.
+		/// 	Converts the given <see cref="Result"/> to <see cref="IResult"/>.
 		///  </summary>
 		///  <param name="resultTask"></param>
 		///  <param name="transformer"></param>
@@ -89,7 +91,7 @@
 		}
 
 		///  <summary>
-		/// 	Converts the given <see cref="Result"/> to <see cref="IHttpResult"/>.
+		/// 	Converts the given <see cref="Result"/> to <see cref="IResult"/>.
 		///  </summary>
 		///  <param name="resultTask"></param>
 		///  <param name="transformer"></param>
@@ -103,7 +105,7 @@
         }
 
 		///  <summary>
-		/// 		Converts the given <see cref="Result{TValue}"/> to <see cref="IHttpResult"/>.
+		/// 		Converts the given <see cref="Result{TValue}"/> to <see cref="IResult"/>.
 		///  </summary>
 		///  <param name="result"></param>
 		///  <param name="transformer"></param>
