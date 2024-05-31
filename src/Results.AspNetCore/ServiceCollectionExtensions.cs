@@ -1,11 +1,11 @@
-﻿namespace MadEyeMatt.Results.AspNetCore
+﻿namespace Fluxera.Results.AspNetCore
 {
-    using JetBrains.Annotations;
-    using MadEyeMatt.Results.AspNetCore.Transformers;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.Extensions.DependencyInjection;
+	using Fluxera.Results.AspNetCore.Transformers;
+	using JetBrains.Annotations;
+	using Microsoft.AspNetCore.Http;
+	using Microsoft.Extensions.DependencyInjection;
 
-    /// <summary>
+	/// <summary>
     ///     Extension methods for the <see cref="IServiceCollection"/> type.
     /// </summary>
     [PublicAPI]

@@ -1,4 +1,4 @@
-﻿namespace MadEyeMatt.Results
+﻿namespace Fluxera.Results
 {
 	using System;
 	using System.Collections.Generic;

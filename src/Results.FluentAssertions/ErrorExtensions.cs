@@ -1,7 +1,7 @@
-﻿namespace MadEyeMatt.Results.FluentAssertions
+﻿namespace Fluxera.Results.FluentAssertions
 {
-	using JetBrains.Annotations;
 	using System;
+	using JetBrains.Annotations;
 
 	/// <summary>
 	///		Should extension methods.

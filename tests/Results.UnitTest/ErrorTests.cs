@@ -1,7 +1,7 @@
 ﻿namespace Results.UnitTest
 {
 	using FluentAssertions;
-	using MadEyeMatt.Results;
+	using Fluxera.Results;
 	using NUnit.Framework;
 
 	[TestFixture]

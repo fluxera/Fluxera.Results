@@ -2,10 +2,10 @@
 {
     using System.Linq;
     using FluentAssertions;
-    using MadEyeMatt.Results;
-    using MadEyeMatt.Results.AspNetCore;
-    using MadEyeMatt.Results.AspNetCore.Transformers;
-    using Microsoft.AspNetCore.Mvc;
+	using Fluxera.Results;
+	using Fluxera.Results.AspNetCore;
+	using Fluxera.Results.AspNetCore.Transformers;
+	using Microsoft.AspNetCore.Mvc;
     using NUnit.Framework;
 
     [TestFixture]

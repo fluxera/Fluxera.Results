@@ -1,7 +1,8 @@
 ﻿#if NET7_0_OR_GREATER
-namespace MadEyeMatt.Results.AspNetCore
+namespace Fluxera.Results.AspNetCore
 {
-    using JetBrains.Annotations;
+	using Fluxera.Results;
+	using JetBrains.Annotations;
 	using Microsoft.AspNetCore.Http;
 
 	/// <summary>

@@ -1,12 +1,12 @@
 ﻿namespace Results.FluentAssertions.UnitTests.Assertions
 {
-    using MadEyeMatt.Results;
-    using NUnit.Framework;
+	using NUnit.Framework;
     using System;
-    using global::FluentAssertions;
-    using MadEyeMatt.Results.FluentAssertions;
+	using Fluxera.Results;
+	using Fluxera.Results.FluentAssertions;
+	using global::FluentAssertions;
 
-    [TestFixture(TestMode.ResultWithoutValue)]
+	[TestFixture(TestMode.ResultWithoutValue)]
     [TestFixture(TestMode.ResultWithValue)]
     //[TestFixture(TestMode.CustomResultWithoutValue)]
     //[TestFixture(TestMode.CustomResultWithValue)]

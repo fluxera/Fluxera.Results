@@ -1,10 +1,11 @@
 ﻿#if NET7_0_OR_GREATER
-namespace MadEyeMatt.Results.AspNetCore.Transformers
+namespace Fluxera.Results.AspNetCore.Transformers
 {
-    using JetBrains.Annotations;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Http.HttpResults;
-    using Microsoft.AspNetCore.Mvc.ModelBinding;
+	using Fluxera.Results;
+	using JetBrains.Annotations;
+	using Microsoft.AspNetCore.Http;
+	using Microsoft.AspNetCore.Http.HttpResults;
+	using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 	/// <summary>
 	///		The default implementation with sane, opinionated transformation rules.

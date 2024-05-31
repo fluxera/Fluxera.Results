@@ -1,7 +1,7 @@
-﻿namespace MadEyeMatt.Results
+﻿namespace Fluxera.Results
 {
-	using JetBrains.Annotations;
 	using System.Collections.Generic;
+	using JetBrains.Annotations;
 
 	/// <summary>
 	///		A default ans base success implementation.

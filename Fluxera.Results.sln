@@ -6,6 +6,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".items", ".items", "{24143346-BEA0-4E8E-9249-17FF05C9772F}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		azure-pipelines.yml = azure-pipelines.yml
+		GitVersion.yml = GitVersion.yml
+		icon.png = icon.png
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
@@ -16,16 +20,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EDEC7D8F-4C6
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9BE8804F-BCC0-48CF-9AEC-ED97414B0C78}"
+	ProjectSection(SolutionItems) = preProject
+		tests\Directory.Build.props = tests\Directory.Build.props
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Results", "src\Results\Results.csproj", "{71E83BCC-7080-42B2-948E-1A4EEBA3F816}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluxera.Results", "src\Results\Fluxera.Results.csproj", "{71E83BCC-7080-42B2-948E-1A4EEBA3F816}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Results.UnitTest", "tests\Results.UnitTest\Results.UnitTest.csproj", "{14A782B3-83B5-42CC-B6A2-AB9B7849F9E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Results.FluentAssertions", "src\Results.FluentAssertions\Results.FluentAssertions.csproj", "{4E7B1A47-2B8E-4C53-91C3-893F49EA567D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluxera.Results.FluentAssertions", "src\Results.FluentAssertions\Fluxera.Results.FluentAssertions.csproj", "{4E7B1A47-2B8E-4C53-91C3-893F49EA567D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Results.FluentAssertions.UnitTests", "tests\Results.FluentAssertions.UnitTests\Results.FluentAssertions.UnitTests.csproj", "{D388E54D-E48B-46FF-8D40-4E902042E764}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Results.AspNetCore", "src\Results.AspNetCore\Results.AspNetCore.csproj", "{B0A3DFBE-5389-458B-AB14-27FBC336F9CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluxera.Results.AspNetCore", "src\Results.AspNetCore\Fluxera.Results.AspNetCore.csproj", "{B0A3DFBE-5389-458B-AB14-27FBC336F9CE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Results.AspNetCore.UnitTests", "tests\Results.AspNetCore.UnitTests\Results.AspNetCore.UnitTests.csproj", "{A5FE0D22-0754-425D-8C69-1CDCB60E0C89}"
 EndProject

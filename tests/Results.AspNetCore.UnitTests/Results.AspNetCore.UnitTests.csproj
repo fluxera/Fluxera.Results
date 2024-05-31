@@ -25,7 +25,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\Results.AspNetCore\Results.AspNetCore.csproj" />
+	  <ProjectReference Include="..\..\src\Results.AspNetCore\Fluxera.Results.AspNetCore.csproj" />
 	</ItemGroup>
 
 </Project>

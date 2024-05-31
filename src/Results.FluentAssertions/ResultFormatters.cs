@@ -1,8 +1,8 @@
-﻿namespace MadEyeMatt.Results.FluentAssertions
+﻿namespace Fluxera.Results.FluentAssertions
 {
-	using global::FluentAssertions.Formatting;
 	using System.Collections.Generic;
 	using System.Linq;
+	using global::FluentAssertions.Formatting;
 
 	internal static class ResultFormatters
 	{

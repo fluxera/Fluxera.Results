@@ -1,4 +1,4 @@
-﻿namespace MadEyeMatt.Results.FluentAssertions
+﻿namespace Fluxera.Results.FluentAssertions
 {
 	using System.Collections.Generic;
 	using global::FluentAssertions;

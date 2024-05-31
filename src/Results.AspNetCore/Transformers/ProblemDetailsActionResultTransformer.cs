@@ -1,12 +1,11 @@
-﻿namespace MadEyeMatt.Results.AspNetCore.Transformers
+﻿namespace Fluxera.Results.AspNetCore.Transformers
 {
-    using JetBrains.Annotations;
-    using MadEyeMatt.Results;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Infrastructure;
-    using Microsoft.AspNetCore.Mvc.ModelBinding;
-    using Microsoft.Extensions.DependencyInjection;
+	using JetBrains.Annotations;
+	using Microsoft.AspNetCore.Http;
+	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.AspNetCore.Mvc.Infrastructure;
+	using Microsoft.AspNetCore.Mvc.ModelBinding;
+	using Microsoft.Extensions.DependencyInjection;
 
 	/// <summary>
 	///		The default implementation with sane, opinionated transformation rules.

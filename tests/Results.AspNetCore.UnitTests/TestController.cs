@@ -1,9 +1,9 @@
 ﻿namespace Results.AspNetCore.UnitTests
 {
     using System.Threading.Tasks;
-    using MadEyeMatt.Results;
-    using MadEyeMatt.Results.AspNetCore;
-    using Microsoft.AspNetCore.Authorization;
+	using Fluxera.Results;
+	using Fluxera.Results.AspNetCore;
+	using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]

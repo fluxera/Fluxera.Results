@@ -1,8 +1,8 @@
-﻿namespace MadEyeMatt.Results.FluentAssertions
+﻿namespace Fluxera.Results.FluentAssertions
 {
 	using global::FluentAssertions;
-    using global::FluentAssertions.Execution;
-    using global::FluentAssertions.Primitives;
+	using global::FluentAssertions.Execution;
+	using global::FluentAssertions.Primitives;
 	using JetBrains.Annotations;
 
 	/// <summary>

@@ -1,10 +1,10 @@
-﻿namespace MadEyeMatt.Results.AspNetCore
+﻿namespace Fluxera.Results.AspNetCore
 {
-    using System.Threading.Tasks;
-    using JetBrains.Annotations;
-    using MadEyeMatt.Results.AspNetCore.Transformers;
-    using Microsoft.AspNetCore.Mvc;
-    using IHttpResult = Microsoft.AspNetCore.Http.IResult;
+	using System.Threading.Tasks;
+	using Fluxera.Results.AspNetCore.Transformers;
+	using JetBrains.Annotations;
+	using Microsoft.AspNetCore.Http;
+	using Microsoft.AspNetCore.Mvc;
 
 	/// <summary>
 	///		Extension methods for the results.
@@ -69,7 +69,7 @@
 		///  <param name="result"></param>
 		///  <param name="transformer"></param>
 		///  <returns></returns>
-		public static IHttpResult ToHttpResult(this Result result, IHttpResultTransformer transformer = null)
+		public static IResult ToHttpResult(this Result result, IHttpResultTransformer transformer = null)
         {
             transformer ??= new DefaultHttpResultTransformer();
 
@@ -82,7 +82,7 @@
 		///  <param name="resultTask"></param>
 		///  <param name="transformer"></param>
 		///  <returns></returns>
-		public static async Task<IHttpResult> ToHttpResult(this Task<Result> resultTask, IHttpResultTransformer transformer = null)
+		public static async Task<IResult> ToHttpResult(this Task<Result> resultTask, IHttpResultTransformer transformer = null)
 		{
 			Result result = await resultTask;
 			return result.ToHttpResult(transformer);
@@ -94,7 +94,7 @@
 		///  <param name="resultTask"></param>
 		///  <param name="transformer"></param>
 		///  <returns></returns>
-		public static async Task<IHttpResult> ToHttpResult<TValue>(this Task<Result<TValue>> resultTask, IHttpResultTransformer transformer = null)
+		public static async Task<IResult> ToHttpResult<TValue>(this Task<Result<TValue>> resultTask, IHttpResultTransformer transformer = null)
         {
 			transformer ??= new DefaultHttpResultTransformer();
 
@@ -108,7 +108,7 @@
 		///  <param name="result"></param>
 		///  <param name="transformer"></param>
 		///  <returns></returns>
-		public static IHttpResult ToHttpResult<TValue>(this Result<TValue> result, IHttpResultTransformer transformer = null)
+		public static IResult ToHttpResult<TValue>(this Result<TValue> result, IHttpResultTransformer transformer = null)
         {
             transformer ??= new DefaultHttpResultTransformer();
 

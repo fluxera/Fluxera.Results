@@ -1,9 +1,9 @@
-﻿namespace MadEyeMatt.Results
+﻿namespace Fluxera.Results
 {
-	using JetBrains.Annotations;
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
+	using JetBrains.Annotations;
 
 	/// <summary>
 	///		A default result type without a value.

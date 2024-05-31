@@ -1,9 +1,9 @@
-﻿namespace MadEyeMatt.Results.AspNetCore
+﻿namespace Fluxera.Results.AspNetCore
 {
-    using JetBrains.Annotations;
-    using Microsoft.AspNetCore.Mvc;
+	using JetBrains.Annotations;
+	using Microsoft.AspNetCore.Mvc;
 
-    /// <summary>
+	/// <summary>
 	///		A contract for transformer services that transform a <see cref="Result"/> to <see cref="IActionResult"/>.
 	/// </summary>
 	[PublicAPI]

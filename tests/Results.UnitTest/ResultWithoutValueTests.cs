@@ -2,7 +2,7 @@
 {
 	using System.Linq;
 	using FluentAssertions;
-	using MadEyeMatt.Results;
+	using Fluxera.Results;
 	using NUnit.Framework;
 
 	[TestFixture]

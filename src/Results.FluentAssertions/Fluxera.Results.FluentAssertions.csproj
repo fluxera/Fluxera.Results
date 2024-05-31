@@ -21,7 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Results\Results.csproj" />
+		<ProjectReference Include="..\Results\Fluxera.Results.csproj" />
 	</ItemGroup>
 
 </Project>

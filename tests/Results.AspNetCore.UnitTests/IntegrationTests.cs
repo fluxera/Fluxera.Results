@@ -1,14 +1,13 @@
 ﻿namespace Results.AspNetCore.UnitTests
 {
-    using System;
-    using System.Net;
+	using System.Net;
     using System.Net.Http;
     using System.Net.Http.Json;
     using System.Threading.Tasks;
     using FluentAssertions;
-    using MadEyeMatt.Results;
-    using MadEyeMatt.Results.AspNetCore;
-    using Microsoft.AspNetCore.Builder;
+	using Fluxera.Results;
+	using Fluxera.Results.AspNetCore;
+	using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.TestHost;
