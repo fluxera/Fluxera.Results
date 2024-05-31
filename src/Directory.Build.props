@@ -6,40 +6,41 @@
 		<ImplicitUsings>disable</ImplicitUsings>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<AssemblyName>MadEyeMatt.$(MSBuildProjectName)</AssemblyName>
-		<RootNamespace>MadEyeMatt.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-		<PackageId>$(AssemblyName)</PackageId>
-		<PackageOutputPath>..\..\package-output</PackageOutputPath>
-		<IncludeSymbols>false</IncludeSymbols>
+		<Company>Fluxera Software Development GmbH</Company>
+		<Product>Fluxera Software Foundation</Product>
+		<Copyright>Copyright © 2014-2024 Fluxera Software Development GmbH. All rights reserved.</Copyright>
+	</PropertyGroup>
+
+	<PropertyGroup>
 		<Authors>Matthias Gernand</Authors>
-		<Description>A result object implementation.</Description>
-		<NeutralLanguage>en</NeutralLanguage>
-		<PackageProjectUrl>https://github.com/mgernand/Results</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/mgernand/Results</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
-		<PackageTags>result;results;ddd</PackageTags>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/fluxera/Fluxera.Results</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/fluxera/Fluxera.Results</PackageProjectUrl>
 		<PackageIcon>icon.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<IncludeSymbols>false</IncludeSymbols>
+		<NeutralLanguage>en</NeutralLanguage>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
 
-	<PropertyGroup>
-		<VersionPrefix>2.1.0</VersionPrefix>
-		<VersionSuffix></VersionSuffix>
-		<FileVersion>$(VersionPrefix)</FileVersion>
-		<AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
-		<InformationalVersion>$(Version)</InformationalVersion>
-	</PropertyGroup>
+	<Target Name="Update Version" BeforeTargets="Build" Condition="'$(TF_BUILD)' == 'true' and '$(TargetFramework)' == 'net6.0'">
+		<Message Text="Version = $(GITVERSION_FullSemVer)" Importance="High" />
+		<Message Text="##vso[build.updatebuildnumber]$(GITVERSION_FullSemVer)" Importance="High" />
+	</Target>
 
-	<PropertyGroup>
-		<Product>Results</Product>
-		<AssemblyTitle>Results</AssemblyTitle>
-		<Copyright>Copyright © 2024 Matthias Gernand. All rights reserved.</Copyright>
-	</PropertyGroup>
+	<Target Name="Update Version" BeforeTargets="Build" Condition="'$(TF_BUILD)' == 'true' and '$(TargetFramework)' == 'net7.0'">
+		<Message Text="Version = $(GITVERSION_FullSemVer)" Importance="High" />
+		<Message Text="##vso[build.updatebuildnumber]$(GITVERSION_FullSemVer)" Importance="High" />
+	</Target>
+	
+	<Target Name="Update Version" BeforeTargets="Build" Condition="'$(TF_BUILD)' == 'true' and '$(TargetFramework)' == 'net8.0'">
+		<Message Text="Version = $(GITVERSION_FullSemVer)" Importance="High" />
+		<Message Text="##vso[build.updatebuildnumber]$(GITVERSION_FullSemVer)" Importance="High" />
+	</Target>
 
 </Project>
