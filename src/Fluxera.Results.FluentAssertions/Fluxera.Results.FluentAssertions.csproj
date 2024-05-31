@@ -1,7 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>netstandard2.1</TargetFramework>
+		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Title>Fluxera.Results.FluentAssertions</Title>
+		<Description>A FluentAssertions support libary for the result object implementation.</Description>
+		<PackageTags>fluxera;library;result;fluentassertions;assertions;tests</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -17,11 +23,15 @@
 
 	<ItemGroup>
 		<PackageReference Include="FluentAssertions" Version="6.12.0" />
+		<PackageReference Include="GitVersion.MsBuild" Version="5.12.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="JetBrains.Annotations" Version="2023.3.0" PrivateAssets="All" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Fluxera.Results\Fluxera.Results.csproj" />
+		<ProjectReference Include="..\Fluxera.Results\Fluxera.Results.csproj" />
 	</ItemGroup>
 
 </Project>
