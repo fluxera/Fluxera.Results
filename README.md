@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/fluxera/Foundation/_apis/build/status%2FGitHub%2Ffluxera.Fluxera.Results?branchName=main)](https://dev.azure.com/fluxera/Foundation/_build/latest?definitionId=96&branchName=main)
+
 # Results
 
 A result object implementation. Return result objects from operations
