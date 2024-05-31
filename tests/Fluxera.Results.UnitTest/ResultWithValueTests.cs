@@ -1,4 +1,4 @@
-﻿namespace Results.UnitTest
+﻿namespace Fluxera.Results.UnitTest
 {
 	using System.Collections.Generic;
 	using System.Linq;

@@ -1,12 +1,12 @@
-﻿namespace Results.FluentAssertions.UnitTests.Assertions
+﻿namespace Fluxera.Results.FluentAssertions.UnitTests.Assertions
 {
-    using System;
+	using System;
+	using FluentAssertions;
 	using Fluxera.Results;
-	using Fluxera.Results.FluentAssertions;
 	using global::FluentAssertions;
 	using NUnit.Framework;
 
-    [TestFixture(TestMode.ResultWithoutValue)]
+	[TestFixture(TestMode.ResultWithoutValue)]
     [TestFixture(TestMode.ResultWithValue)]
     //[TestFixture(TestMode.CustomResultWithoutValue)]
     //[TestFixture(TestMode.CustomResultWithValue)]

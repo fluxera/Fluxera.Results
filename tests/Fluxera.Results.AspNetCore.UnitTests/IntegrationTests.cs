@@ -1,21 +1,21 @@
-﻿namespace Results.AspNetCore.UnitTests
+﻿namespace Fluxera.Results.AspNetCore.UnitTests
 {
 	using System.Net;
-    using System.Net.Http;
-    using System.Net.Http.Json;
-    using System.Threading.Tasks;
-    using FluentAssertions;
+	using System.Net.Http;
+	using System.Net.Http.Json;
+	using System.Threading.Tasks;
+	using FluentAssertions;
 	using Fluxera.Results;
 	using Fluxera.Results.AspNetCore;
 	using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.TestHost;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
-    using NUnit.Framework;
+	using Microsoft.AspNetCore.Hosting;
+	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.AspNetCore.TestHost;
+	using Microsoft.Extensions.DependencyInjection;
+	using Microsoft.Extensions.Logging;
+	using NUnit.Framework;
 
-    [TestFixture("Controller")]
+	[TestFixture("Controller")]
     [TestFixture("MinimalApi")]
 	public class IntegrationTests
 	{

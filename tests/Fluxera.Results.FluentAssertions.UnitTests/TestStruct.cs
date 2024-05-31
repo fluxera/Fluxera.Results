@@ -1,4 +1,4 @@
-﻿namespace Results.FluentAssertions.UnitTests
+﻿namespace Fluxera.Results.FluentAssertions.UnitTests
 {
 	public struct TestStruct
 	{

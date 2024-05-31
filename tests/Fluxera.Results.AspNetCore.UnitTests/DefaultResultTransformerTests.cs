@@ -1,14 +1,14 @@
-﻿namespace Results.AspNetCore.UnitTests
+﻿namespace Fluxera.Results.AspNetCore.UnitTests
 {
-    using System.Linq;
-    using FluentAssertions;
+	using System.Linq;
+	using FluentAssertions;
 	using Fluxera.Results;
 	using Fluxera.Results.AspNetCore;
 	using Fluxera.Results.AspNetCore.Transformers;
 	using Microsoft.AspNetCore.Mvc;
-    using NUnit.Framework;
+	using NUnit.Framework;
 
-    [TestFixture]
+	[TestFixture]
 	public class DefaultResultTransformerTests
 	{
 		[Test]

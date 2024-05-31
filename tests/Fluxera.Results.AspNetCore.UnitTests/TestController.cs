@@ -1,12 +1,12 @@
-﻿namespace Results.AspNetCore.UnitTests
+﻿namespace Fluxera.Results.AspNetCore.UnitTests
 {
-    using System.Threading.Tasks;
+	using System.Threading.Tasks;
 	using Fluxera.Results;
 	using Fluxera.Results.AspNetCore;
 	using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
+	using Microsoft.AspNetCore.Mvc;
 
-    [ApiController]
+	[ApiController]
 	[Route("test")]
 	[AllowAnonymous]
 	public class TestController : ControllerBase

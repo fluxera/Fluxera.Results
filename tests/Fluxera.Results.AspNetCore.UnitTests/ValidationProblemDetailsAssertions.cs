@@ -1,12 +1,12 @@
-﻿namespace Results.AspNetCore.UnitTests
+﻿namespace Fluxera.Results.AspNetCore.UnitTests
 {
-    using System.Linq;
-    using FluentAssertions;
-    using FluentAssertions.Execution;
-    using FluentAssertions.Primitives;
-    using Microsoft.AspNetCore.Mvc;
+	using System.Linq;
+	using FluentAssertions;
+	using FluentAssertions.Execution;
+	using FluentAssertions.Primitives;
+	using Microsoft.AspNetCore.Mvc;
 
-    internal class ValidationProblemDetailsAssertions : ReferenceTypeAssertions<ValidationProblemDetails, ValidationProblemDetailsAssertions>
+	internal class ValidationProblemDetailsAssertions : ReferenceTypeAssertions<ValidationProblemDetails, ValidationProblemDetailsAssertions>
 	{
 		/// <inheritdoc />
 		public ValidationProblemDetailsAssertions(ValidationProblemDetails subject) 

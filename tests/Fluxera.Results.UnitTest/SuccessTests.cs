@@ -1,4 +1,4 @@
-﻿namespace Results.UnitTest
+﻿namespace Fluxera.Results.UnitTest
 {
 	using FluentAssertions;
 	using Fluxera.Results;

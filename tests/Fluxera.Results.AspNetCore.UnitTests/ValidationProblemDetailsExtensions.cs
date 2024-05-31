@@ -1,9 +1,9 @@
-﻿namespace Results.AspNetCore.UnitTests
+﻿namespace Fluxera.Results.AspNetCore.UnitTests
 {
-    using System;
-    using Microsoft.AspNetCore.Mvc;
+	using System;
+	using Microsoft.AspNetCore.Mvc;
 
-    internal static class ValidationProblemDetailsExtensions
+	internal static class ValidationProblemDetailsExtensions
 	{
 		public static ValidationProblemDetailsAssertions Should(this ValidationProblemDetails problemDetails)
 		{
