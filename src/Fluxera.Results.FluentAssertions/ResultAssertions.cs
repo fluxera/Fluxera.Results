@@ -20,7 +20,7 @@
 
 		/// <inheritdoc />
 		public ResultAssertions(Result subject)
-			: base(subject)
+			: base(subject, AssertionChain.GetOrCreate())
 		{
 		}
 
@@ -35,7 +35,7 @@
 		/// <returns></returns>
 		public AndWhichConstraint<ResultAssertions, Result> BeFailed(string because = "", params object[] becauseArgs)
 		{
-            Execute.Assertion
+			this.CurrentAssertionChain
                 .BecauseOf(because, becauseArgs)
                 .Given(() => this.Subject.IsFailed)
                 .ForCondition(isFailed => isFailed)
@@ -52,8 +52,8 @@
 		/// <returns></returns>
 		public AndWhichConstraint<ResultAssertions, Result> BeSuccessful(string because = "", params object[] becauseArgs)
 		{
-            Execute.Assertion
-                .BecauseOf(because, becauseArgs)
+			this.CurrentAssertionChain
+				.BecauseOf(because, becauseArgs)
                 .Given(() => this.Subject.IsSuccessful)
                 .ForCondition(isSuccess => isSuccess)
                 .FailWith("Expected result to be successful, but is was failed because of {0}", this.Subject.Errors);
@@ -73,8 +73,8 @@
 		{
             messageComparison ??= MessageComparison.Equal;
 
-            Execute.Assertion
-                .BecauseOf(because, becauseArgs)
+			this.CurrentAssertionChain
+				.BecauseOf(because, becauseArgs)
                 .Given(() => this.Subject.Errors)
                 .ForCondition(errors => errors.Any(error => messageComparison(error.Message, message)))
                 .FailWith("Expected result to contain an error with message containing {0}, but found errors {1}", message, this.Subject.Errors);
@@ -94,8 +94,8 @@
 		{
             messageComparison ??= MessageComparison.Equal;
 
-            Execute.Assertion
-                .BecauseOf(because, becauseArgs)
+			this.CurrentAssertionChain
+				.BecauseOf(because, becauseArgs)
                 .Given(() => this.Subject.Successes)
                 .ForCondition(successes => successes.Any(error => messageComparison(error.Message, message)))
                 .FailWith("Expected result to contain a success with message containing {0}, but found successes {1}", message, this.Subject.Successes);
@@ -118,7 +118,7 @@
 
 		/// <inheritdoc />
 		public ResultAssertions(Result<TValue> subject)
-			: base(subject)
+			: base(subject, AssertionChain.GetOrCreate())
 		{
 		}
 
@@ -133,8 +133,8 @@
 		/// <returns></returns>
 		public AndWhichConstraint<ResultAssertions<TValue>, Result<TValue>> BeFailed(string because = "", params object[] becauseArgs)
 		{
-            Execute.Assertion
-                .BecauseOf(because, becauseArgs)
+			this.CurrentAssertionChain
+				.BecauseOf(because, becauseArgs)
                 .Given(() => this.Subject.IsFailed)
                 .ForCondition(isFailed => isFailed)
                 .FailWith("Expected result to be failed, but is was successful");
@@ -150,8 +150,8 @@
 		/// <returns></returns>
 		public AndWhichConstraint<ResultAssertions<TValue>, Result<TValue>> BeSuccessful(string because = "", params object[] becauseArgs)
 		{
-            Execute.Assertion
-                .BecauseOf(because, becauseArgs)
+			this.CurrentAssertionChain
+				.BecauseOf(because, becauseArgs)
                 .Given(() => this.Subject.IsSuccessful)
                 .ForCondition(isSuccess => isSuccess)
                 .FailWith("Expected result to be successful, but is was failed because of {0}", this.Subject.Errors);
@@ -171,8 +171,8 @@
 		{
             messageComparison ??= MessageComparison.Equal;
 
-            Execute.Assertion
-                .BecauseOf(because, becauseArgs)
+			this.CurrentAssertionChain
+				.BecauseOf(because, becauseArgs)
                 .Given(() => this.Subject.Errors)
                 .ForCondition(errors => errors.Any(error => messageComparison(error.Message, message)))
                 .FailWith("Expected result to contain an error with message containing {0}, but found errors {1}", message, this.Subject.Errors);
@@ -192,8 +192,8 @@
 		{
             messageComparison ??= MessageComparison.Equal;
 
-            Execute.Assertion
-                .BecauseOf(because, becauseArgs)
+			this.CurrentAssertionChain
+				.BecauseOf(because, becauseArgs)
                 .Given(() => this.Subject.Successes)
                 .ForCondition(successes => successes.Any(error => messageComparison(error.Message, message)))
                 .FailWith("Expected result to contain a success with message containing {0}, but found successes {1}", message, this.Subject.Successes);
@@ -210,8 +210,8 @@
 		/// <returns></returns>
 		public AndConstraint<ResultAssertions<TValue>> HaveValue(TValue expectedValue, string because = "", params object[] becauseArgs)
 		{
-            Execute.Assertion
-                .BecauseOf(because)
+			this.CurrentAssertionChain
+				.BecauseOf(because)
                 .ForCondition(this.Subject.IsSuccessful)
                 .FailWith("Value can not be asserted because the result is failed because of {0}", this.Subject.Errors)
                 .Then
