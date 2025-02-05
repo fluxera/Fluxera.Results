@@ -10,7 +10,7 @@
 	{
 		/// <inheritdoc />
 		public ValidationProblemDetailsAssertions(ValidationProblemDetails subject) 
-			: base(subject)
+			: base(subject, AssertionChain.GetOrCreate())
 		{
 		}
 
@@ -19,7 +19,7 @@
 
 		public AndWhichConstraint<ValidationProblemDetailsAssertions, ValidationProblemDetails> HaveError(string expectedMessage, string because = "", params object[] becauseArgs)
 		{
-			Execute.Assertion
+			this.CurrentAssertionChain
 				.BecauseOf(because, becauseArgs)
 				.Given(() => this.Subject)
 				.ForCondition(problemDetails =>

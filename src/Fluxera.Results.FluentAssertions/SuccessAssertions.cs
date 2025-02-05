@@ -18,7 +18,7 @@
 
 		/// <inheritdoc />
 		public SuccessAssertions(ISuccess subject)
-			: base(subject)
+			: base(subject, AssertionChain.GetOrCreate())
 		{
 		}
 
@@ -35,8 +35,8 @@
 		/// <returns></returns>
 		public AndWhichConstraint<SuccessAssertions, ISuccess> HaveMetadata(string metadataKey, object metadataValue, string because = "", params object[] becauseArgs)
 		{
-            Execute.Assertion
-                .BecauseOf(because, becauseArgs)
+			this.CurrentAssertionChain
+				.BecauseOf(because, becauseArgs)
                 .Given(() => this.Subject.Metadata)
                 .ForCondition(metadata =>
                 {
